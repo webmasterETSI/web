@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
+            new Etsi\SiteBundle\EtsiSiteBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

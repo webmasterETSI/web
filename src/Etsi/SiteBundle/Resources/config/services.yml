@@ -1,0 +1,7 @@
+parameters:
+#    etsi_site.example.class: Etsi\SiteBundle\Example
+
+services:
+#    etsi_site.example:
+#        class: %etsi_site.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

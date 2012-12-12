@@ -15,9 +15,13 @@ security:
             memory:
                 users:
                     user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                    admin: { password: 1234, roles: [ 'ROLE_ADMIN' ] }
 
     firewalls:
+        admin:
+            pattern:  ^/api
+            http_basic: ~
+
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false

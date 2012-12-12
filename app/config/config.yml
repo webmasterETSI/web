@@ -57,3 +57,19 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+
+#FOSRest Configuration
+fos_rest:
+    routing_loader:
+        default_format: json
+
+
+#JMS_SERIALIZER Configuration
+jms_serializer:
+    metadata:
+        auto_detection: true
+        directories:
+            FOSUserBundle:
+                namespace_prefix: FOS\UserBundle
+                path: "@EtsiSiteBundle/Resources/config/serializer/fos"

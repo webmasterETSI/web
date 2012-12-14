@@ -234,7 +234,7 @@ class Contenido
      * @param Etsi\SiteBundle\Entity\Seccion $secciones
      * @return Contenido
      */
-    public function addSeccione(\Etsi\SiteBundle\Entity\Seccion $secciones)
+    public function addSeccion(\Etsi\SiteBundle\Entity\Seccion $secciones)
     {
         $this->secciones[] = $secciones;
     
@@ -246,7 +246,7 @@ class Contenido
      *
      * @param Etsi\SiteBundle\Entity\Seccion $secciones
      */
-    public function removeSeccione(\Etsi\SiteBundle\Entity\Seccion $secciones)
+    public function removeSeccion(\Etsi\SiteBundle\Entity\Seccion $secciones)
     {
         $this->secciones->removeElement($secciones);
     }

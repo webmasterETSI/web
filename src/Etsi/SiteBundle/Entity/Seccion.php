@@ -154,7 +154,7 @@ class Seccion
      * @param Etsi\SiteBundle\Entity\Usuario $editores
      * @return Seccion
      */
-    public function addEditore(\Etsi\SiteBundle\Entity\Usuario $editores)
+    public function addEditor(\Etsi\SiteBundle\Entity\Usuario $editores)
     {
         $this->editores[] = $editores;
     
@@ -166,7 +166,7 @@ class Seccion
      *
      * @param Etsi\SiteBundle\Entity\Usuario $editores
      */
-    public function removeEditore(\Etsi\SiteBundle\Entity\Usuario $editores)
+    public function removeEditor(\Etsi\SiteBundle\Entity\Usuario $editores)
     {
         $this->editores->removeElement($editores);
     }

@@ -13,15 +13,10 @@ class UsuarioType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->add('id', 'hidden');
         $builder->add('nick', 'text');
         $builder->add('pass', 'password');
-        $builder->add('imagen', 'text');
-
-        $builder->add('seccion', 'entity', array(
-            'class'    => 'EtsiSiteBundle:Seccion',
-            'property' => 'titulo',
-            'required' => false
-        ));
+        $builder->add('imagen', 'text', array('required' => false));
     }
 
     public function getName()

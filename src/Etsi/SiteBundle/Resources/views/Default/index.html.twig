@@ -1,1 +1,8 @@
-Hello {{ name }}!
+{% block stylesheets %}
+	{% stylesheets '@EtsiSiteBundle/Resources/public/less/test.less' debug=false filter='lessphp' output='compile/css/test.css' %}
+	{% endstylesheets %}
+{% endblock %}
+
+<link rel="stylesheet" type="text/css" href="compile/css/test.css">
+
+<h1>Test</h1>

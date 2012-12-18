@@ -1,5 +1,5 @@
 {
-    "hash": "766407029fa0ec812d18278ced0aa5c8",
+    "hash": "2c9c7e9bfe3b8b9f455e8725038f1b7f",
     "packages": [
         {
             "name": "doctrine/common",
@@ -777,6 +777,43 @@
             ]
         },
         {
+            "name": "leafo/lessphp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "http://github.com/leafo/lessphp",
+                "reference": "da15f54506ce5023eaeb9ad9cae83470ffe018a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/leafo/lessphp/archive/da15f54506ce5023eaeb9ad9cae83470ffe018a1.zip",
+                "reference": "da15f54506ce5023eaeb9ad9cae83470ffe018a1",
+                "shasum": ""
+            },
+            "time": "2012-11-03 17:50:34",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "classmap": [
+                    "lessc.inc.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Leaf Corcoran",
+                    "email": "leafot@gmail.com",
+                    "homepage": "http://leafo.net"
+                }
+            ],
+            "description": "lessphp is a compiler for LESS written in PHP.",
+            "homepage": "http://leafo.net/lessphp/"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.2.1",
             "source": {
@@ -1392,6 +1429,7 @@
     "stability-flags": {
         "twig/extensions": 20,
         "kriswallsmith/assetic": 20,
-        "friendsofsymfony/rest-bundle": 20
+        "friendsofsymfony/rest-bundle": 20,
+        "leafo/lessphp": 20
     }
 }

@@ -1,0 +1,50 @@
+{% extends "EtsiSiteBundle:Default:base.html.twig" %}
+
+{%- block top %}
+	{{ parent() }}
+
+	<div id="menu-top">
+		<ul>
+		{%- for item in menuTop %}
+			<li><a href="{{ item.href }}">{{ item.titulo }}</a></li>
+		{% endfor -%}
+		</ul>
+	</div>
+{%- endblock %}
+
+
+{%- block wrapper %}
+	<div style="clear: both;"></div>
+	<div class="title">{{ titulo }}</div>
+
+	<div style="clear: both;"></div>
+	<div class="content {% if menuDer %}con-menu{% endif %}">
+		{{ contenido }}
+	</div>
+
+
+	{%- if menuDer %}
+	
+	<div id="menu-der">
+		<ul>
+		{% for item in menuDer %}
+			<li>
+			{% if item.href is defined %}
+				<a href="{{ item.href }}"><p>{{ item.titulo }}</p></a>
+			{% else %}
+				<ul>
+					<p class="titulo">{{ item.titulo }}</p>
+
+					{% for subItem in item.children %}
+						<li>
+							<a href="{{ subItem.href }}"><p>{{ subItem.titulo }}</p></a>
+						</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+			</li>
+		{%- endfor %}
+		</ul>
+	</div>
+	{% endif %}
+{%- endblock %}

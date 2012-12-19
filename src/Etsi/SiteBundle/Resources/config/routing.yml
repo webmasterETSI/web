@@ -1,3 +1,7 @@
 etsi_site_homepage:
-    pattern:  /test
-    defaults: { _controller: EtsiSiteBundle:Default:index }
+    pattern:  /home
+    defaults: { _controller: EtsiSiteBundle:Default:home }
+
+etsi_site_contenido:
+    pattern:  /contenido/{slug}
+    defaults: { _controller: EtsiSiteBundle:Default:contenido }

@@ -1,0 +1,58 @@
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		
+		<title>{% block title %}UHU :: Escuela Técnica Superior de Ingeniería{% endblock %}</title>
+
+		{% block stylesheets %}
+		{%- stylesheets output='css/*.css' debug=true filter='lessphp' 
+			'@EtsiSiteBundle/Resources/public/less/default.less'
+			'@EtsiSiteBundle/Resources/public/less/noticias.less'
+			'@EtsiSiteBundle/Resources/public/less/menu.less'
+		-%}
+		
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all" />
+		{% endstylesheets %}
+		{% endblock %}
+
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body lang="es">
+		<div id="top">
+		{%- block top %}
+
+			<div id="imagen"></div>
+
+			<div id="head">
+				<div id="logoETSI"></div>
+				<div id="logoUHU"></div>
+			</div>
+		{%- endblock %}
+		</div>
+
+		<div id="wrapper">
+		{%- block wrapper %}
+		{%- endblock %}
+		</div>
+
+		<div id="foot">
+			<div id="foot_wrapper">
+				<div id="bn_logoETSI"></div>
+				<div id="texto_foot">
+				{%- block foot %}
+
+					Escuela Técnica Superior de Ingeniería. Campus de &lt;La Rábida&gt;
+					Carretera Palos de la Frontera s/n 21819 Palos de la Frontera
+					Tel.: 959 217 305/306/307/308/309/310 Fax: 959 217 304
+				{%- endblock %}
+				</div>
+				<div id="bn_logoUHU"></div>
+			</div>
+		</div>
+	</body>	
+</html>

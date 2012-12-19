@@ -1,0 +1,58 @@
+{% extends "EtsiSiteBundle:Default:base.html.twig" %}
+
+
+{%- block top %}
+	{{ parent() }}
+
+	<div id="menu-top">
+		<ul>
+		{%- for item in menuTop %}
+			<li><a href="{{ item.href }}">{{ item.titulo }}</a></li>
+		{% endfor -%}
+		</ul>
+	</div>
+
+	<div id="menu-img">
+		<ul>
+		{%- for item in menuImg %}
+
+			<li><a href="{{ item.href }}"><img src="{{ item.imagen }}" /></a></li>
+		{% endfor -%}
+		</ul>
+	</div>
+{%- endblock %}
+
+
+
+{%- block wrapper %}
+
+	<div class="title">noticias</div>
+	<div id="noticias">
+		<ul>
+		{%- for item in noticias %}
+
+			<li>
+				{% if item.href is defined %}
+					<a href="{{ item.href }}">{{ item.titulo }}</a>
+				{% else %}
+					{{ item.titulo }}
+				{% endif %}
+				<div class="fecha">{{ item.fecha }}</div>
+				<div class="descripcion">{{ item.descripcion }}</div>
+				{% if item.imagen is defined %}<img src="{{ item.imagen }}" />{% endif %}
+			</li>
+		{% endfor -%}
+		</ul>
+	</div>
+
+	<div id="menu-izq">
+		<ul>
+		{%- for item in menuIzq %}
+			<li>
+				<a href="{{ item.href }}">{{ item.titulo }}</a>
+				{% if item.imagen is defined %}<img src="{{ item.imagen }}" />{% endif %}
+			</li>
+		{% endfor -%}
+		</ul>
+	</div>
+{%- endblock %}

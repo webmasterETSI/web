@@ -20,7 +20,12 @@ monolog:
             level: info
 
 assetic:
+    resource: .
+    type:     assetic
+
+assetic:
     use_controller: true
+
 
 #swiftmailer:
 #    delivery_address: me@example.com

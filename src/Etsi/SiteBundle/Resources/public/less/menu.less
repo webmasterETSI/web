@@ -1,0 +1,294 @@
+@import 'base.less';
+
+
+/***************************************** DIFERENTES LAYOUTS *****************************************/
+
+/**************************** Telefono móvil: para ancho menor de 340px *******************************/
+@media screen and (min-width: 0em) {
+	#menu-top{
+		width: 100%;
+
+		height: @line*2/@em;
+		background-color: @color_0;
+
+		ul{
+			width: 100%;
+			list-style-type: none;
+			margin: 0 auto;
+			li{
+				width: 100%;
+				background-color: @color_0;
+
+				float: right;
+				text-align: center;
+				a{
+					padding: @margenH_medio @margenW;
+					display: block;
+
+					color: @color_3;
+					text-decoration: none;
+
+					&:hover{
+						background-color: darken(@color_0, 10%);
+					} 
+				}
+			}
+		}
+	}
+
+	#menu-img{
+		display: none;
+
+		ul{
+			list-style-type: none;
+			margin: 0 auto;
+			.width(7);
+			height: @line*4/@em;
+
+			border-right-style: solid;
+			border-right-width: 1px;
+			border-right-color: @color_2;
+
+			li{
+				width: (@column + @gutter - 1) / @em;
+				height: 100%;
+				float: right;
+				overflow: hidden;
+
+				border-left-style: solid;
+				border-left-width: 1px;
+				border-left-color: @color_2;
+
+				background-color: @color_3;
+
+				text-align: center;
+
+				&:hover{
+					background-color: @color_0;	
+				} 
+				a{
+					color: @color_1;
+					text-decoration: none;
+					height: 100%;
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	#menu-izq{
+		width: 100%;
+
+		float: left;
+		margin-bottom: @margenH;
+		padding: 0 0;
+		ul{
+			list-style-type: none;
+
+			li{
+				height: @margenH*4;
+
+				overflow: hidden;
+
+				margin-top: @margenH;
+
+				background-color: @color_0;
+				text-align: center;
+
+				&:hover{
+					background-color: darken(@color_0, 10%);	
+				} 
+				a{
+					display: block;
+					padding:@margenH*2-@margenH_medio 0;
+					color: @color_1;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+
+
+	#menu-der{
+		width: 100%;
+		display: block;
+		margin-bottom: @margenH;
+		float: left;
+
+		background-color: @color_3;
+		ul{
+			list-style-type: none;
+
+			li{
+				color: darken(@color_1,20%);
+
+				border-bottom-style: solid;
+				border-bottom-width:1px;
+				border-bottom-color: @color_2;
+
+				background: none; 
+
+				&:hover{
+					background: url('../../images/color_0.jpg'); 
+
+					background-position: left top;
+					background-size: @margenW_medio 100%;
+					background-repeat: no-repeat;
+					background-origin: fixed;
+
+					background-color: @color_3;
+				}
+
+				a{
+					padding: @margenH_medio @margenW_medio;
+					margin-left: @margenW_medio;
+
+					display: block;
+
+					border-left-style: solid;
+					border-left-width:1px;
+					border-left-color: @color_2;
+
+					color: darken(@color_1,20%);
+					text-decoration: none;
+				}
+			}
+
+
+			ul{
+				list-style-type: none;
+				background-color: @color_1;
+				li{
+					color: darken(@color_1,20%);
+					height: (@line*2 - 1)/@em;
+					margin-right: 2px;
+
+					background-color: @color_3;
+				}
+			}
+		}
+
+		.titulo{
+			padding: @margenH_medio @margenW_medio;
+			text-align: center;
+			font-weight: bold;
+			text-transform: uppercase;
+
+			display: block;
+			background-color: @color_1;
+			color: @color_3;
+		}
+	}
+}
+
+/********************************* Tablet: para ancho mayor de 320px **********************************/
+@media screen and (min-width: 28em) {
+	#menu-top{
+		height: @line*4/@em;
+
+		ul{
+			.width(7);
+			li{ .width(2); }
+		}
+	}
+	#menu-img{ display: block; }
+	#menu-der{ .width(2); }
+}
+
+/********************************* Tablet: para ancho mayor de 480px **********************************/
+@media screen and (min-width: 45em) {
+	#menu-top{
+		height: @line*2/@em;
+
+		ul{
+			.width(12);
+			li{ .width(2); }
+		}
+	}
+
+	#menu-img{
+		ul{
+			.width(12);
+			height: @line*6/@em;
+
+			li{
+				width: (2 * (@column + @gutter) - 1 - @gutter) / @em;
+			}
+		}
+	}
+
+	#menu-izq{ .width(5); }
+	#menu-der{
+		.width(3);
+
+		ul{
+			li{
+				background: url('../../images/color_3.jpg'),
+							url('../../images/color_3.jpg'),
+							url('../../images/color_3.jpg'),
+							url('../../images/color_2.jpg'); 
+
+				background-position: left top,
+									left top,
+									left bottom,
+									left top;
+
+				background-size: @margenW_medio 100%,
+								@margenW*2 @margenH_medio,
+								@margenW*2 @margenH_medio,
+								(@margenW + @margenW_medio) 100%;
+
+				background-repeat: no-repeat;
+				background-origin: fixed;
+
+				&:hover{
+					background: url('../../images/color_3.jpg'),
+								url('../../images/color_3.jpg'),
+								url('../../images/color_3.jpg'),
+								url('../../images/color_0.jpg'); 
+
+					background-position: left top,
+										left top,
+										left bottom,
+										left top;
+
+					background-size: @margenW_medio 100%,
+									@margenW*2 @margenH_medio,
+									@margenW*2 @margenH_medio,
+									(@margenW + @margenW_medio) 100%;
+
+					background-repeat: no-repeat;
+					background-origin: fixed;
+					
+					background-color: @color_3;
+				}
+
+				a{
+					padding: @margenH_medio @margenW_medio;
+					margin-left: @margenW*2;
+				}
+			}
+		}
+	}
+}
+
+
+/********************************* Default: para ancho mayor de 1024px ********************************/
+@media screen and (min-width: 65em) {
+	#menu-top{
+		ul{
+			.width(17);
+			li{ .full_width(2); }
+		}
+	}
+
+	#menu-img{
+		ul{
+			.width(17);
+
+			li{ width: (2 * (@column + @gutter) - 1) / @em; }
+		}
+	}
+	#menu-izq{ .full_width(7); }
+	#menu-der{ .width(4); }
+}

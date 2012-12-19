@@ -1,0 +1,161 @@
+@import 'base.less';
+
+/*
+<div class=#noticias'>
+	<ul>
+		<li>
+			<a href=...>...</a>
+			<div class='fecha'>...</div>
+			<div class='descripcion'>
+				...
+			</div>
+			<img src='...'>
+		</li>
+
+	</ul>
+
+	<div id=#noticias-imagen"></div>
+	<div id=#noticias-mas_info"></div>
+</div>
+*/
+
+/***************************************** DIFERENTES LAYOUTS *****************************************/
+
+/**************************** Telefono móvil: para ancho menor de 340px *******************************/
+@media screen and (min-width: 0em) {
+	#noticias{
+		width: 100%;
+		overflow: hidden;
+		position: relative;
+
+		margin-bottom: @margenH;
+		padding: 0 0;
+		
+		display: block;
+		float: left;
+
+		background-color: @color_1;
+
+		.hide{
+			height: @line/@em;
+
+			transition: height .5s;
+
+			background-color: @color_1;
+		}
+
+		ul{
+			list-style-type: none;
+			width: 100%;
+			//.full_width(7);
+			float: left;
+
+			li{
+				background: url('../../images/color_1.jpg'); 
+				background-repeat: no-repeat;
+				background-position: right top;
+				background-origin: fixed;
+				background-size: @margenW 100%;
+				background-color: @color_0;
+
+				overflow: hidden;
+				height: 5*@line/@em;
+				padding: @margenH_medio @margenW*2 @margenH_medio @margenW;
+
+				border-bottom-style: solid;
+				border-bottom-width: 1px;
+				border-bottom-color: @color_3;
+
+				display: block;
+				color: @color_3;
+				font-weight: bold;
+
+				transition: height .5s;
+
+				a{
+					text-decoration: none;
+					display: block;
+					color: @color_3;
+					font-weight: bold;
+				}
+
+				.fecha{
+					font-size: .7em;
+					margin-left: @margenW_medio;
+					margin-bottom: @margenH_medio;
+					font-weight: normal;
+
+				}
+
+				.descripcion{
+					font-size: .9em;
+					font-weight: normal;
+				}
+
+				img{
+					display: none;
+				}
+			}
+		}
+
+		#noticias-imagen{
+			display: none;
+
+			.full_width(2);
+			height: 100%;
+			position: absolute;
+			right: 0;
+			background-color: @color_1;
+
+			z-index: 0;
+		}
+
+		#noticias-mas_info{
+			display: none;
+			
+			position: absolute;
+			right: 0;
+			bottom: 0;
+
+
+			a{
+				height: @line/@em;
+				padding: @margenH_medio @margenW;
+
+				display: block;
+				font-weight:bold;
+				background-color: darken(@color_1,10%);
+				color: @color_3;
+				text-decoration: none;
+
+				&:hover{
+					background-color: darken(@color_1,20%);
+				}
+			}
+		}
+	}
+}
+
+/********************************* Tablet: para ancho mayor de 320px **********************************/
+@media screen and (min-width: 28em) {
+	#noticias{
+		ul{ .width(5); }
+		#noticias-imagen{ display: block; }
+	}
+}
+
+/********************************* Tablet: para ancho mayor de 480px **********************************/
+@media screen and (min-width: 45em) {
+	#noticias{
+		ul{ .full_width(5); }
+		#noticias-imagen{ .width(7); }
+	}
+}
+
+/********************************* Default: para ancho mayor de 1024px ********************************/
+@media screen and (min-width: 65em) {
+	#noticias{
+		ul{ .full_width(7); }
+		#noticias-imagen{ .width(10); }
+	}
+}

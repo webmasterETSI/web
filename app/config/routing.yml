@@ -1,3 +1,7 @@
+etsi_app_guias:
+    resource: "@EtsiAppGuiasBundle/Resources/config/routing.yml"
+    prefix:   /
+
 etsi_site:
     resource: "@EtsiSiteBundle/Resources/config/routing.yml"
     prefix:   /

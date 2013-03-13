@@ -16,31 +16,18 @@ class Guia
      */
     protected $id;
 
-    protected $grado;
-
-    protected $aprobada;
-
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="Asignatura", inversedBy="guias")
+     * @ORM\JoinColumn(name="asignatura_id", referencedColumnName="id")
      */
-    protected $nombre;
+    protected $asignatura;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\ManyToMany(targetEntity="Profesor", mappedBy="guias")
      */
-    protected $nombreI;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $codigo;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $caracter;
-
+    protected $profesores;
+    
     /**
      * @ORM\Column(type="integer")
      */
@@ -49,54 +36,47 @@ class Guia
     /**
      * @ORM\Column(type="integer")
      */
-    protected $creditosPAula;
+    protected $creditosPracticosAula;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $creditosPInformatica;
+    protected $creditosPracticosInformatica;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $creditosPLaboratorio;
+    protected $creditosPracticosLaboratorio;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $creditosPCampo;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $departamento;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $area;
+    protected $creditosPracticosCampo;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $curso;
+    protected $estado;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $cuatrimestre;
+    protected $version;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Profesor", inversedBy="asignaturas")
-     * @ORM\JoinColumn(name="Profesor_id", referencedColumnName="id")
+     * @ORM\Column(type="date")
      */
-    protected $profesor;
-
+    protected $fechaDeModificacion;
 
     /**
      * @ORM\Column(type="text")
      */
-    protected $datosEspecificos_1;
+    protected $datosEspecificos_1_1;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $datosEspecificos_1_2;
 
     /**
      * @ORM\Column(type="text")
@@ -114,59 +94,26 @@ class Guia
     protected $datosEspecificos_3;
 
     /**
-     * @ORM\Column(type="text")
+     * @ManyToMany(targetEntity="Competencia")
+     * @JoinTable(name="guia_competencia_esp")
      */
-    protected $datosEspecificos_4_1;
+    private $datosEspecificos_4_1;
 
     /**
-     * @ORM\Column(type="text")
+     * @ManyToMany(targetEntity="Competencia")
+     * @JoinTable(name="guia_competencia_gen")
      */
-    protected $datosEspecificos_4_2;
+    private $datosEspecificos_4_2;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    protected $datosEspecificos_5;
-
-    /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
     protected $datosEspecificos_6_1_1;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string")
      */
     protected $datosEspecificos_6_1_2;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $datosEspecificos_6_1_3;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $datosEspecificos_6_1_4;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $datosEspecificos_6_1_5;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $datosEspecificos_6_1_6;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $datosEspecificos_6_1_7;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    protected $datosEspecificos_6_1_8;
 
     /**
      * @ORM\Column(type="text")
@@ -179,67 +126,30 @@ class Guia
     protected $datosEspecificos_7;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="text")
      */
     protected $datosEspecificos_8_1;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="text")
      */
     protected $datosEspecificos_8_2;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
     protected $datosEspecificos_9_1_1;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string")
      */
     protected $datosEspecificos_9_1_2;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $datosEspecificos_9_1_3;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $datosEspecificos_9_1_4;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $datosEspecificos_9_1_5;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $datosEspecificos_9_1_6;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    protected $datosEspecificos_9_1_7;
-
-    /**
-     * @ORM\Column(type="text")
-     */
     protected $datosEspecificos_9_2;
 
     /**
      * @ORM\Column(type="text")
      */
-    protected $datosEspecificos_10_1;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    protected $datosEspecificos_10_2;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    protected $extra;
+    protected $datosEspecificos_10;
 }

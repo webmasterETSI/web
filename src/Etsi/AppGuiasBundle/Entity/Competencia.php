@@ -4,10 +4,10 @@ namespace Etsi\AppGuiasBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="profesor")
+ * @ORM\Table(name="competencias")
  * @ORM\Entity
  */
-class Profesor
+class Competencia
 {
     /**
      * @ORM\Id
@@ -20,19 +20,4 @@ class Profesor
      * @ORM\Column(type="string")
      */
     protected $nombre;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $email;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $tlf;
-
-    /**
-    * @ORM\OneToMany(targetEntity="Contenido", mappedBy="autor")
-    */
-    protected $asignaturas;
 }

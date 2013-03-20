@@ -22,7 +22,7 @@ class Grado
     protected $nombre;
 
     /**
-     * @OneToMany(targetEntity="Asignatura", mappedBy="grado")
+     * @ManyToMany(targetEntity="Asignatura", mappedBy="grado")
      */
     private $asignaturas;
 

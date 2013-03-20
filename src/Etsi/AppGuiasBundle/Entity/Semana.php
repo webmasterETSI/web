@@ -17,6 +17,12 @@ class Semana
     protected $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Guia", inversedBy="datosEspecificos_9_2")
+     */
+    protected $guia;
+
+
+    /**
      * @ORM\Column(type="integer")
      */
     protected $numeroSemana;

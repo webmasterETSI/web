@@ -32,7 +32,7 @@ class Profesor
     protected $tlf;
 
     /**
-    * @ORM\OneToMany(targetEntity="Contenido", mappedBy="autor")
+    * @ORM\ManyToMany(targetEntity="Guia", mappedBy="profesores")
     */
-    protected $asignaturas;
+    protected $guias;
 }

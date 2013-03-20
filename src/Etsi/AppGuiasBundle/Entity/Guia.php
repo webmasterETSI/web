@@ -19,12 +19,12 @@ class Guia
 
     /**
      * @ORM\ManyToOne(targetEntity="Asignatura", inversedBy="guias")
-     * @ORM\JoinColumn(name="asignatura_id", referencedColumnName="id")
      */
     protected $asignatura;
 
     /**
      * @ORM\ManyToMany(targetEntity="Profesor", mappedBy="guias")
+     * @JoinTable(name="guias_profesores")
      */
     protected $profesores;
     
@@ -145,7 +145,9 @@ class Guia
      */
     protected $datosEspecificos_9_1_2;
 
-
+    /**
+     * @OneToMany(targetEntity="Semana", mappedBy="guia")
+     */
     protected $datosEspecificos_9_2;
 
     /**

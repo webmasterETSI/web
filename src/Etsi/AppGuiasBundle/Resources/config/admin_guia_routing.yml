@@ -1,0 +1,15 @@
+eaga_guia_list:
+    pattern:  /admin/guia/list
+    defaults: { _controller: EtsiAppGuiasBundle:AdminGuia:list }
+
+eaga_guia_new:
+    pattern:  /admin/guia/new
+    defaults: { _controller: EtsiAppGuiasBundle:AdminGuia:new }
+
+eaga_guia_edit:
+    pattern:  /admin/guia/edit/{id}
+    defaults: { _controller: EtsiAppGuiasBundle:AdminGuia:edit }
+
+eaga_guia_show:
+    pattern:  /admin/guia/show/{id}
+    defaults: { _controller: EtsiAppGuiasBundle:AdminGuia:show }

@@ -59,11 +59,6 @@ class Guia
     protected $estado;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    protected $version;
-
-    /**
      * @ORM\Column(type="date")
      */
     protected $fechaDeModificacion;
@@ -311,29 +306,6 @@ class Guia
     public function getEstado()
     {
         return $this->estado;
-    }
-
-    /**
-     * Set version
-     *
-     * @param integer $version
-     * @return Guia
-     */
-    public function setVersion($version)
-    {
-        $this->version = $version;
-    
-        return $this;
-    }
-
-    /**
-     * Get version
-     *
-     * @return integer 
-     */
-    public function getVersion()
-    {
-        return $this->version;
     }
 
     /**

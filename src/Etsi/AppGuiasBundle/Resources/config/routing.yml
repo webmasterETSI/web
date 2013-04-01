@@ -1,3 +1,22 @@
 etsi_app_guias_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: EtsiAppGuiasBundle:Default:index }
+
+
+etsi_app_guias_admin_asignatura:
+    resource: "@EtsiAppGuiasBundle/Resources/config/admin_asignatura_routing.yml"
+
+etsi_app_guias_admin_competencia:
+    resource: "@EtsiAppGuiasBundle/Resources/config/admin_competencia_routing.yml"
+
+etsi_app_guias_admin_grado:
+    resource: "@EtsiAppGuiasBundle/Resources/config/admin_grado_routing.yml"
+
+etsi_app_guias_admin_guia:
+    resource: "@EtsiAppGuiasBundle/Resources/config/admin_guia_routing.yml"
+
+etsi_app_guias_admin_profesor:
+    resource: "@EtsiAppGuiasBundle/Resources/config/admin_profesor_routing.yml"
+
+etsi_app_guias_admin_semana:
+    resource: "@EtsiAppGuiasBundle/Resources/config/admin_semana_routing.yml"

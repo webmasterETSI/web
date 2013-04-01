@@ -21,7 +21,7 @@
         "kriswallsmith/assetic": "1.1.*@dev",
         "jms/serializer-bundle": ">=0.9",
         "friendsofsymfony/rest-bundle": "dev-master",
-	"leafo/lessphp": "dev-master"
+        "leafo/lessphp": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

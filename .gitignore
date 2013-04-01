@@ -6,3 +6,4 @@
 /app/config/parameters.yml
 composer.json~
 composer.phar
+*~

@@ -19,8 +19,6 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new FOS\RestBundle\FOSRestBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle($this),
             new Etsi\SiteBundle\EtsiSiteBundle(),
             new Etsi\AppGuiasBundle\EtsiAppGuiasBundle(),
         );

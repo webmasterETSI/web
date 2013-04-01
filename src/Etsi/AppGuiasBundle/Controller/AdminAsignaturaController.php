@@ -9,7 +9,7 @@ class AdminAsignaturaController extends Controller
 {
     public function listAction()
     {
-        return new Response("Admin Asignatura: Listar");
+        return $this->render('EtsiAppGuiasBundle:AdminAsignatura:list.html.twig');
     }
 
     public function newAction()

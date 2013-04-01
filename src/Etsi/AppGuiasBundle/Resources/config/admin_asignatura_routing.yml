@@ -1,15 +1,15 @@
 eaga_asignatura_list:
-    pattern:  /admin/asignatura/list
+    pattern:  /guias/admin/asignatura/list
     defaults: { _controller: EtsiAppGuiasBundle:AdminAsignatura:list }
 
 eaga_asignatura_new:
-    pattern:  /admin/asignatura/new
+    pattern:  /guias/admin/asignatura/new
     defaults: { _controller: EtsiAppGuiasBundle:AdminAsignatura:new }
 
 eaga_asignatura_edit:
-    pattern:  /admin/asignatura/edit/{id}
+    pattern:  /guias/admin/asignatura/edit/{id}
     defaults: { _controller: EtsiAppGuiasBundle:AdminAsignatura:edit }
 
 eaga_asignatura_show:
-    pattern:  /admin/asignatura/show/{id}
+    pattern:  /guias/admin/asignatura/show/{id}
     defaults: { _controller: EtsiAppGuiasBundle:AdminAsignatura:show }

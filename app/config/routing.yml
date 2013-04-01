@@ -1,24 +1,23 @@
-etsi_site:
-    resource: "@EtsiSiteBundle/Resources/config/routing.yml"
-    prefix:   /
+# etsi_site:
+#     resource: "@EtsiSiteBundle/Resources/config/routing.yml"
+#     prefix:   /
 
-etsi_usuario_rest:
-    type:     rest
-    prefix:   /api
-    resource: Etsi\SiteBundle\Controller\UsuariosController
+# etsi_usuario_rest:
+#     type:     rest
+#     prefix:   /api
+#     resource: Etsi\SiteBundle\Controller\UsuariosController
 
-etsi_contenido_rest:
-    type:     rest
-    prefix:   /api
-    resource: Etsi\SiteBundle\Controller\ContenidosController
+# etsi_contenido_rest:
+#     type:     rest
+#     prefix:   /api
+#     resource: Etsi\SiteBundle\Controller\ContenidosController
 
-etsi_seccion_rest:
-    type:     rest
-    prefix:   /api
-    resource: Etsi\SiteBundle\Controller\SeccionesController
+# etsi_seccion_rest:
+#     type:     rest
+#     prefix:   /api
+#     resource: Etsi\SiteBundle\Controller\SeccionesController
 
 etsi_app_guias:
-    pattern:  /guias
     resource: "@EtsiAppGuiasBundle/Resources/config/routing.yml"
 
 # Internal routing configuration to handle ESI

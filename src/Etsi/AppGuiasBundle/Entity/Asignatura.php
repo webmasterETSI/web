@@ -49,7 +49,7 @@ class Asignatura
     protected $caracter;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     protected $creditos;
 
@@ -186,7 +186,7 @@ class Asignatura
     /**
      * Set creditos
      *
-     * @param integer $creditos
+     * @param float $creditos
      * @return Asignatura
      */
     public function setCreditos($creditos)
@@ -199,7 +199,7 @@ class Asignatura
     /**
      * Get creditos
      *
-     * @return integer 
+     * @return float 
      */
     public function getCreditos()
     {

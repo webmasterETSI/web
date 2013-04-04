@@ -1,1 +1,45 @@
-{% extends "EtsiAppGuiasBundle::adminBaseLayout.html.twig" %}
+{% extends "EtsiAppGuiasBundle:AdminAsignatura:base.html.twig" %}
+
+{% block section %}
+<article class="module width_full">
+	<header>
+		<h3>Asignaturas</h3>
+	</header>
+
+	<table class="tablesorter" cellspacing="0"> 
+		<thead> 
+			<tr> 
+				<th>Nombre</th> 
+				<th>Name</th> 
+				<th>Código</th> 
+				<th>Caracter</th> 
+				<th>Créditos</th> 
+				<th>Departamento</th> 
+				<th>Area</th> 
+				<th>Curso</th> 
+				<th>Cuatrimestre</th> 
+				<th>Acciones</th> 
+			</tr> 
+		</thead> 
+		<tbody>
+			{% for entity in entities %}
+			<tr>
+				<td>{{ entity.nombre }}</td>
+				<td>{{ entity.nombreI }}</td>
+				<td>{{ entity.codigo }}</td>
+				<td>{{ entity.caracter }}</td>
+				<td>{{ entity.creditos }}</td>
+				<td>{{ entity.departamento }}</td>
+				<td>{{ entity.area }}</td>
+				<td>{{ entity.curso }}</td>
+				<td>{{ entity.cuatrimestre }}</td>
+				<td>
+					<input type="image" src="{{ asset('images/icn_edit.png') }}" title="Editar">
+					<input type="image" src="{{ asset('images/icn_trash.png') }}" title="Eliminar">
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody> 
+	</table>
+</article>
+{% endblock %}

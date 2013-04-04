@@ -39,8 +39,30 @@
 			</form>
 			<hr/>
 			{% endblock %}
-			{% block menu %}{% endblock %}
-			
+
+			{% block menu %}
+			<h3>Entidades</h3>
+			<ul class="toggle">
+				<li class="icn_categories">
+					<a href="{{ path('eaga_asignatura_index') }}">Asignaturas</a>
+				</li>
+				<li class="icn_categories">
+					<a href="#">Competencia</a>
+				</li>
+				<li class="icn_categories">
+					<a href="#">Grado</a>
+				</li>
+				<li class="icn_categories">
+					<a href="#">Guia</a>
+				</li>
+				<li class="icn_categories">
+					<a href="#">Profesor</a>
+				</li>
+				<li class="icn_categories">
+					<a href="#">Semana</a>
+				</li>
+			</ul>
+			{% endblock %}			
 			<footer>
 				{% block footer %}
 				<hr />

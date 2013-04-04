@@ -27,4 +27,12 @@ class Herramientas
      
         return $text;
     }
+
+    public static function allFields($fields, $arr)
+    {
+        foreach($fields as $field)
+            if(!isset($arr[$field]) || empty($arr[$field]))
+                return false;
+        return true;
+    }
 }

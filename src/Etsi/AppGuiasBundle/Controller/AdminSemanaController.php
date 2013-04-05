@@ -42,27 +42,25 @@ class AdminSemanaController extends Controller
 
     private function fillEntity($entity, $data) {
         $camposObligatorios = array(
-            'nombre',
-            'nombreI',
-            'codigo',
-            'caracter',
-            'creditos',
-            'departamento',
-            'area',
-            'curso',
-            'cuatrimestre'
+            'numeroSemana',
+            'horasGruposGrandes',
+            'horasGruposReducidosAula',
+            'horasGruposReducidosInformatica',
+            'horasGruposReducidosLaboratorio',
+            'horasGruposReducidosCampo',
+            'examen',
+            'observaciones'
         );
 
         if(Herramientas::allFields($camposObligatorios, $data)) {
-            $entity->setNombre($data['nombre']);
-            $entity->setNombreI($data['nombreI']);
-            $entity->setCodigo($data['codigo']);
-            $entity->setCaracter($data['caracter']);
-            $entity->setCreditos($data['creditos']);
-            $entity->setDepartamento($data['departamento']);
-            $entity->setArea($data['area']);
-            $entity->setCurso($data['curso']);
-            $entity->setCuatrimestre($data['cuatrimestre']);
+            $entity->setNumeroSemana($data['numeroSemana']);
+            $entity->setHorasGruposGrandes($data['horasGruposGrandes']);
+            $entity->setHorasGruposReducidosAula($data['horasGruposReducidosAula']);
+            $entity->setHorasGruposReducidosInformatica($data['horasGruposReducidosInformatica']);
+            $entity->setHorasGruposReducidosLaboratorio($data['horasGruposReducidosLaboratorio']);
+            $entity->setHorasGruposReducidosCampo($data['horasGruposReducidosCampo']);
+            $entity->setExamen($data['examen']);
+            $entity->setObservaciones($data['observaciones']);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);

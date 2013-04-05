@@ -22,14 +22,14 @@ class Grado
     protected $nombre;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Asignatura", mappedBy="grado")
+     * @ORM\ManyToMany(targetEntity="Asignatura", mappedBy="grados")
      */
     private $asignaturas;
 
     /**
      * @ORM\OneToMany(targetEntity="Grado", mappedBy="gradoPadre")
      */
-    private $children;
+    private $itinerarios;
 
     /**
      * @ORM\ManyToOne(targetEntity="Grado", inversedBy="itinerarios")
@@ -42,7 +42,7 @@ class Grado
     public function __construct()
     {
         $this->asignaturas = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->itinerarios = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -112,36 +112,36 @@ class Grado
     }
 
     /**
-     * Add children
+     * Add itinerarios
      *
-     * @param Etsi\AppGuiasBundle\Entity\Grado $children
+     * @param Etsi\AppGuiasBundle\Entity\Grado $itinerarios
      * @return Grado
      */
-    public function addChildren(\Etsi\AppGuiasBundle\Entity\Grado $children)
+    public function addChildren(\Etsi\AppGuiasBundle\Entity\Grado $itinerarios)
     {
-        $this->children[] = $children;
+        $this->itinerarios[] = $itinerarios;
     
         return $this;
     }
 
     /**
-     * Remove children
+     * Remove itinerarios
      *
-     * @param Etsi\AppGuiasBundle\Entity\Grado $children
+     * @param Etsi\AppGuiasBundle\Entity\Grado $itinerarios
      */
-    public function removeChildren(\Etsi\AppGuiasBundle\Entity\Grado $children)
+    public function removeChildren(\Etsi\AppGuiasBundle\Entity\Grado $itinerarios)
     {
-        $this->children->removeElement($children);
+        $this->itinerarios->removeElement($itinerarios);
     }
 
     /**
-     * Get children
+     * Get itinerarios
      *
      * @return Doctrine\Common\Collections\Collection 
      */
     public function getChildren()
     {
-        return $this->children;
+        return $this->itinerarios;
     }
 
     /**

@@ -1,0 +1,85 @@
+{% extends "EtsiAppGuiasBundle:Admin:baseLayout.html.twig" %}
+
+{% macro input(placeholder, nombre, valor) %}
+		<input type="text" placeholder="{{ placeholder }}" name="{{ nombre }}" value="{{ valor }}" style="width:92%; margin-bottom: 4px;">
+{% endmacro %}
+{% import _self as macros %}
+
+
+{% block sectionTitle %}Administración de semanas{% endblock %}
+
+{% block section %}
+<article class="module width_half">
+	<header>
+		<h3>Semanas</h3>
+	</header>
+
+	<table class="tablesorter" cellspacing="0"> 
+		<thead> 
+			<tr>
+				<th>Semana</th> 
+				<th>Hs. G. grandes</th>
+				<th>Hs. G. reducidos</th> 
+				<th>examen</th> 
+				<th>Acciones</th> 
+			</tr> 
+		</thead> 
+		<tbody>
+			{% for e in entities %}
+			{% set hReducidos = e.horasGruposReducidosAula + e.horasGruposReducidosInformatica + e.horasGruposReducidosLaboratorio + e.horasGruposReducidosCampo %}
+			<tr>
+				<td>#{{ e.numeroSemana }}</td>
+				<td>{{ e.horasGruposGrandes }}</td>
+				<td>{{ hReducidos }}</td>
+				<td>{{ e.examen }}</td>
+				<td>
+					<a href="{{ path('eaga_semana_edit', { 'id': e.id }) }}">
+						<input type="image" src="{{ asset('images/icn_edit.png') }}" title="Editar">
+					</a>
+					<a href="{{ path('eaga_semana_delete', { 'id': e.id }) }}">
+						<input type="image" src="{{ asset('images/icn_trash.png') }}" title="Eliminar">
+					</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody> 
+	</table>
+</article>
+
+<article class="module width_half">
+	<header>
+		<h3>Editor</h3>
+	</header>
+
+	<form action="{{ action }}" method="POST">
+		<div class="module_content">
+			<fieldset>
+				<label>Datos básicos</label>
+				{{ macros.input('Número de semana', 'numeroSemana', entity.numeroSemana|default('')) }}
+				{{ macros.input('¿Exámen?', 'examen', entity.examen|default('')) }}
+				{{ macros.input('Observaciones', 'observaciones', entity.observaciones|default('')) }}
+			</fieldset>
+
+			<fieldset>
+				<label>Datos de de horas</label>			
+				{{ macros.input('Grupos grandes', 'horasGruposGrandes', entity.horasGruposGrandes|default('')) }}
+				{{ macros.input('Grupos reducidos: Aula', 'horasGruposReducidosAula', entity.horasGruposReducidosAula|default('')) }}
+				{{ macros.input('Grupos reducidos: Informática', 'horasGruposReducidosInformatica', entity.horasGruposReducidosInformatica|default('')) }}
+				{{ macros.input('Laboratorio', 'horasGruposReducidosLaboratorio', entity.horasGruposReducidosLaboratorio|default('')) }}
+				{{ macros.input('Campo', 'horasGruposReducidosCampo', entity.horasGruposReducidosCampo|default('')) }}
+			</fieldset>
+		</div>
+		<footer>
+			<div class="submit_link">
+				{% if action != path('eaga_semana_new')%}
+				<a href="{{ path('eaga_semana_index') }}" style="margin-right: 130px;">
+					<input type="button" value="Nuevo">
+				</a>				
+				{% endif %}
+				<input type="submit" value="{% if action != path('eaga_semana_new')%}Guardar{% else %}Crear{% endif %}" class="alt_btn">
+				<a href="{{ action }}"><input type="button" value="Reset"></a>
+			</div>
+		</footer>
+	</form>
+</article>
+{% endblock %}

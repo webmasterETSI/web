@@ -43,26 +43,14 @@ class AdminProfesorController extends Controller
     private function fillEntity($entity, $data) {
         $camposObligatorios = array(
             'nombre',
-            'nombreI',
-            'codigo',
-            'caracter',
-            'creditos',
-            'departamento',
-            'area',
-            'curso',
-            'cuatrimestre'
+            'email',
+            'tlf'
         );
 
         if(Herramientas::allFields($camposObligatorios, $data)) {
             $entity->setNombre($data['nombre']);
-            $entity->setNombreI($data['nombreI']);
-            $entity->setCodigo($data['codigo']);
-            $entity->setCaracter($data['caracter']);
-            $entity->setCreditos($data['creditos']);
-            $entity->setDepartamento($data['departamento']);
-            $entity->setArea($data['area']);
-            $entity->setCurso($data['curso']);
-            $entity->setCuatrimestre($data['cuatrimestre']);
+            $entity->setEmail($data['email']);
+            $entity->setTlf($data['tlf']);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);

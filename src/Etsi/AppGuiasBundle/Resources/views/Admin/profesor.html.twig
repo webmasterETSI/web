@@ -1,0 +1,73 @@
+{% extends "EtsiAppGuiasBundle:Admin:baseLayout.html.twig" %}
+
+{% macro input(placeholder, nombre, valor) %}
+		<input type="text" placeholder="{{ placeholder }}" name="{{ nombre }}" value="{{ valor }}" style="width:92%; margin-bottom: 4px;">
+{% endmacro %}
+{% import _self as macros %}
+
+
+{% block sectionTitle %}Administración de profesores{% endblock %}
+
+{% block section %}
+<article class="module width_half">
+	<header>
+		<h3>Profesores</h3>
+	</header>
+
+	<table class="tablesorter" cellspacing="0"> 
+		<thead> 
+			<tr>
+				<th>Nombre</th>
+				<th>eMail</th>
+				<th>Telefono</th> 
+				<th>Acciones</th> 
+			</tr> 
+		</thead> 
+		<tbody>
+			{% for e in entities %}
+			<tr>
+				<td>{{ e.nombre }}</td>
+				<td>{{ e.email }}</td>
+				<td>{{ e.tlf }}</td>
+				<td>
+					<a href="{{ path('eaga_profesor_edit', { 'id': e.id }) }}">
+						<input type="image" src="{{ asset('images/icn_edit.png') }}" title="Editar">
+					</a>
+					<a href="{{ path('eaga_profesor_delete', { 'id': e.id }) }}">
+						<input type="image" src="{{ asset('images/icn_trash.png') }}" title="Eliminar">
+					</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody> 
+	</table>
+</article>
+
+<article class="module width_half">
+	<header>
+		<h3>Editor</h3>
+	</header>
+
+	<form action="{{ action }}" method="POST">
+		<div class="module_content">
+			<fieldset>
+				<label>Datos básicos</label>
+				{{ macros.input('Nombre', 'nombre', entity.nombre|default('')) }}
+				{{ macros.input('eMail', 'email', entity.email|default('')) }}
+				{{ macros.input('Teléfono', 'tlf', entity.tlf|default('')) }}
+			</fieldset>
+		</div>
+		<footer>
+			<div class="submit_link">
+				{% if action != path('eaga_profesor_new')%}
+				<a href="{{ path('eaga_profesor_index') }}" style="margin-right: 130px;">
+					<input type="button" value="Nuevo">
+				</a>				
+				{% endif %}
+				<input type="submit" value="{% if action != path('eaga_profesor_new')%}Guardar{% else %}Crear{% endif %}" class="alt_btn">
+				<a href="{{ action }}"><input type="button" value="Reset"></a>
+			</div>
+		</footer>
+	</form>
+</article>
+{% endblock %}

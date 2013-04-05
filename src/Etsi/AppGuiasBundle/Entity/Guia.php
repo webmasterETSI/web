@@ -23,7 +23,7 @@ class Guia
     protected $asignatura;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Profesor", mappedBy="guias")
+     * @ORM\ManyToMany(targetEntity="Profesor", inversedBy="guias")
      * @ORM\JoinTable(name="guias_profesores")
      */
     protected $profesores;

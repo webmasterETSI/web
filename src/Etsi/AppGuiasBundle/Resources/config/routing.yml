@@ -1,6 +1,10 @@
+etsi_app_guias:
+    pattern:  /guias
+    defaults: { _controller: EtsiAppGuiasBundle:Default:index }
+
 etsi_app_guias_demo:
     pattern:  /guias/demo
-    defaults: { _controller: EtsiAppGuiasBundle:Default:index }
+    defaults: { _controller: EtsiAppGuiasBundle:Default:demo }
 
 etsi_app_guias_admin_asignatura:
     resource: "@EtsiAppGuiasBundle/Resources/config/admin_asignatura_routing.yml"

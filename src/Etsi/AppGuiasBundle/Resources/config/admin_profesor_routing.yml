@@ -1,6 +1,6 @@
-eaga_profesor_list:
-    pattern:  /guias/admin/profesor/list
-    defaults: { _controller: EtsiAppGuiasBundle:AdminProfesor:list }
+eaga_profesor_index:
+    pattern:  /guias/admin/profesores
+    defaults: { _controller: EtsiAppGuiasBundle:AdminProfesor:index }
 
 eaga_profesor_new:
     pattern:  /guias/admin/profesor/new
@@ -10,6 +10,6 @@ eaga_profesor_edit:
     pattern:  /guias/admin/profesor/edit/{id}
     defaults: { _controller: EtsiAppGuiasBundle:AdminProfesor:edit }
 
-eaga_profesor_show:
-    pattern:  /guias/admin/profesor/show/{id}
-    defaults: { _controller: EtsiAppGuiasBundle:AdminProfesor:show }
+eaga_profesor_delete:
+    pattern:  /guias/admin/profesor/delete/{id}
+    defaults: { _controller: EtsiAppGuiasBundle:AdminProfesor:delete }

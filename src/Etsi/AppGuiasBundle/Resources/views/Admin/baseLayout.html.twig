@@ -72,6 +72,20 @@
 		</aside><!-- end of sidebar -->
 
 		<section id="main" class="column">
+			{% block messages %}
+				{% for m in messages.error %}
+					<h4 class="alert_error temporal">{{ m }}</h4>
+				{% endfor %}
+
+				{% for m in messages.warning %}
+					<h4 class="alert_warning temporal">{{ m }}</h4>
+				{% endfor %}
+
+				{% for m in messages.success %}
+					<h4 class="alert_success temporal">{{ m }}</h4>
+				{% endfor %}
+			{% endblock %}
+
 			{% block section %}
 			{% endblock %}
 		</section>

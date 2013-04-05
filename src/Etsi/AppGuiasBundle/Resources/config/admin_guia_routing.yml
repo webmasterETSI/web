@@ -1,6 +1,6 @@
-eaga_guia_list:
-    pattern:  /guias/admin/guia/list
-    defaults: { _controller: EtsiAppGuiasBundle:AdminGuia:list }
+eaga_guia_index:
+    pattern:  /guias/admin/guias
+    defaults: { _controller: EtsiAppGuiasBundle:AdminGuia:index }
 
 eaga_guia_new:
     pattern:  /guias/admin/guia/new
@@ -10,6 +10,6 @@ eaga_guia_edit:
     pattern:  /guias/admin/guia/edit/{id}
     defaults: { _controller: EtsiAppGuiasBundle:AdminGuia:edit }
 
-eaga_guia_show:
-    pattern:  /guias/admin/guia/show/{id}
-    defaults: { _controller: EtsiAppGuiasBundle:AdminGuia:show }
+eaga_guia_delete:
+    pattern:  /guias/admin/guia/delete/{id}
+    defaults: { _controller: EtsiAppGuiasBundle:AdminGuia:delete }

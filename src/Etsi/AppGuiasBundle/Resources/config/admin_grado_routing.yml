@@ -1,6 +1,6 @@
-eaga_grado_list:
-    pattern:  /guias/admin/grado/list
-    defaults: { _controller: EtsiAppGuiasBundle:AdminGrado:list }
+eaga_grado_index:
+    pattern:  /guias/admin/grados
+    defaults: { _controller: EtsiAppGuiasBundle:AdminGrado:index }
 
 eaga_grado_new:
     pattern:  /guias/admin/grado/new
@@ -10,6 +10,6 @@ eaga_grado_edit:
     pattern:  /guias/admin/grado/edit/{id}
     defaults: { _controller: EtsiAppGuiasBundle:AdminGrado:edit }
 
-eaga_grado_show:
-    pattern:  /guias/admin/grado/show/{id}
-    defaults: { _controller: EtsiAppGuiasBundle:AdminGrado:show }
+eaga_grado_delete:
+    pattern:  /guias/admin/grado/delete/{id}
+    defaults: { _controller: EtsiAppGuiasBundle:AdminGrado:delete }

@@ -12,16 +12,28 @@ use Etsi\AppGuiasBundle\Entity\Asignatura;
 
 class AdminAsignaturaController extends Controller
 {
-    private function renderReturn($action, $id = null) {
+    private function renderReturn(
+        $action,
+        $id = null,
+        $messages = array('success' => array(), 'warning' => array(), 'error' => array())
+    ) {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->findAll();
         $entity = $id?$em->getRepository('EtsiAppGuiasBundle:Asignatura')->find($id):null;
 
+        if(!$messages) {
+            $messages = array(
+                'success' => array(),
+                'warning' => array(),
+                'error' => array(),
+            );
+        }
         return $this->render(
             'EtsiAppGuiasBundle:Admin:asignatura.html.twig',
             array(
                 'action' => $action,
+                'messages' => $messages,
                 'entities' => $entities,
                 'entity' => $entity,
             )
@@ -55,7 +67,10 @@ class AdminAsignaturaController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
+            return true;
         }
+        return false;
     }
 
     public function indexAction()
@@ -65,41 +80,82 @@ class AdminAsignaturaController extends Controller
 
     public function newAction(Request $request)
     {
+        $messages = array(
+            'success' => array(),
+            'warning' => array(),
+            'error' => array(),
+        );
+
         $entity  = new Asignatura();
         $data = $request->request->all();
 
-        $this->fillEntity($entity, $data);
+        if($this->fillEntity($entity, $data)) {
+            $messages['success'][] = 'Asignatura guardada correctamente';
+        } else {
+            $messages['error'][] = 'Faltan campos obligatorios, asignatura no guardada';
+        }
 
         return $this->renderReturn(
             $this->generateUrl('eaga_asignatura_edit', array('id' => $entity->getId())),
-            $entity->getId()
+            $entity->getId(),
+            $messages
         );
     }
 
     public function editAction($id, Request $request)
     {
+        $messages = array(
+            'success' => array(),
+            'warning' => array(),
+            'error' => array(),
+        );
+
         $data = $request->request->all();
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->find($id);
-        
-        $this->fillEntity($entity, $data);
+
+        if(!$entity) {
+            $messages['error'][] = 'Entidad no encontrada';
+        } else {
+            if($this->fillEntity($entity, $data)) {
+                $messages['success'][] = 'Cambios guardada correctamente';
+            } else {
+                if(isset($data['nombre']))
+                    $messages['error'][] = 'Faltan campos obligatorios, cambios no guardada';
+            }
+        }
         
         return $this->renderReturn(
             $this->generateUrl('eaga_asignatura_edit', array('id' => $id)),
-            $id
+            $id,
+            $messages
         );
     }
 
     public function deleteAction($id)
     {
+        $messages = array(
+            'success' => array(),
+            'warning' => array(),
+            'error' => array(),
+        );
+
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->find($id);
 
         if($entity) {
             $em->remove($entity);
             $em->flush();
+
+            $messages['success'][] = 'Asignatura eliminada correctamente';
+        } else {
+            $messages['error'][] = 'Entidad no encontrada';
         }
 
-        return $this->renderReturn($this->generateUrl('eaga_asignatura_new'));
+        return $this->renderReturn(
+            $this->generateUrl('eaga_asignatura_new'),
+            null,
+            $messages
+        );
     }
 }

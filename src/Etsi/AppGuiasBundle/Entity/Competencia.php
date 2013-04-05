@@ -4,7 +4,7 @@ namespace Etsi\AppGuiasBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="competencias")
+ * @ORM\Table(name="competencia")
  * @ORM\Entity
  */
 class Competencia
@@ -19,6 +19,11 @@ class Competencia
     /**
      * @ORM\Column(type="string")
      */
+    protected $codigo;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     protected $nombre;
 
     /**
@@ -29,6 +34,29 @@ class Competencia
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set codigo
+     *
+     * @param string $codigo
+     * @return Asignatura
+     */
+    public function setCodigo($codigo)
+    {
+        $this->codigo = $codigo;
+    
+        return $this;
+    }
+
+    /**
+     * Get codigo
+     *
+     * @return string 
+     */
+    public function getCodigo()
+    {
+        return $this->codigo;
     }
 
     /**

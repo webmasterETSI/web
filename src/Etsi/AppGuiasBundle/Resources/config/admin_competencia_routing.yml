@@ -1,6 +1,6 @@
-eaga_competencia_list:
-    pattern:  /guias/admin/competencia/list
-    defaults: { _controller: EtsiAppGuiasBundle:AdminCompetencia:list }
+eaga_competencia_index:
+    pattern:  /guias/admin/competencias
+    defaults: { _controller: EtsiAppGuiasBundle:AdminCompetencia:index }
 
 eaga_competencia_new:
     pattern:  /guias/admin/competencia/new
@@ -10,6 +10,6 @@ eaga_competencia_edit:
     pattern:  /guias/admin/competencia/edit/{id}
     defaults: { _controller: EtsiAppGuiasBundle:AdminCompetencia:edit }
 
-eaga_competencia_show:
-    pattern:  /guias/admin/competencia/show/{id}
-    defaults: { _controller: EtsiAppGuiasBundle:AdminCompetencia:show }
+eaga_competencia_delete:
+    pattern:  /guias/admin/competencia/delete/{id}
+    defaults: { _controller: EtsiAppGuiasBundle:AdminCompetencia:delete }

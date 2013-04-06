@@ -1,11 +1,5 @@
 {% extends "EtsiAppGuiasBundle:Admin:baseLayout.html.twig" %}
 
-{% macro input(placeholder, nombre, valor) %}
-		<input type="text" placeholder="{{ placeholder }}" name="{{ nombre }}" value="{{ valor }}" style="width:92%; margin-bottom: 4px;">
-{% endmacro %}
-{% import _self as macros %}
-
-
 {% block sectionTitle %}Administración de grados{% endblock %}
 
 {% block section %}
@@ -24,7 +18,12 @@
 		<tbody>
 			{% for e in entities %}
 			<tr>
-				<td>{{ e.nombre }}</td>
+				<td>
+					{% if e.gradoPadre %}
+					{{ e.gradoPadre.nombre }}, itinerario de 
+					{% endif %}
+					{{ e.nombre }}
+				</td>
 				<td>
 					<a href="{{ path('eaga_grado_edit', { 'id': e.id }) }}">
 						<input type="image" src="{{ asset('images/icn_edit.png') }}" title="Editar">
@@ -49,6 +48,33 @@
 			<fieldset>
 				<label>Datos de grado</label>
 				{{ macros.input('Nombre', 'nombre', entity.nombre|default('')) }}
+
+				<label>Grado padre</label>
+				<select style="margin-bottom: 10px;" name="gradoPadre">
+					<option value=""></option>
+
+					{% for e in entities %}
+					<option value="{{ e.id }}" {% if entity and entity.gradoPadre and entity.gradoPadre.id==e.id %}selected{% endif %}>{{ e.nombre }}</option>
+					{% endfor %}
+				</select>
+
+				{% if entity %}
+				<label>Asignaturas</label>
+				<div class="clear"></div>
+
+				{% for curso in range(1, 4) %}
+				<ul>
+					{% for a in entity.asignaturas %}
+						{% if a.curso == curso %}
+						<li>
+							<a href="{{ path('eaga_asignatura_edit', {'id': a.id}) }}">{{ a.codigo }}: {{ a.nombre }}</a>
+						</li>
+						{% endif %}
+					{% endfor %}
+				</ul>
+				{% endfor %}
+
+				{% endif %}
 			</fieldset>
 		</div>
 		<footer>

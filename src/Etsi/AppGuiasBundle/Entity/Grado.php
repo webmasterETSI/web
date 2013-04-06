@@ -108,7 +108,19 @@ class Grado
      */
     public function getAsignaturas()
     {
-        return $this->asignaturas;
+        $asignaturas = new \Doctrine\Common\Collections\ArrayCollection();
+
+        if(!empty($this->gradoPadre)) {
+            $asignaturasPadre = $this->gradoPadre->getAsignaturas();
+
+            foreach($asignaturasPadre as $asignatura)
+                $asignaturas[] = $asignatura;
+        }
+        
+        foreach($this->asignaturas as $asignatura)
+            $asignaturas[] = $asignatura;
+
+        return $asignaturas;
     }
 
     /**

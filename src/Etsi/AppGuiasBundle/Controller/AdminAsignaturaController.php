@@ -8,7 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
 
 use Common\Herramientas;
 
-use Etsi\AppGuiasBundle\Entity\Asignatura;
+use Etsi\AppGuiasBundle\Entity\Asignatura,
+    Etsi\AppGuiasBundle\Entity\Grado;
 
 class AdminAsignaturaController extends Controller
 {
@@ -20,6 +21,7 @@ class AdminAsignaturaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->findAll();
+        $grados = $em->getRepository('EtsiAppGuiasBundle:Grado')->findAll();
         $entity = $id?$em->getRepository('EtsiAppGuiasBundle:Asignatura')->find($id):null;
 
         if(!$messages) {
@@ -35,6 +37,7 @@ class AdminAsignaturaController extends Controller
                 'action' => $action,
                 'messages' => $messages,
                 'entities' => $entities,
+                'grados' => $grados,
                 'entity' => $entity,
             )
         );
@@ -49,11 +52,12 @@ class AdminAsignaturaController extends Controller
             'creditos',
             'departamento',
             'area',
-            'curso',
-            'cuatrimestre'
+            'curso'
         );
 
         if(Herramientas::allFields($camposObligatorios, $data)) {
+            $em = $this->getDoctrine()->getManager();
+
             $entity->setNombre($data['nombre']);
             $entity->setNombreI($data['nombreI']);
             $entity->setCodigo($data['codigo']);
@@ -64,7 +68,16 @@ class AdminAsignaturaController extends Controller
             $entity->setCurso($data['curso']);
             $entity->setCuatrimestre($data['cuatrimestre']);
 
-            $em = $this->getDoctrine()->getManager();
+
+            $grados = $entity->getGrados();
+            foreach($grados as $g)
+                $entity->removeGrado($g);
+
+            foreach($data['grados'] as $value) {
+                $grado = $em->getRepository('EtsiAppGuiasBundle:Grado')->find($value);
+                $entity->addGrado($grado);
+            }
+
             $em->persist($entity);
             $em->flush();
 

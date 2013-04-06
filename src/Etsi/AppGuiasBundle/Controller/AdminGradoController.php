@@ -44,9 +44,13 @@ class AdminGradoController extends Controller
         $camposObligatorios = array( 'nombre' );
 
         if(Herramientas::allFields($camposObligatorios, $data)) {
+            $em = $this->getDoctrine()->getManager();
+
             $entity->setNombre($data['nombre']);
 
-            $em = $this->getDoctrine()->getManager();
+            $padre = $em->getRepository('EtsiAppGuiasBundle:Grado')->find($data['gradoPadre']);
+            $entity->setGradoPadre($padre);
+
             $em->persist($entity);
             $em->flush();
 

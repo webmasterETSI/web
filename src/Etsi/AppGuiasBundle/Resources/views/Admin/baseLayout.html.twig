@@ -1,3 +1,8 @@
+{% macro input(placeholder, nombre, valor) %}
+		<input type="text" placeholder="{{ placeholder }}" name="{{ nombre }}" value="{{ valor }}" style="width:92%; margin-bottom: 10px;">
+{% endmacro %}
+{% import _self as macros %}
+
 <!doctype html>
 <html lang="es">
 	<head>

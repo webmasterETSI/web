@@ -1,11 +1,5 @@
 {% extends "EtsiAppGuiasBundle:Admin:baseLayout.html.twig" %}
 
-{% macro input(placeholder, nombre, valor) %}
-	<input type="text" placeholder="{{ placeholder }}" name="{{ nombre }}" value="{{ valor }}" style="width:92%; margin-bottom: 4px;">
-{% endmacro %}
-{% import _self as macros %}
-
-
 {% block sectionTitle %}Administración de asignaturas{% endblock %}
 
 {% block section %}
@@ -69,6 +63,21 @@
 				<label>Datos varios</label>
 				{{ macros.input('Area', 'area', entity.area|default('')) }}
 				{{ macros.input('Departamento', 'departamento', entity.departamento|default('')) }}
+			</fieldset>
+
+
+			<fieldset>
+				<label>Grados en los que aparece</label>
+				<select name="grados[]" multiple style="height: 150px; margin-bottom: 10px;">
+					{% for g in grados %}
+					<option value="{{ g.id }}" {% if entity and g in entity.grados %}selected{% endif %}>
+						{% if g.gradoPadre %}
+						{{ g.gradoPadre.nombre }}, itinerario de 
+						{% endif %}
+						{{ g.nombre }}
+					</option>
+					{% endfor %}
+				</select>
 			</fieldset>
 		</div>
 		<footer>

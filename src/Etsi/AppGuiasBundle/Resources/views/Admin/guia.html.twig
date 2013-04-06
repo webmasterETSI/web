@@ -3,7 +3,7 @@
 {% block sectionTitle %}Administración de asignaturas{% endblock %}
 
 {% block section %}
-<article class="module width_half">
+<article class="module width_full">
 	<header>
 		<h3>Asignaturas</h3>
 	</header>
@@ -11,20 +11,22 @@
 	<table class="tablesorter" cellspacing="0"> 
 		<thead> 
 			<tr> 
-				<th>Código</th> 
-				<th>Nombre</th>
-				<th>Cuatrimestre</th> 
+				<th>Asignatura</th> 
+				<th>Estado</th>
+				<th>Fecha de mod.</th> 
+				<th>Curso</th> 
 				<th>Acciones</th> 
 			</tr> 
 		</thead> 
 		<tbody>
 			{% for e in entities %}
 			<tr>
-				<td>{{ e.codigo }}</td>
-				<td>{{ e.nombre }}</td>
-				<td>{{ e.cuatrimestre }}</td>
+				<td>{{ e.asignatura }}</td>
+				<td> - </td>
+				<td>{{ e.fechaDeModificacion }}</td>
+				<td> - </td>
 				<td>
-					<a href="{{ path('eaga_asignatura_edit', { 'id': e.id }) }}">
+					<a href="{{ path('eaga_asignatura_edit', { 'id': e.id, 'paso': '1' }) }}">
 						<input type="image" src="{{ asset('images/icn_edit.png') }}" title="Editar">
 					</a>
 					<a href="{{ path('eaga_asignatura_delete', { 'id': e.id }) }}">
@@ -35,47 +37,5 @@
 			{% endfor %}
 		</tbody> 
 	</table>
-</article>
-
-<article class="module width_half">
-	<header>
-		<h3>Editor</h3>
-	</header>
-
-	<form action="{{ action }}" method="POST">
-		<div class="module_content">
-			<fieldset>
-				<label>Datos básicos</label>
-				{{ macros.input('Código', 'codigo', entity.codigo|default('')) }}
-				{{ macros.input('Nombre', 'nombre', entity.nombre|default('')) }}
-				{{ macros.input('Nombre en ingles', 'nombreI', entity.nombreI|default('')) }}
-			</fieldset>
-
-			<fieldset>
-				<label>Datos de curso</label>			
-				{{ macros.input('Carácter', 'caracter', entity.caracter|default('')) }}
-				{{ macros.input('Creditos', 'creditos', entity.creditos|default('')) }}
-				{{ macros.input('Curso', 'curso', entity.curso|default('')) }}
-				{{ macros.input('Cuatrimestre', 'cuatrimestre', entity.cuatrimestre|default('')) }}
-			</fieldset>
-
-			<fieldset>
-				<label>Datos varios</label>
-				{{ macros.input('Area', 'area', entity.area|default('')) }}
-				{{ macros.input('Departamento', 'departamento', entity.departamento|default('')) }}
-			</fieldset>
-		</div>
-		<footer>
-			<div class="submit_link">
-				{% if action != path('eaga_asignatura_new')%}
-				<a href="{{ path('eaga_asignatura_index') }}" style="margin-right: 130px;">
-					<input type="button" value="Nuevo">
-				</a>				
-				{% endif %}
-				<input type="submit" value="{% if action != path('eaga_asignatura_new')%}Guardar{% else %}Crear{% endif %}" class="alt_btn">
-				<a href="{{ action }}"><input type="button" value="Reset"></a>
-			</div>
-		</footer>
-	</form>
 </article>
 {% endblock %}

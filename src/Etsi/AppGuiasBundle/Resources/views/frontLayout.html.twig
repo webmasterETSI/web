@@ -4,13 +4,24 @@
 		<meta charset="utf-8"/>
 		<title></title>
 		
-		{# <link rel="stylesheet" href="{{ asset('css/un.css') }}" type="text/css" media="screen" /> #}
+		{# 
+		{% stylesheets '@EtsiAppGuiasBundle/Resources/public/css/layout.css'%}
+			<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen"/>
+		{% endstylesheets %}
+
 		<!--[if lt IE 9]>
 		<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-
-		{# <script src="{{ asset('js/un.js') }}"           type="text/javascript"></script> #}
+		{% javascripts
+			'@EtsiAppGuiasBundle/Resources/public/js/jquery-1.9.1.min.js'
+			'@EtsiAppGuiasBundle/Resources/public/js/hideshow.js'
+			'@EtsiAppGuiasBundle/Resources/public/js/jquery.tablesorter.min.js'
+			'@EtsiAppGuiasBundle/Resources/public/js/jquery.equalHeight.js'
+			'@EtsiAppGuiasBundle/Resources/public/js/adminDefault.js' %}
+			<script src="{{ asset_url }}" type="text/javascript"></script>
+		{% endjavascripts %}
+		#}
 	</head>
 
 	<body>

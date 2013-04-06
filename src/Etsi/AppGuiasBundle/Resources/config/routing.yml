@@ -6,6 +6,18 @@ etsi_app_guias_demo:
     pattern:  /guias/demo
     defaults: { _controller: EtsiAppGuiasBundle:Default:demo }
 
+
+etsi_app_guias_get:
+    pattern:  /guia/{id}/get
+    defaults: { _controller: "EtsiAppGuiasBundle:Guia:get" }
+    requirements: { _method: post }
+
+area_update:
+    pattern:  /guia/{id}/update
+    defaults: { _controller: "EtsiAppGuiasBundle:Guia:update" }
+    requirements: { _method: post }
+
+
 etsi_app_guias_admin_asignatura:
     resource: "@EtsiAppGuiasBundle/Resources/config/admin_asignatura_routing.yml"
 

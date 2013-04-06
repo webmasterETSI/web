@@ -19,12 +19,13 @@
 			</tr> 
 		</thead> 
 		<tbody>
+			{% set estados = ['Pendiente de revisión', 'Publicada con errores', 'Publicada pendiente de revisión', 'Publicada'] %}
 			{% for e in entities %}
 			<tr>
-				<td>{{ e.asignatura }}</td>
-				<td> - </td>
-				<td>{{ e.fechaDeModificacion }}</td>
-				<td> - </td>
+				<td>{{ e.asignatura.nombre }}</td>
+				<td>{{ estados[e.estado] }} </td>
+				<td>{{ e.fechaDeModificacion|date("d/m/Y") }}</td>
+				<td>{{ e.curso }}</td>
 				<td>
 					<a href="{{ path('eaga_asignatura_edit', { 'id': e.id, 'paso': '1' }) }}">
 						<input type="image" src="{{ asset('images/icn_edit.png') }}" title="Editar">

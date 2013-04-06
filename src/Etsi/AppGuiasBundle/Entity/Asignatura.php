@@ -322,6 +322,18 @@ class Asignatura
     }
 
     /**
+     * Clear grado
+     *
+     * @return Asignatura
+     */
+    public function clearGrado()
+    {
+        $this->grados->clear();
+
+        return $this;
+    }
+
+    /**
      * Get grados
      *
      * @return Doctrine\Common\Collections\Collection 
@@ -352,6 +364,18 @@ class Asignatura
     public function removeGuia(\Etsi\AppGuiasBundle\Entity\Guia $guias)
     {
         $this->guias->removeElement($guias);
+    }
+
+    /**
+     * Clear guia
+     *
+     * @return Asignatura
+     */
+    public function clearGuia()
+    {
+        $this->guia->clear();
+        
+        return $this;
     }
 
     /**

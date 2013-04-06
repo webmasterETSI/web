@@ -102,6 +102,18 @@ class Grado
     }
 
     /**
+     * Clear asignatura
+     *
+     * @return Grado
+     */
+    public function clearAsignatura()
+    {
+        $this->asignatura->clear();
+        
+        return $this;
+    }
+
+    /**
      * Get asignaturas
      *
      * @return Doctrine\Common\Collections\Collection 
@@ -146,6 +158,18 @@ class Grado
         $this->itinerarios->removeElement($itinerarios);
     }
 
+    /**
+     * Clear itinerario
+     *
+     * @return Grado
+     */
+    public function clearItinerario()
+    {
+        $this->itinerario->clear();
+        
+        return $this;
+    }
+    
     /**
      * Get itinerarios
      *

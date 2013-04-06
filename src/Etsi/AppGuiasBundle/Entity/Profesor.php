@@ -146,6 +146,18 @@ class Profesor
     }
 
     /**
+     * Clear guia
+     *
+     * @return Profesor
+     */
+    public function clearGuia()
+    {
+        $this->guia->clear();
+        
+        return $this;
+    }
+
+    /**
      * Get guias
      *
      * @return Doctrine\Common\Collections\Collection 

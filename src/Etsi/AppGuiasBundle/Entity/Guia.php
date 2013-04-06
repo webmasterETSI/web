@@ -64,6 +64,11 @@ class Guia
     protected $fechaDeModificacion;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $curso;
+
+    /**
      * @ORM\Column(type="text")
      */
     protected $datosEspecificos_1_1;
@@ -332,12 +337,35 @@ class Guia
     }
 
     /**
+     * Set curso
+     *
+     * @param integer $curso
+     * @return Guia
+     */
+    public function setCurso($curso)
+    {
+        $this->curso = $curso;
+    
+        return $this;
+    }
+
+    /**
+     * Get curso
+     *
+     * @return integer 
+     */
+    public function getCurso()
+    {
+        return $this->curso;
+    }
+
+    /**
      * Set datosEspecificos_1_1
      *
      * @param string $datosEspecificos11
      * @return Guia
      */
-    public function setDatosEspecificos11($datosEspecificos11)
+    public function setDatosEspecificos_1_1($datosEspecificos11)
     {
         $this->datosEspecificos_1_1 = $datosEspecificos11;
     
@@ -349,7 +377,7 @@ class Guia
      *
      * @return string 
      */
-    public function getDatosEspecificos11()
+    public function getDatosEspecificos_1_1()
     {
         return $this->datosEspecificos_1_1;
     }
@@ -360,7 +388,7 @@ class Guia
      * @param string $datosEspecificos12
      * @return Guia
      */
-    public function setDatosEspecificos12($datosEspecificos12)
+    public function setDatosEspecificos_1_2($datosEspecificos12)
     {
         $this->datosEspecificos_1_2 = $datosEspecificos12;
     
@@ -372,7 +400,7 @@ class Guia
      *
      * @return string 
      */
-    public function getDatosEspecificos12()
+    public function getDatosEspecificos_1_2()
     {
         return $this->datosEspecificos_1_2;
     }
@@ -383,7 +411,7 @@ class Guia
      * @param string $datosEspecificos21
      * @return Guia
      */
-    public function setDatosEspecificos21($datosEspecificos21)
+    public function setDatosEspecificos_2_1($datosEspecificos21)
     {
         $this->datosEspecificos_2_1 = $datosEspecificos21;
     
@@ -395,7 +423,7 @@ class Guia
      *
      * @return string 
      */
-    public function getDatosEspecificos21()
+    public function getDatosEspecificos_2_1()
     {
         return $this->datosEspecificos_2_1;
     }
@@ -406,7 +434,7 @@ class Guia
      * @param string $datosEspecificos22
      * @return Guia
      */
-    public function setDatosEspecificos22($datosEspecificos22)
+    public function setDatosEspecificos_2_2($datosEspecificos22)
     {
         $this->datosEspecificos_2_2 = $datosEspecificos22;
     
@@ -418,7 +446,7 @@ class Guia
      *
      * @return string 
      */
-    public function getDatosEspecificos22()
+    public function getDatosEspecificos_2_2()
     {
         return $this->datosEspecificos_2_2;
     }
@@ -429,7 +457,7 @@ class Guia
      * @param string $datosEspecificos3
      * @return Guia
      */
-    public function setDatosEspecificos3($datosEspecificos3)
+    public function setDatosEspecificos_3($datosEspecificos3)
     {
         $this->datosEspecificos_3 = $datosEspecificos3;
     
@@ -441,7 +469,7 @@ class Guia
      *
      * @return string 
      */
-    public function getDatosEspecificos3()
+    public function getDatosEspecificos_3()
     {
         return $this->datosEspecificos_3;
     }
@@ -452,7 +480,7 @@ class Guia
      * @param integer $datosEspecificos611
      * @return Guia
      */
-    public function setDatosEspecificos611($datosEspecificos611)
+    public function setDatosEspecificos_6_1_1($datosEspecificos611)
     {
         $this->datosEspecificos_6_1_1 = $datosEspecificos611;
     
@@ -464,7 +492,7 @@ class Guia
      *
      * @return integer 
      */
-    public function getDatosEspecificos611()
+    public function getDatosEspecificos_6_1_1()
     {
         return $this->datosEspecificos_6_1_1;
     }
@@ -475,7 +503,7 @@ class Guia
      * @param string $datosEspecificos612
      * @return Guia
      */
-    public function setDatosEspecificos612($datosEspecificos612)
+    public function setDatosEspecificos_6_1_2($datosEspecificos612)
     {
         $this->datosEspecificos_6_1_2 = $datosEspecificos612;
     
@@ -487,7 +515,7 @@ class Guia
      *
      * @return string 
      */
-    public function getDatosEspecificos612()
+    public function getDatosEspecificos_6_1_2()
     {
         return $this->datosEspecificos_6_1_2;
     }
@@ -498,7 +526,7 @@ class Guia
      * @param string $datosEspecificos62
      * @return Guia
      */
-    public function setDatosEspecificos62($datosEspecificos62)
+    public function setDatosEspecificos_6_2($datosEspecificos62)
     {
         $this->datosEspecificos_6_2 = $datosEspecificos62;
     
@@ -510,7 +538,7 @@ class Guia
      *
      * @return string 
      */
-    public function getDatosEspecificos62()
+    public function getDatosEspecificos_6_2()
     {
         return $this->datosEspecificos_6_2;
     }
@@ -521,7 +549,7 @@ class Guia
      * @param string $datosEspecificos7
      * @return Guia
      */
-    public function setDatosEspecificos7($datosEspecificos7)
+    public function setDatosEspecificos_7($datosEspecificos7)
     {
         $this->datosEspecificos_7 = $datosEspecificos7;
     
@@ -533,7 +561,7 @@ class Guia
      *
      * @return string 
      */
-    public function getDatosEspecificos7()
+    public function getDatosEspecificos_7()
     {
         return $this->datosEspecificos_7;
     }
@@ -544,7 +572,7 @@ class Guia
      * @param string $datosEspecificos81
      * @return Guia
      */
-    public function setDatosEspecificos81($datosEspecificos81)
+    public function setDatosEspecificos_8_1($datosEspecificos81)
     {
         $this->datosEspecificos_8_1 = $datosEspecificos81;
     
@@ -556,7 +584,7 @@ class Guia
      *
      * @return string 
      */
-    public function getDatosEspecificos81()
+    public function getDatosEspecificos_8_1()
     {
         return $this->datosEspecificos_8_1;
     }
@@ -567,7 +595,7 @@ class Guia
      * @param string $datosEspecificos82
      * @return Guia
      */
-    public function setDatosEspecificos82($datosEspecificos82)
+    public function setDatosEspecificos_8_2($datosEspecificos82)
     {
         $this->datosEspecificos_8_2 = $datosEspecificos82;
     
@@ -579,7 +607,7 @@ class Guia
      *
      * @return string 
      */
-    public function getDatosEspecificos82()
+    public function getDatosEspecificos_8_2()
     {
         return $this->datosEspecificos_8_2;
     }
@@ -590,7 +618,7 @@ class Guia
      * @param integer $datosEspecificos911
      * @return Guia
      */
-    public function setDatosEspecificos911($datosEspecificos911)
+    public function setDatosEspecificos_9_1_1($datosEspecificos911)
     {
         $this->datosEspecificos_9_1_1 = $datosEspecificos911;
     
@@ -602,7 +630,7 @@ class Guia
      *
      * @return integer 
      */
-    public function getDatosEspecificos911()
+    public function getDatosEspecificos_9_1_1()
     {
         return $this->datosEspecificos_9_1_1;
     }
@@ -613,7 +641,7 @@ class Guia
      * @param string $datosEspecificos912
      * @return Guia
      */
-    public function setDatosEspecificos912($datosEspecificos912)
+    public function setDatosEspecificos_9_1_2($datosEspecificos912)
     {
         $this->datosEspecificos_9_1_2 = $datosEspecificos912;
     
@@ -625,7 +653,7 @@ class Guia
      *
      * @return string 
      */
-    public function getDatosEspecificos912()
+    public function getDatosEspecificos_9_1_2()
     {
         return $this->datosEspecificos_9_1_2;
     }
@@ -636,7 +664,7 @@ class Guia
      * @param string $datosEspecificos10
      * @return Guia
      */
-    public function setDatosEspecificos10($datosEspecificos10)
+    public function setDatosEspecificos_10($datosEspecificos10)
     {
         $this->datosEspecificos_10 = $datosEspecificos10;
     
@@ -648,7 +676,7 @@ class Guia
      *
      * @return string 
      */
-    public function getDatosEspecificos10()
+    public function getDatosEspecificos_10()
     {
         return $this->datosEspecificos_10;
     }
@@ -682,7 +710,7 @@ class Guia
      * @param Etsi\AppGuiasBundle\Entity\Profesor $profesores
      * @return Guia
      */
-    public function addProfesore(\Etsi\AppGuiasBundle\Entity\Profesor $profesores)
+    public function addProfesores(\Etsi\AppGuiasBundle\Entity\Profesor $profesores)
     {
         $this->profesores[] = $profesores;
     
@@ -694,9 +722,21 @@ class Guia
      *
      * @param Etsi\AppGuiasBundle\Entity\Profesor $profesores
      */
-    public function removeProfesore(\Etsi\AppGuiasBundle\Entity\Profesor $profesores)
+    public function removeProfesores(\Etsi\AppGuiasBundle\Entity\Profesor $profesores)
     {
         $this->profesores->removeElement($profesores);
+    }
+
+    /**
+     * Clear profesores
+     *
+     * @return Guia
+     */
+    public function clearProfesores()
+    {
+        $this->profesores->clear();
+        
+        return $this;
     }
 
     /**
@@ -715,7 +755,7 @@ class Guia
      * @param Etsi\AppGuiasBundle\Entity\Competencia $datosEspecificos41
      * @return Guia
      */
-    public function addDatosEspecificos41(\Etsi\AppGuiasBundle\Entity\Competencia $datosEspecificos41)
+    public function addDatosEspecificos_4_1(\Etsi\AppGuiasBundle\Entity\Competencia $datosEspecificos41)
     {
         $this->datosEspecificos_4_1[] = $datosEspecificos41;
     
@@ -727,9 +767,21 @@ class Guia
      *
      * @param Etsi\AppGuiasBundle\Entity\Competencia $datosEspecificos41
      */
-    public function removeDatosEspecificos41(\Etsi\AppGuiasBundle\Entity\Competencia $datosEspecificos41)
+    public function removeDatosEspecificos_4_1(\Etsi\AppGuiasBundle\Entity\Competencia $datosEspecificos41)
     {
         $this->datosEspecificos_4_1->removeElement($datosEspecificos41);
+    }
+
+    /**
+     * Clear datosEspecificos_4_1
+     *
+     * @return Guia
+     */
+    public function clearDatosEspecificos_4_1()
+    {
+        $this->datosEspecificos_4_1->clear();
+        
+        return $this;
     }
 
     /**
@@ -737,7 +789,7 @@ class Guia
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getDatosEspecificos41()
+    public function getDatosEspecificos_4_1()
     {
         return $this->datosEspecificos_4_1;
     }
@@ -748,7 +800,7 @@ class Guia
      * @param Etsi\AppGuiasBundle\Entity\Competencia $datosEspecificos42
      * @return Guia
      */
-    public function addDatosEspecificos42(\Etsi\AppGuiasBundle\Entity\Competencia $datosEspecificos42)
+    public function addDatosEspecificos_4_2(\Etsi\AppGuiasBundle\Entity\Competencia $datosEspecificos42)
     {
         $this->datosEspecificos_4_2[] = $datosEspecificos42;
     
@@ -760,9 +812,21 @@ class Guia
      *
      * @param Etsi\AppGuiasBundle\Entity\Competencia $datosEspecificos42
      */
-    public function removeDatosEspecificos42(\Etsi\AppGuiasBundle\Entity\Competencia $datosEspecificos42)
+    public function removeDatosEspecificos_4_2(\Etsi\AppGuiasBundle\Entity\Competencia $datosEspecificos42)
     {
         $this->datosEspecificos_4_2->removeElement($datosEspecificos42);
+    }
+
+    /**
+     * Clear datosEspecificos_4_2
+     *
+     * @return Guia
+     */
+    public function clearDatosEspecificos_4_2()
+    {
+        $this->datosEspecificos_4_2->clear();
+        
+        return $this;
     }
 
     /**
@@ -770,7 +834,7 @@ class Guia
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getDatosEspecificos42()
+    public function getDatosEspecificos_4_2()
     {
         return $this->datosEspecificos_4_2;
     }
@@ -781,7 +845,7 @@ class Guia
      * @param Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos92
      * @return Guia
      */
-    public function addDatosEspecificos92(\Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos92)
+    public function addDatosEspecificos_9_2(\Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos92)
     {
         $this->datosEspecificos_9_2[] = $datosEspecificos92;
     
@@ -793,9 +857,21 @@ class Guia
      *
      * @param Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos92
      */
-    public function removeDatosEspecificos92(\Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos92)
+    public function removeDatosEspecificos_9_2(\Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos92)
     {
         $this->datosEspecificos_9_2->removeElement($datosEspecificos92);
+    }
+
+    /**
+     * Clear datosEspecificos_9_2
+     *
+     * @return Guia
+     */
+    public function clearDatosEspecificos_9_2()
+    {
+        $this->datosEspecificos_9_2->clear();
+        
+        return $this;
     }
 
     /**
@@ -803,7 +879,7 @@ class Guia
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getDatosEspecificos92()
+    public function getDatosEspecificos_9_2()
     {
         return $this->datosEspecificos_9_2;
     }

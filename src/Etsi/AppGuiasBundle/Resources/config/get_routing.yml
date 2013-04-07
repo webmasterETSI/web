@@ -2,6 +2,10 @@ eaga_get_asignatura:
     pattern:  /asignatura/{id}/get
     defaults: { _controller: EtsiAppGuiasBundle:Get:getAsignatura }
 
+eaga_get_semanas:
+    pattern:  /guia/{id}/semanas/get
+    defaults: { _controller: EtsiAppGuiasBundle:Get:getSemanas }
+
 eaga_get_competencia:
     pattern:  /competencia/{id}/get
     defaults: { _controller: EtsiAppGuiasBundle:Get:getCompetencia }
@@ -10,6 +14,23 @@ eaga_get_profesor:
     pattern:  /profesor/{id}/get
     defaults: { _controller: EtsiAppGuiasBundle:Get:getProfesor }
 
-eaga_get_semana:
-    pattern:  /semana/{id}/get
-    defaults: { _controller: EtsiAppGuiasBundle:Get:getSemana }
+
+eaga_search_asignatura:
+    pattern:  /asignatura/search
+    defaults: { _controller: "EtsiAppGuiasBundle:Get:searchAsignatura" }
+    requirements: { _method: post }
+
+eaga_search_competencia:
+    pattern:  /competencia/search
+    defaults: { _controller: "EtsiAppGuiasBundle:Get:searchCompetencia" }
+    requirements: { _method: post }
+
+eaga_search_profesor:
+    pattern:  /profesor/search
+    defaults: { _controller: "EtsiAppGuiasBundle:Get:searchProfesor" }
+    requirements: { _method: post }
+
+eaga_search_semana:
+    pattern:  /semana/search
+    defaults: { _controller: "EtsiAppGuiasBundle:Get:searchSemana" }
+    requirements: { _method: post }

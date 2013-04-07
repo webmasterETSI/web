@@ -24,7 +24,7 @@
 			<tr>
 				<td>{{ e.asignatura.nombre }}</td>
 				<td>{{ estados[e.estado] }} </td>
-				<td>{{ e.fechaDeModificacion|date("d/m/Y") }}</td>
+				<td>{{ e.fechaDeModificacion|date("d/m/Y H:i") }}</td>
 				<td>{{ e.curso }}</td>
 				<td>
 					<a href="{{ path('eaga_asignatura_edit', { 'id': e.id, 'paso': '1' }) }}">

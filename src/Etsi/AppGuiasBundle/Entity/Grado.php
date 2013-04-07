@@ -1,11 +1,15 @@
 <?php
 namespace Etsi\AppGuiasBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM,
+    JMS\Serializer\Annotation\ExclusionPolicy,
+    JMS\Serializer\Annotation\Expose;
 
 /**
  * @ORM\Table(name="grado")
  * @ORM\Entity
+ *
+ * @ExclusionPolicy("all")
  */
 class Grado
 {
@@ -13,11 +17,15 @@ class Grado
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     *
+     * @Expose
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string")
+     *
+     * @Expose
      */
     protected $nombre;
 
@@ -34,6 +42,8 @@ class Grado
     /**
      * @ORM\ManyToOne(targetEntity="Grado", inversedBy="itinerarios")
      * @ORM\JoinColumn(name="padre_id", referencedColumnName="id")
+     *
+     * @Expose
      */
     private $gradoPadre;
     /**

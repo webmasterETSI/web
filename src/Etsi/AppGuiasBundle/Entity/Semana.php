@@ -1,7 +1,8 @@
 <?php
 namespace Etsi\AppGuiasBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM,
+    JMS\Serializer\Annotation\Exclude;
 
 /**
  * @ORM\Table(name="semana")
@@ -18,6 +19,8 @@ class Semana
 
     /**
      * @ORM\ManyToOne(targetEntity="Guia", inversedBy="datosEspecificos_9_2")
+     *
+     * @Exclude
      */
     protected $guia;
 

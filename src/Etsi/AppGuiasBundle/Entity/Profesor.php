@@ -1,7 +1,8 @@
 <?php
 namespace Etsi\AppGuiasBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM,
+    JMS\Serializer\Annotation\Exclude;
 
 /**
  * @ORM\Table(name="profesor")
@@ -32,8 +33,10 @@ class Profesor
     protected $tlf;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Guia", mappedBy="profesores")
-    */
+     * @ORM\ManyToMany(targetEntity="Guia", mappedBy="profesores")
+     *
+     * @Exclude
+     */
     protected $guias;
     /**
      * Constructor

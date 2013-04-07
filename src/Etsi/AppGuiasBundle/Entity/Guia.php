@@ -59,7 +59,7 @@ class Guia
     protected $estado;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     protected $fechaDeModificacion;
 

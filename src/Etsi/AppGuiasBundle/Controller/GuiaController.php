@@ -42,7 +42,6 @@ class GuiaController extends Controller
         $referencia = array( 'asignatura' );
 
         $referenciaMultiple = array(
-            'asignatura',
             'profesores',
             'datosEspecificos_4_1',
             'datosEspecificos_4_2',
@@ -152,5 +151,17 @@ class GuiaController extends Controller
         }
 
         return $response;
+    }
+
+    public function pasosAction($id)
+    {
+        return $this->render(
+            'EtsiAppGuiasBundle::guiaLayout.html.twig',
+            array(
+                'id' => $id,
+                'jsonGet' => $this->generateUrl( 'etsi_app_guias_get', array('id' => $id) ),
+                'jsonUpdate' => $this->generateUrl( 'etsi_app_guias_update', array('id' => $id) )
+            )
+        );
     }
 }

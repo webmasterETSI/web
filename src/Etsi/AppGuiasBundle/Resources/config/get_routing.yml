@@ -16,21 +16,13 @@ eaga_get_profesor:
 
 
 eaga_search_asignatura:
-    pattern:  /asignatura/search
+    pattern:  /asignatura/search/{q}
     defaults: { _controller: "EtsiAppGuiasBundle:Get:searchAsignatura" }
-    requirements: { _method: post }
 
 eaga_search_competencia:
-    pattern:  /competencia/search
+    pattern:  /competencia/search/{q}
     defaults: { _controller: "EtsiAppGuiasBundle:Get:searchCompetencia" }
-    requirements: { _method: post }
 
 eaga_search_profesor:
-    pattern:  /profesor/search
+    pattern:  /profesor/search/{q}
     defaults: { _controller: "EtsiAppGuiasBundle:Get:searchProfesor" }
-    requirements: { _method: post }
-
-eaga_search_semana:
-    pattern:  /semana/search
-    defaults: { _controller: "EtsiAppGuiasBundle:Get:searchSemana" }
-    requirements: { _method: post }

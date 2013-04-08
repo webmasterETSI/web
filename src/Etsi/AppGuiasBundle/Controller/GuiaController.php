@@ -159,8 +159,8 @@ class GuiaController extends Controller
             'EtsiAppGuiasBundle::guiaLayout.html.twig',
             array(
                 'id' => $id,
-                'jsonGet' => $this->generateUrl( 'etsi_app_guias_get', array('id' => $id) ),
-                'jsonUpdate' => $this->generateUrl( 'etsi_app_guias_update', array('id' => $id) )
+                'jsonGet' => $this->generateUrl( 'etsi_app_guias_guia_get', array('id' => $id) ),
+                'jsonUpdate' => $this->generateUrl( 'etsi_app_guias_guia_update', array('id' => $id) )
             )
         );
     }

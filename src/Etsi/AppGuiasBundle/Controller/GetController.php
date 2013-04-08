@@ -58,86 +58,79 @@ class GetController extends Controller
         return $this->jsonResponse($entities);
     }
 
-    public function searchAsignaturaAction(Request $request)
+    public function searchAsignaturaAction($q)
     {
-        $datos = json_decode($request->getContent());
         $repositorio = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('EtsiAppGuiasBundle:Asignatura');
 
-        switch($datos->key) {
-            case 'nombre':
-                $query = $repositorio->createQueryBuilder('a')
-                    ->where('a.nombre LIKE :nombre')
-                    ->setParameter('nombre', '%'.$datos->value.'%')
-                    ->getQuery();
+        $query = $repositorio->createQueryBuilder('a')
+            ->where('a.nombre LIKE :nombre')
+            ->setParameter('nombre', '%'.$q.'%')
+            ->getQuery();
 
-                $entities = $query->getResult();
-                break;
+        $entitiesNombre = $query->getResult();
+        $entitiesCodigo = $repositorio->findByCodigo($q);
 
-            case 'codigo':
-                $entities = $repositorio->findByCodigo($datos->value);
-                break;
-        }
+        $entities = new \Doctrine\Common\Collections\ArrayCollection();
+        foreach($entitiesNombre as $value)
+            $entities->add($value);
+        foreach($entitiesCodigo as $value)
+            $entities->add($value);
 
         return $this->jsonResponse($entities);
     }
 
-    public function searchProfesorAction(Request $request)
+    public function searchProfesorAction($q)
     {
-        $datos = json_decode($request->getContent());
         $repositorio = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('EtsiAppGuiasBundle:Profesor');
 
-        switch($datos->key) {
-            case 'nombre':
-                $query = $repositorio->createQueryBuilder('p')
-                    ->where('p.nombre LIKE :nombre')
-                    ->setParameter('nombre', '%'.$datos->value.'%')
-                    ->getQuery();
+        $query = $repositorio->createQueryBuilder('p')
+            ->where('p.nombre LIKE :nombre')
+            ->setParameter('nombre', '%'.$q.'%')
+            ->getQuery();
+        $entitiesNombre = $query->getResult();
 
-                $entities = $query->getResult();
-                break;
+        $query = $repositorio->createQueryBuilder('p')
+            ->where('p.email LIKE :email')
+            ->setParameter('email', $q.'%')
+            ->getQuery();
+        $entitiesEmail = $query->getResult();
 
-            case 'email':
-                $query = $repositorio->createQueryBuilder('p')
-                    ->where('p.email LIKE :email')
-                    ->setParameter('email', $datos->value.'%')
-                    ->getQuery();
+        $entities = new \Doctrine\Common\Collections\ArrayCollection();
+        foreach($entitiesNombre as $value)
+            $entities->add($value);
+        foreach($entitiesEmail as $value)
+            $entities->add($value);
 
-                $entities = $query->getResult();
-                break;
-        }
-
-        return $this->jsonResponse($entities);
+        return $this->jsonResponse($entitiesNombre);
     }
 
-    public function searchCompetenciaAction(Request $request)
+    public function searchCompetenciaAction($q)
     {
-        $datos = json_decode($request->getContent());
         $repositorio = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('EtsiAppGuiasBundle:Competencia');
 
-        switch($datos->key) {
-            case 'nombre':
-                $query = $repositorio->createQueryBuilder('c')
-                    ->where('c.nombre LIKE :nombre')
-                    ->setParameter('nombre', '%'.$datos->value.'%')
-                    ->getQuery();
+        $query = $repositorio->createQueryBuilder('c')
+            ->where('c.nombre LIKE :nombre')
+            ->setParameter('nombre', '%'.$q.'%')
+            ->getQuery();
 
-                $entities = $query->getResult();
-                break;
+        $entitiesNombre = $query->getResult();
+        $entitiesCodigo = $repositorio->findByCodigo($q);
 
-            case 'codigo':
-                $entities = $repositorio->findByCodigo($datos->value);
-                break;
-        }
-
+        $entities = new \Doctrine\Common\Collections\ArrayCollection();
+        foreach($entitiesNombre as $value)
+            $entities->add($value);
+        foreach($entitiesCodigo as $value)
+            $entities->add($value);
+        
         return $this->jsonResponse($entities);
     }
 }

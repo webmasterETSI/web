@@ -102,9 +102,10 @@ class GuiaController extends Controller
                         break;
                 }
             }
+
             $em->flush();
 
-            $response->setStatusCode('201');
+            $response->setStatusCode('200');
             $response->headers->set('Content-Type', 'application/json');
         } else
             $response->setStatusCode('400');

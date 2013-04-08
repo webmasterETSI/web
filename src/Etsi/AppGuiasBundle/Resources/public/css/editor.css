@@ -133,3 +133,23 @@
 	font-weight: bold;
 	margin: 0 0 0 20px;
 }
+
+
+.cambios-no-guardados {
+	background-color: #FFEEEE!important;
+}
+
+.cambios-guardados {
+	background-color: #EEFFEE!important;
+}
+
+.editor-texto {
+	display: block!important;
+	min-height: 150px;
+	background-color: #FFFFDD;
+
+	-webkit-transition: background-color 1s ease-in;
+	-moz-transition: background-color 1s ease-in;
+	-o-transition: background-color 1s ease-in;
+	transition: background-color 1s ease-in;
+}

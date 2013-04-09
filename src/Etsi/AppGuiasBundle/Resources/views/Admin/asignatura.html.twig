@@ -21,9 +21,9 @@
 			{% for e in entities %}
 			<tr>
 				<td>{{ e.codigo }}</td>
-				<td>{{ e.nombre|truncate(20) }}</td>
+				<td>{{ e.nombre|truncate(25) }}</td>
 				<td style="text-align: center;">{{ e.cuatrimestre }}</td>
-				<td>
+				<td style="min-width: 55px;">
 					<a href="{{ path('eaga_asignatura_edit', { 'id': e.id }) }}">
 						<input type="image" src="{{ asset('images/icn_edit.png') }}" title="Editar">
 					</a>
@@ -68,7 +68,7 @@
 
 			<fieldset>
 				<label>Grados en los que aparece</label>
-				<select name="grados[]" multiple style="height: 150px; margin-bottom: 10px;">
+				<select class="chosen-select" data-placeholder="Seleccionar..." name="grados[]" multiple style="height: 150px; margin-bottom: 10px;">
 					{% for g in grados %}
 					<option value="{{ g.id }}" {% if entity and g in entity.grados %}selected{% endif %}>
 						{% if g.gradoPadre %}
@@ -85,7 +85,7 @@
 				{% if action != path('eaga_asignatura_new')%}
 				<a href="{{ path('eaga_asignatura_index') }}" style="margin-right: 130px;">
 					<input type="button" value="Nuevo">
-				</a>				
+				</a>
 				{% endif %}
 				<input type="submit" value="{% if action != path('eaga_asignatura_new')%}Guardar{% else %}Crear{% endif %}" class="alt_btn">
 				<a href="{{ action }}"><input type="button" value="Reset"></a>

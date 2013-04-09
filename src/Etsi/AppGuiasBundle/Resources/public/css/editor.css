@@ -153,3 +153,7 @@
 	-o-transition: background-color 1s ease-in;
 	transition: background-color 1s ease-in;
 }
+
+.hidden {
+	display:none;
+}

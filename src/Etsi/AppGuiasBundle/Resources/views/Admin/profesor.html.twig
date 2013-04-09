@@ -19,7 +19,7 @@
 			{% for e in entities %}
 			<tr>
 				<td>{{ e.nombre|capitalize }}</td>
-				<td>
+				<td style="min-width: 55px;">
 					<a href="{{ path('eaga_profesor_edit', { 'id': e.id }) }}">
 						<input type="image" src="{{ asset('images/icn_edit.png') }}" title="Editar">
 					</a>

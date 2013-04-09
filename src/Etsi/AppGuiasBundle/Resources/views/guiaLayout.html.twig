@@ -6,7 +6,7 @@
 
 
 		{% stylesheets
-			'@EtsiAppGuiasBundle/Resources/public/css/autocomplete.css'
+			'@EtsiAppGuiasBundle/Resources/public/css/chosen.css'
 			'ckeditor/samples/sample.css'
 			'@EtsiAppGuiasBundle/Resources/public/css/editor.css' %}
 			<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen"/>
@@ -23,100 +23,90 @@
 
 		{% javascripts
 			'@EtsiAppGuiasBundle/Resources/public/js/jquery-1.9.1.min.js'
-			'@EtsiAppGuiasBundle/Resources/public/js/jquery.autocomplete.js'
+			'@EtsiAppGuiasBundle/Resources/public/js/chosen.jquery.min.js'
 			'ckeditor/ckeditor.js'
 			'@EtsiAppGuiasBundle/Resources/public/js/guiaDefault.js' %}
 			<script src="{{ asset_url }}" type="text/javascript"></script>
 		{% endjavascripts %}
 
-
 		<script type="text/javascript">
-			GUIA.getGuia = '{{ path("etsi_app_guias_guia_get", { "id": id }) }}';
-			GUIA.updateGuia = '{{ path("etsi_app_guias_guia_update", { "id": id }) }}';
-
-			GUIA.asignaturaSearch = '{{ path("eaga_search_asignatura", { "q": "" }) }}/';
-			GUIA.competenciaSearch = '{{ path("eaga_search_competencia", { "q": "" }) }}/';
-			GUIA.profesorSearch = '{{ path("eaga_search_profesor", { "q": "" }) }}/';
-
-			GUIA.getAsignatura = '{{ path("eaga_get_asignatura", { "id": "" }) }}/';
-			GUIA.getCompetencia = '{{ path("eaga_get_competencia", { "id": "" }) }}/';
-			GUIA.getProfesor = '{{ path("eaga_get_profesor", { "id": "" }) }}/';
-			GUIA.getSemanas = '{{ path("eaga_get_semanas", { "id": "" }) }}/';
-
-			GUIA.init();
+			GUIA.updateGuia = '{{ path("etsi_app_guias_guia_update", { "id": guia.id }) }}';
 		</script>
 	</style>
 	</head>
 
 	<body>
 		<h1>AppGuíaDocente</h1>
+		<button id="anterior">&lt;-ANTERIOR</button> - <button id="siguiente">SIGUIENTE-&gt;</button>
 
 		<div class="pasos">
-			<h3>Pendiente de representar</h3>
 			<ul>
-				<li>estado de la guía</li>
-				<li>fecha de modificación</li>
-				<li>notificaciones dinámicas</li>
+				<li>{{ guia.estado }}</li>
+				<li>{{ guia.fechaDeModificacion|date('m/d/Y H:i') }}</li>
 			</ul>
 		</div>
 
 		<div class="pasos">
-			<h3>Datos de asignatura</h3>
-			<input type="text" id="asignatura"></input>
-			<h3 id="curso">Curso -</h3>
+			<h3>Datos de {{ guia.asignatura.nombre }}</h3>
+			<h3 id="curso">Curso {{ guia.curso }}-{{ guia.curso+1 }}</h3>
 
 			<label>Creditos teoricos:</label>
-			<div class="editor-minimo" id="creditosTeoricos"> - </div><br>
+			<div class="editor-minimo" id="creditosTeoricos" >{{ guia.creditosTeoricos }}</div><br>
 
 			<label>Creditos practicos aula:</label>
-			<div class="editor-minimo" id="creditosPracticosAula"> - </div><br>
+			<div class="editor-minimo" id="creditosPracticosAula" >{{ guia.creditosPracticosAula }}</div><br>
 
 			<label>Creditos practicos informatica:</label>
-			<div class="editor-minimo" id="creditosPracticosInformatica"> - </div><br>
+			<div class="editor-minimo" id="creditosPracticosInformatica" >{{ guia.creditosPracticosInformatica }}</div><br>
 
 			<label>Creditos practicos laboratorio:</label>
-			<div class="editor-minimo" id="creditosPracticosLaboratorio"> - </div><br>
+			<div class="editor-minimo" id="creditosPracticosLaboratorio" >{{ guia.creditosPracticosLaboratorio }}</div><br>
 
 			<label>Creditos practicos campo:</label>
-			<div class="editor-minimo" id="creditosPracticosCampo"> - </div><br>
+			<div class="editor-minimo" id="creditosPracticosCampo" >{{ guia.creditosPracticosCampo }}</div><br>
 
 			<h3>Datos de profesores</h3>
-			<input type="text" id="profesor"></input>
+			<select name="profesores[]" data-placeholder="Profesores de la asignatura..." multiple >
+				{% for p in profesores %}
+				<option value="{{ p.id }}" {% if p in guia.profesores %}selected{% endif %}>
+					{{ p.nombre }}&lt;{{ p.email }}&gt;
+				</option>
+				{% endfor %}
+			</select>
 		</div>
 
 		<div class="pasos">
 			<h3>Datos específicos 1</h3>
 			
 			<h4>Datos específicos 1.1:</h4>
-			<div class="editor-texto" id="datosEspecificos_1_1"></div>
+			<div class="editor-texto" id="datosEspecificos_1_1" >{{ guia.datosEspecificos_1_1|raw }}</div>
 			
 			<h4>Datos específicos 1.2:</h4>
-			<div class="editor-texto" id="datosEspecificos_1_2"></div>
+			<div class="editor-texto" id="datosEspecificos_1_2" >{{ guia.datosEspecificos_1_2|raw }}</div>
 		</div>
 
 		<div class="pasos">
 			<h3>Datos específicos 2</h3>
 			
 			<h4>Datos específicos 2.1:</h4>
-			<div class="editor-texto" id="datosEspecificos_2_1"></div>
+			<div class="editor-texto" id="datosEspecificos_2_1" >{{ guia.datosEspecificos_2_1|raw }}</div>
 			
 			<h4>Datos específicos 2.2:</h4>
-			<div class="editor-texto" id="datosEspecificos_2_2"></div>
+			<div class="editor-texto" id="datosEspecificos_2_2" >{{ guia.datosEspecificos_2_2|raw }}</div>
 		</div>
 
 		<div class="pasos">
 			<h3>Datos específicos 3</h3>
-			<div class="editor-texto" id="datosEspecificos_3"></div>
+			<div class="editor-texto" id="datosEspecificos_3" >{{ guia.datosEspecificos_3|raw }}</div>
 		</div>
 
 		<div class="pasos">
 			<h3>Datos específicos 4</h3>
 
 			<h4>Datos específicos 4.1:</h4>
-			<input type="text" id="datosEspecificos_4_1"></input>
 
 			<h4>Datos específicos 4.2:</h4>
-			<input type="text" id="datosEspecificos_4_2"></input>
+
 		</div>
 
 		<div class="pasos">
@@ -128,33 +118,34 @@
 
 			<h4>Datos específicos 6.1:</h4>
 			<div id="datosEspecificos_6_1_1">
-				<input type="checkbox" name="vehicle" value="Car">
-				<input type="checkbox" name="vehicle" value="Car">
-				<input type="checkbox" name="vehicle" value="Car">
-				<input type="checkbox" name="vehicle" value="Car">
-				<input type="checkbox" name="vehicle" value="Car">
-				<input type="checkbox" name="vehicle" value="Car">
+				<div class="hidden">{{ guia.datosEspecificos_6_1_1 }}</div>
+				<input type="checkbox">
+				<input type="checkbox">
+				<input type="checkbox">
+				<input type="checkbox">
+				<input type="checkbox">
+				<input type="checkbox">
 			</div>
-			<label>Otro: </label><div id="datosEspecificos_6_1_2" class="editor-minimo"></div>
+			<label>Otro: </label><div id="datosEspecificos_6_1_2" class="editor-minimo" >{{ guia.datosEspecificos_6_1_2 }}</div>
 
 			<h4>Datos específicos 6.2:</h4>
-			<div class="editor-texto" id="datosEspecificos_6_2"></div>
+			<div class="editor-texto" id="datosEspecificos_6_2" >{{ guia.datosEspecificos_6_2|raw }}</div>
 		</div>
 
 		<div class="pasos">
 			<h3>Datos específicos 7:</h3>
 
-			<div class="editor-texto" id="datosEspecificos_7"></div>
+			<div class="editor-texto" id="datosEspecificos_7" >{{ guia.datosEspecificos_7|raw }}</div>
 		</div>
 
 		<div class="pasos">
 			<h3>Datos específicos 8</h3>
 			
 			<h4>Datos específicos 8.1:</h4>
-			<div class="editor-texto" id="datosEspecificos_8_1"></div>
+			<div class="editor-texto" id="datosEspecificos_8_1" >{{ guia.datosEspecificos_8_1|raw }}</div>
 			
 			<h4>Datos específicos 8.2:</h4>
-			<div class="editor-texto" id="datosEspecificos_8_2"></div>
+			<div class="editor-texto" id="datosEspecificos_8_2" >{{ guia.datosEspecificos_8_2|raw }}</div>
 		</div>
 
 		<div class="pasos">
@@ -162,14 +153,15 @@
 
 			<h4>Datos específicos 9.1:</h4>
 			<div id="datosEspecificos_9_1_1">
-				<input type="checkbox" name="vehicle" value="Car">
-				<input type="checkbox" name="vehicle" value="Car">
-				<input type="checkbox" name="vehicle" value="Car">
-				<input type="checkbox" name="vehicle" value="Car">
-				<input type="checkbox" name="vehicle" value="Car">
-				<input type="checkbox" name="vehicle" value="Car">
+				<div class="hidden">{{ guia.datosEspecificos_9_1_1 }}</div>
+				<input type="checkbox">
+				<input type="checkbox">
+				<input type="checkbox">
+				<input type="checkbox">
+				<input type="checkbox">
+				<input type="checkbox">
 			</div>
-			<label>Otro: </label><div id="datosEspecificos_9_1_2" class="editor-minimo"></div>
+			<label>Otro: </label><div id="datosEspecificos_9_1_2" class="editor-minimo" >{{ guia.datosEspecificos_9_1_2|raw }}</div>
 
 			<h4>Datos específicos 9.2:</h4>
 			<div>&lt;TABLA AUTOGENERADA EDITABLE&gt;</div>
@@ -177,10 +169,7 @@
 
 		<div class="pasos">
 			<h3>Datos específicos 10:</h3>
-			<div class="editor-texto" id="datosEspecificos_10"></div>
+			<div class="editor-texto" id="datosEspecificos_10" >{{ guia.datosEspecificos_10|raw }}</div>
 		</div>
-
-		<button id="anterior">&lt;-ANTERIOR</button>
-		<button id="siguiente">SIGUIENTE-&gt;</button>
 	</body>
 </html>

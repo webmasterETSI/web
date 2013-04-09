@@ -8,7 +8,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
 
 use Common\Herramientas;
 
-use Etsi\AppGuiasBundle\Entity\Grado;
+use Etsi\AppGuiasBundle\Entity\Competencia,
+    Etsi\AppGuiasBundle\Entity\Grado,
+    Etsi\AppGuiasBundle\Entity\Guia,
+    Etsi\AppGuiasBundle\Entity\Profesor,
+    Etsi\AppGuiasBundle\Entity\Semana;
 
 class GuiaController extends Controller
 {
@@ -113,53 +117,23 @@ class GuiaController extends Controller
         return $response;
     }
 
-    public function getAction($id, Request $request)
-    {
-        $response = new Response();
-        $datosDeRespuesta = array();
-
-        $datosRequeridos = json_decode($request->getContent());
-
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('EtsiAppGuiasBundle:Guia')->find($id);
-
-        if ($entity && $datosRequeridos) {
-            foreach($datosRequeridos->peticion as $dato) {
-                $method = 'get'.ucfirst($dato);
-                $resultado = call_user_func(array($entity, $method));
-                switch($this->tipoDeCampo($dato)) {
-                    case 1:
-                        $datosDeRespuesta[$dato] = $resultado;
-                        break;
-
-                    case 2:
-                        $datosDeRespuesta[$dato] = $resultado->getId();
-                        break;
-                        
-                    case 3:
-                        foreach($resultado as $entidad)
-                            $datosDeRespuesta[$dato][] = $entidad->getId();
-                        break;
-                }
-            }
-
-            $response->setStatusCode('200');
-            $response->headers->set('Content-Type', 'application/json');
-            $response->setContent(json_encode($datosDeRespuesta));
-        } else {
-            $response->setStatusCode('400');
-        }
-
-        return $response;
-    }
-
     public function pasosAction($id)
     {
+        $em = $this->getDoctrine()->getManager();
+        
+        $guia = $em->getRepository('EtsiAppGuiasBundle:Guia')->find($id);
+        $grados = $em->getRepository('EtsiAppGuiasBundle:Grado')->findAll();
+        $semanas = $em->getRepository('EtsiAppGuiasBundle:Semana')->findByGuia($id);
+        $profesores = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findAll();
+        //pendiente competencias
+
         return $this->render(
             'EtsiAppGuiasBundle::guiaLayout.html.twig',
             array(
-                'id' => $id,
+                'guia' => $guia,
+                'grados' => $grados,
+                'semanas' => $semanas,
+                'profesores' => $profesores,
             )
         );
     }

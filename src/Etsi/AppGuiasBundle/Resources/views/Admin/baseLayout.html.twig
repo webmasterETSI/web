@@ -9,7 +9,10 @@
 		<meta charset="utf-8"/>
 		<title>{% block title %}AppGuias :: Admin{% endblock %}</title>
 
-		{% stylesheets '@EtsiAppGuiasBundle/Resources/public/css/layout.css'%}
+		{% stylesheets
+			'@EtsiAppGuiasBundle/Resources/public/css/dataTables/admin_table.css' 
+			'@EtsiAppGuiasBundle/Resources/public/css/chosen.css'
+			'@EtsiAppGuiasBundle/Resources/public/css/layout.css' %}
 			<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen"/>
 		{% endstylesheets %}
 
@@ -19,8 +22,9 @@
 		<![endif]-->
 		{% javascripts
 			'@EtsiAppGuiasBundle/Resources/public/js/jquery-1.9.1.min.js'
+			'@EtsiAppGuiasBundle/Resources/public/js/chosen.jquery.min.js'
+			'@EtsiAppGuiasBundle/Resources/public/js/jquery.dataTables.min.js'
 			'@EtsiAppGuiasBundle/Resources/public/js/hideshow.js'
-			'@EtsiAppGuiasBundle/Resources/public/js/jquery.tablesorter.min.js'
 			'@EtsiAppGuiasBundle/Resources/public/js/jquery.equalHeight.js'
 			'@EtsiAppGuiasBundle/Resources/public/js/adminDefault.js' %}
 			<script src="{{ asset_url }}" type="text/javascript"></script>

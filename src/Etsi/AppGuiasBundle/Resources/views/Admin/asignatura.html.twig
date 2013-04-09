@@ -13,7 +13,7 @@
 			<tr> 
 				<th>Código</th> 
 				<th>Nombre</th>
-				<th>Cuatrimestre</th> 
+				<th>Cuat.</th> 
 				<th>Acciones</th> 
 			</tr> 
 		</thead> 
@@ -21,7 +21,7 @@
 			{% for e in entities %}
 			<tr>
 				<td>{{ e.codigo }}</td>
-				<td>{{ e.nombre }}</td>
+				<td>{{ e.nombre|truncate(10) }}</td>
 				<td>{{ e.cuatrimestre }}</td>
 				<td>
 					<a href="{{ path('eaga_asignatura_edit', { 'id': e.id }) }}">

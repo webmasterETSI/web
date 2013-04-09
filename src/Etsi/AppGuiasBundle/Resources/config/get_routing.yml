@@ -1,17 +1,17 @@
 eaga_get_asignatura:
-    pattern:  /asignatura/{id}/get
+    pattern:  /asignatura/{id}
     defaults: { _controller: EtsiAppGuiasBundle:Get:getAsignatura }
 
 eaga_get_semanas:
-    pattern:  /guia/{id}/semanas/get
+    pattern:  /semanas/{id}
     defaults: { _controller: EtsiAppGuiasBundle:Get:getSemanas }
 
 eaga_get_competencia:
-    pattern:  /competencia/{id}/get
+    pattern:  /competencia/{id}
     defaults: { _controller: EtsiAppGuiasBundle:Get:getCompetencia }
 
 eaga_get_profesor:
-    pattern:  /profesor/{id}/get
+    pattern:  /profesor/{id}
     defaults: { _controller: EtsiAppGuiasBundle:Get:getProfesor }
 
 

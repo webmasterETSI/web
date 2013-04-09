@@ -43,7 +43,7 @@ class Asignatura
     protected $nombreI;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", unique=true)
      */
     protected $codigo;
 

@@ -12,17 +12,13 @@
 		<thead> 
 			<tr>
 				<th>Nombre</th>
-				<th>eMail</th>
-				<th>Telefono</th> 
 				<th>Acciones</th> 
 			</tr> 
 		</thead> 
 		<tbody>
 			{% for e in entities %}
 			<tr>
-				<td>{{ e.nombre }}</td>
-				<td>{{ e.email }}</td>
-				<td>{{ e.tlf }}</td>
+				<td>{{ e.nombre|capitalize }}</td>
 				<td>
 					<a href="{{ path('eaga_profesor_edit', { 'id': e.id }) }}">
 						<input type="image" src="{{ asset('images/icn_edit.png') }}" title="Editar">

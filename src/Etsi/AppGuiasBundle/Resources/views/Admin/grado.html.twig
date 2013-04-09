@@ -20,9 +20,9 @@
 			<tr>
 				<td>
 					{% if e.gradoPadre %}
-					{{ e.gradoPadre.nombre }}, itinerario de 
+					{{ e.gradoPadre.nombre|truncate(50) }},<br> itinerario de 
 					{% endif %}
-					{{ e.nombre }}
+					{{ e.nombre|truncate(50) }}
 				</td>
 				<td>
 					<a href="{{ path('eaga_grado_edit', { 'id': e.id }) }}">
@@ -67,7 +67,7 @@
 					{% for a in entity.asignaturas %}
 						{% if a.curso == curso %}
 						<li>
-							<a href="{{ path('eaga_asignatura_edit', {'id': a.id}) }}">{{ a.codigo }}: {{ a.nombre }}</a>
+							<a href="{{ path('eaga_asignatura_edit', {'id': a.id}) }}">{{ a.codigo }}: {{ a.nombre|truncate(40) }}</a>
 						</li>
 						{% endif %}
 					{% endfor %}

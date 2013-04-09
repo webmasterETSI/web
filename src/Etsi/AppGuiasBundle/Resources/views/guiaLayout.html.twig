@@ -18,7 +18,7 @@
 		<![endif]-->
 
 		<script type="text/javascript">
-			var CKEDITOR_BASEPATH = 'http://127.0.0.1/etsi/web/ckeditor/';
+			var CKEDITOR_BASEPATH = '{{ asset("ckeditor/") }}'; 
 		</script>
 
 		{% javascripts
@@ -28,6 +28,23 @@
 			'@EtsiAppGuiasBundle/Resources/public/js/guiaDefault.js' %}
 			<script src="{{ asset_url }}" type="text/javascript"></script>
 		{% endjavascripts %}
+
+
+		<script type="text/javascript">
+			GUIA.getGuia = '{{ path("etsi_app_guias_guia_get", { "id": id }) }}';
+			GUIA.updateGuia = '{{ path("etsi_app_guias_guia_update", { "id": id }) }}';
+
+			GUIA.asignaturaSearch = '{{ path("eaga_search_asignatura", { "q": "" }) }}/';
+			GUIA.competenciaSearch = '{{ path("eaga_search_competencia", { "q": "" }) }}/';
+			GUIA.profesorSearch = '{{ path("eaga_search_profesor", { "q": "" }) }}/';
+
+			GUIA.getAsignatura = '{{ path("eaga_get_asignatura", { "id": "" }) }}/';
+			GUIA.getCompetencia = '{{ path("eaga_get_competencia", { "id": "" }) }}/';
+			GUIA.getProfesor = '{{ path("eaga_get_profesor", { "id": "" }) }}/';
+			GUIA.getSemanas = '{{ path("eaga_get_semanas", { "id": "" }) }}/';
+
+			GUIA.init();
+		</script>
 	</style>
 	</head>
 
@@ -110,13 +127,15 @@
 			<h3>Datos específicos 6</h3>
 
 			<h4>Datos específicos 6.1:</h4>
-			<input type="checkbox" name="vehicle" value="Car">
-			<input type="checkbox" name="vehicle" value="Car">
-			<input type="checkbox" name="vehicle" value="Car">
-			<input type="checkbox" name="vehicle" value="Car">
-			<input type="checkbox" name="vehicle" value="Car">
-			<input type="checkbox" name="vehicle" value="Car">
-			<label>Otro: </label><div>Lorem ipsum dolor</div>
+			<div id="datosEspecificos_6_1_1">
+				<input type="checkbox" name="vehicle" value="Car">
+				<input type="checkbox" name="vehicle" value="Car">
+				<input type="checkbox" name="vehicle" value="Car">
+				<input type="checkbox" name="vehicle" value="Car">
+				<input type="checkbox" name="vehicle" value="Car">
+				<input type="checkbox" name="vehicle" value="Car">
+			</div>
+			<label>Otro: </label><div id="datosEspecificos_6_1_2" class="editor-minimo"></div>
 
 			<h4>Datos específicos 6.2:</h4>
 			<div class="editor-texto" id="datosEspecificos_6_2"></div>
@@ -142,13 +161,15 @@
 			<h3>Datos específicos 9</h3>
 
 			<h4>Datos específicos 9.1:</h4>
-			<input type="checkbox" name="vehicle" value="Car">
-			<input type="checkbox" name="vehicle" value="Car">
-			<input type="checkbox" name="vehicle" value="Car">
-			<input type="checkbox" name="vehicle" value="Car">
-			<input type="checkbox" name="vehicle" value="Car">
-			<input type="checkbox" name="vehicle" value="Car">
-			<label>Otro: </label><div id="datosEspecificos_9_1_2">Lorem ipsum dolor</div>
+			<div id="datosEspecificos_9_1_1">
+				<input type="checkbox" name="vehicle" value="Car">
+				<input type="checkbox" name="vehicle" value="Car">
+				<input type="checkbox" name="vehicle" value="Car">
+				<input type="checkbox" name="vehicle" value="Car">
+				<input type="checkbox" name="vehicle" value="Car">
+				<input type="checkbox" name="vehicle" value="Car">
+			</div>
+			<label>Otro: </label><div id="datosEspecificos_9_1_2" class="editor-minimo"></div>
 
 			<h4>Datos específicos 9.2:</h4>
 			<div>&lt;TABLA AUTOGENERADA EDITABLE&gt;</div>

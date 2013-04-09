@@ -21,8 +21,8 @@
 			{% for e in entities %}
 			<tr>
 				<td>{{ e.codigo }}</td>
-				<td>{{ e.nombre|truncate(10) }}</td>
-				<td>{{ e.cuatrimestre }}</td>
+				<td>{{ e.nombre|truncate(20) }}</td>
+				<td style="text-align: center;">{{ e.cuatrimestre }}</td>
 				<td>
 					<a href="{{ path('eaga_asignatura_edit', { 'id': e.id }) }}">
 						<input type="image" src="{{ asset('images/icn_edit.png') }}" title="Editar">

@@ -1,14 +1,9 @@
-var GUIA = {};
-
-GUIA.api = 'http://127.0.0.1/etsi/web/app_dev.php/guia/1/';
+GUIA = {};
 GUIA.onDataHandler = {};
 GUIA.saveTimeout;
 
 
 GUIA.cambios = function(elemento) {
-	elemento.addClass('cambios-no-guardados').removeClass('cambios-guardados');
-
-
 	if(GUIA.saveTimeout)
 		window.clearTimeout(GUIA.saveTimeout);
 	GUIA.saveTimeout = window.setTimeout(GUIA.saveCambios, 5000);
@@ -66,7 +61,7 @@ GUIA.onData = function(data) {
 GUIA.getData = function(campos) {
 	$.ajax({
 		type:'POST',
-		url: GUIA.api+'get',
+		url: GUIA.getGuia,
 		data: JSON.stringify({'peticion': campos}),
 		contentType : 'application/json',
 		cache: false
@@ -78,7 +73,7 @@ GUIA.getData = function(campos) {
 GUIA.updateData = function(data) {
 	$.ajax({
 		type:'POST',
-		url: GUIA.api+'update',
+		url: GUIA.updateGuia,
 		data: JSON.stringify(data),
 		contentType : 'application/json',
 		cache: false
@@ -86,6 +81,9 @@ GUIA.updateData = function(data) {
 }
 
 GUIA.init = (function() {
+	//HANDLERS PARA LA RECEPCIÓN DE DATOS
+
+	//Datos a representar tal cual
 	var genericos = [
 		'creditosTeoricos', 
 		'creditosPracticosAula',
@@ -112,45 +110,142 @@ GUIA.init = (function() {
 	for(var i in genericos)
 		GUIA.onDataHandler[genericos[i]] = (function(campo) {
 			return function(data) {
-				//console.log('Función '+campo+': '+data);
 				$('#'+campo).html(data);
 			};
 		})(genericos[i]);
 
-/*
-		'asignatura'
+	//id de asignatura -> datos de asignatura
+	GUIA.onDataHandler['asignatura'] = function(id) {
+		$.ajax({
+			type:'GET',
+			url: GUIA.getAsignatura+id,
+			contentType : 'application/json',
+			cache: false
+		})
+		.done(function(data) {
+			console.log(data);
+		});
+	};
 
+	//id de profesores -> datos de profesores
+	GUIA.onDataHandler['profesores'] = function(data) {
+		for(var i in data) {
+			$.ajax({
+				type:'GET',
+				url: GUIA.getProfesor+data[i],
+				contentType : 'application/json',
+				cache: false
+			})
+			.done(function(data) {
+				console.log(data);
+			});
+		}
+	};
+
+	//id de competencias -> datos de competencias
+	GUIA.onDataHandler['datosEspecificos_4_1'] = function(data) {
+		for(var i in data) {
+			$.ajax({
+				type:'GET',
+				url: GUIA.getCompetencia+data[i],
+				contentType : 'application/json',
+				cache: false
+			})
+			.done(function(data) {
+				console.log(data);
+			});
+		}
+	};
+
+	//id de competencias -> datos de competencias
+	GUIA.onDataHandler['datosEspecificos_4_2'] = function(data) {
+		for(var i in data) {
+			$.ajax({
+				type:'GET',
+				url: GUIA.getCompetencia+data[i],
+				contentType : 'application/json',
+				cache: false
+			})
+			.done(function(data) {
+				console.log(data);
+			});
+		}
+	};
+
+	//id de semanas -> datos de semanas
+	GUIA.onDataHandler['datosEspecificos_9_2'] = function(data) {
+		for(var i in data) {
+			$.ajax({
+				type:'GET',
+				url: GUIA.getSemanas+data[i],
+				contentType : 'application/json',
+				cache: false
+			})
+			.done(function(data) {
+				console.log(data);
+			});
+		}
+	};
+
+	//datos enmascarados numericamente
+	GUIA.onDataHandler['datosEspecificos_6_1_1'] = function(data) {
+		$('#datosEspecificos_6_1_1')
+			.children('input[type=checkbox]')
+			.each(function(index) {
+				if(data&(index+1))
+					$(this).attr('checked','checked');
+				else
+					$(this).removeAttr('checked');
+			});
+	};
+
+	//datos enmascarados numericamente
+	GUIA.onDataHandler['datosEspecificos_9_1_1'] = function(data) {
+		$('#datosEspecificos_9_1_1')
+			.children('input[type=checkbox]')
+			.each(function(index) {
+				if(data&(1<<index))
+					$(this).attr('checked','checked');
+				else
+					$(this).removeAttr('checked');
+			});
+	};
+
+	GUIA.getData(genericos);
+	GUIA.getData([
+		'asignatura',
 		'profesores',
 		'datosEspecificos_4_1',
 		'datosEspecificos_4_2',
 		'datosEspecificos_9_2',
-*/
-	GUIA.getData(genericos);
-})();
+		'datosEspecificos_6_1_1',
+		'datosEspecificos_9_1_1'
+	]);
+});
 
 
 $(function(){
 	GUIA.setAutocomplete(
 		'#asignatura',
-		'http://127.0.0.1/etsi/web/app_dev.php/asignatura/search/',
+		GUIA.asignaturaSearch,
 		function(dato) { return { value: dato.codigo+':'+dato.nombre, data: dato.id }; }
 	);
 
 	GUIA.setAutocomplete(
 		'#datosEspecificos_4_1',
-		'http://127.0.0.1/etsi/web/app_dev.php/competencia/search/',
+		GUIA.competenciaSearch,
 		function(dato) { return { value: dato.codigo+':'+dato.nombre, data: dato.id }; }
 	);
 
 	GUIA.setAutocomplete(
 		'#datosEspecificos_4_2',
-		'http://127.0.0.1/etsi/web/app_dev.php/competencia/search/',
+		GUIA.competenciaSearch,
 		function(dato) { return { value: dato.codigo+':'+dato.nombre, data: dato.id }; }
 	);
 
 	GUIA.setAutocomplete(
 		'#profesor',
-		'http://127.0.0.1/etsi/web/app_dev.php/profesor/search/',
+		GUIA.profesorSearch,
 		function(dato) { return { value: dato.nombre+', '+dato.email, data: dato.id }; }
 	);
 
@@ -184,25 +279,10 @@ $(function(){
 });
 
 CKEDITOR.on( 'instanceCreated', function( e ) {
-	var editor = e.editor,
-		element = editor.element;
+	var editor = e.editor;
+	var jElement = $(editor.element.$);
 
-	var jElement = $(element.$);
-
-	if ( element.is( 'h1', 'h2', 'h3' ) || element.getAttribute( 'id' ) == 'taglist' ) {
-		editor.on( 'configLoaded', function() {
-			editor.config.removePlugins = 'colorbutton,find,flash,font,' +
-				'forms,iframe,image,newpage,removeformat,' +
-				'smiley,specialchar,stylescombo,templates';
-
-			editor.config.toolbarGroups = [
-				{ name: 'editing',		groups: [ 'basicstyles', 'links' ] },
-				{ name: 'undo' },
-				{ name: 'clipboard',	groups: [ 'selection', 'clipboard' ] },
-				{ name: 'about' }
-			];
-		});
-	} else if( jElement.hasClass('editor-minimo') ) {
+	if( jElement.hasClass('editor-minimo') ) {
 		editor.on( 'configLoaded', function() {
 			editor.config.removePlugins = 'colorbutton,find,flash,font,' +
 				'forms,iframe,image,newpage,removeformat,' +
@@ -212,16 +292,11 @@ CKEDITOR.on( 'instanceCreated', function( e ) {
 		});
 	}
 
+	jElement.focusout(function(){
+		GUIA.cambios($(this));
+	});
+
 	jElement.bind('keyup', function(){
-		GUIA.cambios(jElement);
+		$(this).addClass('cambios-no-guardados').removeClass('cambios-guardados');
 	});
-/*
-	editor.on('contentDom',function() {
-			e.editor.document.on('keyup', function(event) {
-				//console.log($(event.sender.$.activeElement).attr('id'));
-				GUIA.cambios($(event.sender.$.activeElement));
-			}
-		);
-	});
-*/
 });

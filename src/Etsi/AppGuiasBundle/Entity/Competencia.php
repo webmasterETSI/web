@@ -27,6 +27,16 @@ class Competencia
     protected $nombre;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $transversal;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Grado", inversedBy="competenciasDeGrado")
+     */
+    protected $grado;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -80,5 +90,51 @@ class Competencia
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+    /**
+     * Set transversal
+     *
+     * @param string $transversal
+     * @return Competencia
+     */
+    public function setTransversal($transversal)
+    {
+        $this->transversal = $transversal;
+    
+        return $this;
+    }
+
+    /**
+     * Get transversal
+     *
+     * @return boolean 
+     */
+    public function getTransversal()
+    {
+        return $this->transversal;
+    }
+
+    /**
+     * Set grado
+     *
+     * @param Etsi\AppGuiasBundle\Entity\Grado $grado
+     * @return Grado
+     */
+    public function setGrado(\Etsi\AppGuiasBundle\Entity\Grado $grado = null)
+    {
+        $this->grado = $grado;
+    
+        return $this;
+    }
+
+    /**
+     * Get grado
+     *
+     * @return Etsi\AppGuiasBundle\Entity\Grado 
+     */
+    public function getGrado()
+    {
+        return $this->grado;
     }
 }

@@ -46,6 +46,25 @@
 				<label>Datos de competencia</label>
 				{{ macros.input('Código', 'codigo', entity.codigo|default('')) }}
 				{{ macros.input('Nombre', 'nombre', entity.nombre|default('')) }}
+
+				<label>Tipo de competencia</label>
+				<p style="clear: both; margin-left: 20px; margin-bottom:20px;">
+					General <input type="radio" name="transversal" value="0" {% if not entity or not entity.transversal %}checked{% endif %}><br>
+					Transversal <input type="radio" name="transversal" value="1" {% if entity and entity.transversal %}checked{% endif %}> 
+				</p>
+				
+				<label>Grado de competencia</label>
+				<select data-placeholder="Seleccionar..." name="grado" >
+					<option></option>
+					{% for g in grados %}
+					<option value="{{ g.id }}" {% if entity and g == entity.grado %}selected{% endif -%}>
+						{%- if g.gradoPadre -%}
+						{{- g.gradoPadre.nombre -}}, itinerario de 
+						{% endif -%}
+						{{- g.nombre -}}
+					</option>
+					{% endfor %}
+				</select>
 			</fieldset>
 		</div>
 		<footer>

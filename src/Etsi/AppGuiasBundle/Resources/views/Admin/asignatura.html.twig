@@ -60,9 +60,14 @@
 			</fieldset>
 
 			<fieldset>
-				<label>Datos varios</label>
-				{{ macros.input('Area', 'area', entity.area|default('')) }}
-				{{ macros.input('Departamento', 'departamento', entity.departamento|default('')) }}
+				<label>Datos de area</label>
+				<select class="chosen-select" data-placeholder="Seleccionar..." name="areas[]" multiple style="margin-bottom: 10px;">
+					{% for a in areas %}
+					<option value="{{ a.id }}" {% if entity and a in entity.areas %}selected{% endif %}>
+						{{ a.nombre }} - {{ a.departamento }}
+					</option>
+					{% endfor %}
+				</select>
 			</fieldset>
 
 

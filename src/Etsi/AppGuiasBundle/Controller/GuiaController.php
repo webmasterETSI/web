@@ -125,7 +125,15 @@ class GuiaController extends Controller
         $grados = $em->getRepository('EtsiAppGuiasBundle:Grado')->findAll();
         $semanas = $em->getRepository('EtsiAppGuiasBundle:Semana')->findByGuia($id);
         $profesores = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findAll();
-        //pendiente competencias
+
+        $gradosAsignatura = $guia->getAsignatura()->getGrados();
+        $competencias = new \Doctrine\Common\Collections\ArrayCollection();
+
+        foreach($gradosAsignatura as $grado) {
+            $competenciasDeGrado = $grado->getCompetenciasDeGrado();
+            foreach($competenciasDeGrado as $competencia)
+                $competencias[] = $competencia;
+        }
 
         return $this->render(
             'EtsiAppGuiasBundle::guiaLayout.html.twig',
@@ -134,6 +142,7 @@ class GuiaController extends Controller
                 'grados' => $grados,
                 'semanas' => $semanas,
                 'profesores' => $profesores,
+                'competencias' => $competencias,
             )
         );
     }

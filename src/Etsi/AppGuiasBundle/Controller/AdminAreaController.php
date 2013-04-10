@@ -8,10 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
 
 use Common\Herramientas;
 
-use Etsi\AppGuiasBundle\Entity\Competencia,
-    Etsi\AppGuiasBundle\Entity\Grado;
+use Etsi\AppGuiasBundle\Entity\Area;
 
-class AdminCompetenciaController extends Controller
+class AdminAreaController extends Controller
 {
     private function renderReturn(
         $action,
@@ -20,9 +19,8 @@ class AdminCompetenciaController extends Controller
     ) {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('EtsiAppGuiasBundle:Competencia')->findAll();
-        $entity = $id?$em->getRepository('EtsiAppGuiasBundle:Competencia')->find($id):null;
-        $grados = $em->getRepository('EtsiAppGuiasBundle:Grado')->findAll();
+        $entities = $em->getRepository('EtsiAppGuiasBundle:Area')->findAll();
+        $entity = $id?$em->getRepository('EtsiAppGuiasBundle:Area')->find($id):null;
 
         if(!$messages) {
             $messages = array(
@@ -32,29 +30,27 @@ class AdminCompetenciaController extends Controller
             );
         }
         return $this->render(
-            'EtsiAppGuiasBundle:Admin:competencia.html.twig',
+            'EtsiAppGuiasBundle:Admin:area.html.twig',
             array(
                 'action' => $action,
                 'messages' => $messages,
                 'entities' => $entities,
                 'entity' => $entity,
-                'grados' => $grados,
             )
         );
     }
 
     private function fillEntity($entity, $data) {
-        $camposObligatorios = array( 'nombre', 'codigo', 'grado' );
+        $camposObligatorios = array(
+            'nombre',
+            'departamento'
+        );
 
         if(Herramientas::allFields($camposObligatorios, $data)) {
             $em = $this->getDoctrine()->getManager();
 
             $entity->setNombre($data['nombre']);
-            $entity->setCodigo($data['codigo']);
-            $entity->setTransversal($data['transversal']);
-
-            $grado = $em->getRepository('EtsiAppGuiasBundle:Grado')->find($data['grado']);
-            $entity->setGrado($grado);
+            $entity->setDepartamento($data['departamento']);
 
             $em->persist($entity);
             $em->flush();
@@ -66,7 +62,7 @@ class AdminCompetenciaController extends Controller
 
     public function indexAction()
     {
-        return $this->renderReturn($this->generateUrl('eaga_competencia_new'));
+        return $this->renderReturn($this->generateUrl('eaga_area_new'));
     }
 
     public function newAction(Request $request)
@@ -77,17 +73,17 @@ class AdminCompetenciaController extends Controller
             'error' => array(),
         );
 
-        $entity  = new Competencia();
+        $entity  = new Area();
         $data = $request->request->all();
 
         if($this->fillEntity($entity, $data)) {
-            $messages['success'][] = 'Competencia guardada correctamente';
+            $messages['success'][] = 'Area guardada correctamente';
         } else {
-            $messages['error'][] = 'Faltan campos obligatorios, competencia no guardada';
+            $messages['error'][] = 'Faltan campos obligatorios, area no guardada';
         }
 
         return $this->renderReturn(
-            $this->generateUrl('eaga_competencia_edit', array('id' => $entity->getId())),
+            $this->generateUrl('eaga_area_edit', array('id' => $entity->getId())),
             $entity->getId(),
             $messages
         );
@@ -103,7 +99,7 @@ class AdminCompetenciaController extends Controller
 
         $data = $request->request->all();
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('EtsiAppGuiasBundle:Competencia')->find($id);
+        $entity = $em->getRepository('EtsiAppGuiasBundle:Area')->find($id);
 
         if(!$entity) {
             $messages['error'][] = 'Entidad no encontrada';
@@ -117,7 +113,7 @@ class AdminCompetenciaController extends Controller
         }
         
         return $this->renderReturn(
-            $this->generateUrl('eaga_competencia_edit', array('id' => $id)),
+            $this->generateUrl('eaga_area_edit', array('id' => $id)),
             $id,
             $messages
         );
@@ -132,19 +128,19 @@ class AdminCompetenciaController extends Controller
         );
 
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('EtsiAppGuiasBundle:Competencia')->find($id);
+        $entity = $em->getRepository('EtsiAppGuiasBundle:Area')->find($id);
 
         if($entity) {
             $em->remove($entity);
             $em->flush();
 
-            $messages['success'][] = 'Competencia eliminada correctamente';
+            $messages['success'][] = 'Area eliminada correctamente';
         } else {
             $messages['error'][] = 'Entidad no encontrada';
         }
 
         return $this->renderReturn(
-            $this->generateUrl('eaga_competencia_new'),
+            $this->generateUrl('eaga_area_new'),
             null,
             $messages
         );

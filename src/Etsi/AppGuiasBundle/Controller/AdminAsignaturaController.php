@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
 use Common\Herramientas;
 
 use Etsi\AppGuiasBundle\Entity\Asignatura,
+    Etsi\AppGuiasBundle\Entity\Area,
     Etsi\AppGuiasBundle\Entity\Grado;
 
 class AdminAsignaturaController extends Controller
@@ -22,6 +23,7 @@ class AdminAsignaturaController extends Controller
 
         $entities = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->findAll();
         $grados = $em->getRepository('EtsiAppGuiasBundle:Grado')->findAll();
+        $areas = $em->getRepository('EtsiAppGuiasBundle:Area')->findAll();
         $entity = $id?$em->getRepository('EtsiAppGuiasBundle:Asignatura')->find($id):null;
 
         if(!$messages) {
@@ -38,6 +40,7 @@ class AdminAsignaturaController extends Controller
                 'messages' => $messages,
                 'entities' => $entities,
                 'grados' => $grados,
+                'areas' => $areas,
                 'entity' => $entity,
             )
         );
@@ -50,8 +53,6 @@ class AdminAsignaturaController extends Controller
             'codigo',
             'caracter',
             'creditos',
-            'departamento',
-            'area',
             'curso'
         );
 
@@ -63,15 +64,23 @@ class AdminAsignaturaController extends Controller
             $entity->setCodigo($data['codigo']);
             $entity->setCaracter($data['caracter']);
             $entity->setCreditos($data['creditos']);
-            $entity->setDepartamento($data['departamento']);
-            $entity->setArea($data['area']);
             $entity->setCurso($data['curso']);
             $entity->setCuatrimestre($data['cuatrimestre']);
 
             $entity->clearGrados();
-            foreach($data['grados'] as $value) {
-                $grado = $em->getRepository('EtsiAppGuiasBundle:Grado')->find($value);
-                $entity->addGrado($grado);
+            if(isset($data['grados']) && !empty($data['grados'])) {
+                foreach($data['grados'] as $value) {
+                    $grado = $em->getRepository('EtsiAppGuiasBundle:Grado')->find($value);
+                    $entity->addGrado($grado);
+                }
+            }
+
+            $entity->clearAreas();
+            if(isset($data['areas']) && !empty($data['areas'])) {
+                foreach($data['areas'] as $value) {
+                    $area = $em->getRepository('EtsiAppGuiasBundle:Area')->find($value);
+                    $entity->addArea($area);
+                }
             }
 
             $em->persist($entity);

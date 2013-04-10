@@ -104,8 +104,22 @@
 			<h3>Datos específicos 4</h3>
 
 			<h4>Datos específicos 4.1:</h4>
+			<select name="datosEspecificos_4_1" data-placeholder="Competencias..." multiple >
+				{% for c in competencias %}
+				{% if not c.transversal %}
+				<option value="{{ c.id }}" {% if c in guia.datosEspecificos_4_1 %}selected{% endif %}>{{ c.codigo }}: {{ c.nombre }}</option>
+				{% endif %}
+				{% endfor %}
+			</select>
 
 			<h4>Datos específicos 4.2:</h4>
+			<select name="datosEspecificos_4_2" data-placeholder="Competencias..." multiple >
+				{% for c in competencias %}
+				{% if c.transversal %}
+				<option value="{{ c.id }}" {% if c in guia.datosEspecificos_4_2 %}selected{% endif %}>{{ c.codigo }}: {{ c.nombre }}</option>
+				{% endif %}
+				{% endfor %}
+			</select>
 
 		</div>
 

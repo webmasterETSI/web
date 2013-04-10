@@ -58,14 +58,10 @@ class Asignatura
     protected $creditos;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\ManyToMany(targetEntity="Area", inversedBy="asignaturas")
+     * @ORM\JoinTable(name="asignaturas_areas")
      */
-    protected $departamento;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $area;
+    protected $areas;
 
     /**
      * @ORM\Column(type="integer")
@@ -83,6 +79,7 @@ class Asignatura
     {
         $this->grados = new \Doctrine\Common\Collections\ArrayCollection();
         $this->guias = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->areas = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -211,52 +208,6 @@ class Asignatura
     }
 
     /**
-     * Set departamento
-     *
-     * @param string $departamento
-     * @return Asignatura
-     */
-    public function setDepartamento($departamento)
-    {
-        $this->departamento = $departamento;
-    
-        return $this;
-    }
-
-    /**
-     * Get departamento
-     *
-     * @return string 
-     */
-    public function getDepartamento()
-    {
-        return $this->departamento;
-    }
-
-    /**
-     * Set area
-     *
-     * @param string $area
-     * @return Asignatura
-     */
-    public function setArea($area)
-    {
-        $this->area = $area;
-    
-        return $this;
-    }
-
-    /**
-     * Get area
-     *
-     * @return string 
-     */
-    public function getArea()
-    {
-        return $this->area;
-    }
-
-    /**
      * Set curso
      *
      * @param integer $curso
@@ -330,7 +281,7 @@ class Asignatura
      *
      * @return Asignatura
      */
-    public function clearGrado()
+    public function clearGrados()
     {
         $this->grados->clear();
 
@@ -390,5 +341,50 @@ class Asignatura
     public function getGuias()
     {
         return $this->guias;
+    }
+
+    /**
+     * Add areas
+     *
+     * @param Etsi\AppGuiasBundle\Entity\Area $areas
+     * @return Asignatura
+     */
+    public function addArea(\Etsi\AppGuiasBundle\Entity\Area $areas)
+    {
+        $this->areas[] = $areas;
+    
+        return $this;
+    }
+
+    /**
+     * Remove areas
+     *
+     * @param Etsi\AppGuiasBundle\Entity\Area $areas
+     */
+    public function removeArea(\Etsi\AppGuiasBundle\Entity\Area $areas)
+    {
+        $this->areas->removeElement($areas);
+    }
+
+    /**
+     * Clear areas
+     *
+     * @return Asignatura
+     */
+    public function clearAreas()
+    {
+        $this->areas->clear();
+
+        return $this;
+    }
+
+    /**
+     * Get areas
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getAreas()
+    {
+        return $this->areas;
     }
 }

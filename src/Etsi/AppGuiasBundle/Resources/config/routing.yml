@@ -17,6 +17,10 @@ etsi_app_guias_guia_update:
     requirements: { _method: post }
 
 
+
+etsi_app_guias_admin_area:
+    resource: "@EtsiAppGuiasBundle/Resources/config/admin_area_routing.yml"
+
 etsi_app_guias_admin_asignatura:
     resource: "@EtsiAppGuiasBundle/Resources/config/admin_asignatura_routing.yml"
 

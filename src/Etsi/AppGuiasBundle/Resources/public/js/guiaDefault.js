@@ -84,8 +84,6 @@ $(function(){
 				.change(function() {
 					$(this).addClass('cambios-no-guardados')
 						.removeClass('cambios-guardados');
-				})
-				.focusout(function(){
 					GUIA.cambios($(this));
 				});
 			

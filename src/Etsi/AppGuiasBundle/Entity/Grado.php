@@ -46,6 +46,12 @@ class Grado
      * @Expose
      */
     private $gradoPadre;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Competencia", mappedBy="grado")
+     */
+    private $competenciasDeGrado;
+
     /**
      * Constructor
      */
@@ -53,6 +59,7 @@ class Grado
     {
         $this->asignaturas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->itinerarios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->competenciasDeGrado = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -168,17 +175,6 @@ class Grado
         $this->itinerarios->removeElement($itinerarios);
     }
 
-    /**
-     * Clear itinerario
-     *
-     * @return Grado
-     */
-    public function clearItinerario()
-    {
-        $this->itinerario->clear();
-        
-        return $this;
-    }
     
     /**
      * Get itinerarios
@@ -188,6 +184,53 @@ class Grado
     public function getChildren()
     {
         return $this->itinerarios;
+    }
+
+    /**
+     * Add competenciasDeGrado
+     *
+     * @param Etsi\AppGuiasBundle\Entity\Competencia $competencia
+     * @return Grado
+     */
+    public function addcompetenciasDeGrado(\Etsi\AppGuiasBundle\Entity\Competencia $competencia)
+    {
+        $this->competenciasDeGrado[] = $competencia;
+    
+        return $this;
+    }
+
+    /**
+     * Remove competenciasDeGrado
+     *
+     * @param Etsi\AppGuiasBundle\Entity\Competencia $competencia
+     */
+    public function removecompetenciasDeGrado(\Etsi\AppGuiasBundle\Entity\Competencia $competencia)
+    {
+        $this->competenciasDeGrado->removeElement($competencia);
+    }
+ 
+    /**
+     * Get competenciasDeGrado
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getcompetenciasDeGrado()
+    {
+        return $this->competenciasDeGrado;
+
+        $competenciasDeGrado = new \Doctrine\Common\Collections\ArrayCollection();
+
+        if(!empty($this->gradoPadre)) {
+            $competenciasDeGradoPadre = $this->gradoPadre->getcompetenciasDeGrado();
+
+            foreach($competenciasDeGradoPadre as $competencia)
+                $competenciasDeGrado[] = $competencia;
+        }
+        
+        foreach($this->competenciasDeGrado as $competencia)
+            $competenciasDeGrado[] = $competencia;
+
+        return $competenciasDeGrado;
     }
 
     /**

@@ -2,10 +2,6 @@ eaga_guia_index:
     pattern:  /guias/admin/guias
     defaults: { _controller: EtsiAppGuiasBundle:AdminGuia:index }
 
-eaga_guia_edit:
-    pattern:  /guias/admin/guia/{id}/edit/{paso}
-    defaults: { _controller: EtsiAppGuiasBundle:AdminGuia:edit }
-
 eaga_guia_delete:
     pattern:  /guias/admin/guia/delete/{id}
     defaults: { _controller: EtsiAppGuiasBundle:AdminGuia:delete }

@@ -68,11 +68,7 @@ class AdminAsignaturaController extends Controller
             $entity->setCurso($data['curso']);
             $entity->setCuatrimestre($data['cuatrimestre']);
 
-
-            $grados = $entity->getGrados();
-            foreach($grados as $g)
-                $entity->removeGrado($g);
-
+            $entity->clearGrados();
             foreach($data['grados'] as $value) {
                 $grado = $em->getRepository('EtsiAppGuiasBundle:Grado')->find($value);
                 $entity->addGrado($grado);

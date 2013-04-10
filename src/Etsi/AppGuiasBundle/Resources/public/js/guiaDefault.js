@@ -12,7 +12,27 @@ GUIA.cambios = function(elemento) {
 GUIA.saveCambios = function() {
 	var data = {};
 	$('.cambios-no-guardados').each(function() {
-		data[$(this).attr('id')] = $(this).hasClass('editor-minimo')?$(this).text():$(this).html();
+		var e = $(this);
+		if(e.hasClass('editor-minimo')) {
+			data[e.attr('id')] = $(this).text()
+		} else if(e.hasClass('editor-texto')) {
+			data[e.attr('id')] = $(this).html();
+		} else if(e.is('select[multiple]')) {
+			var result = [];
+			e.children(':selected').each(function() {
+				result.push($(this).val());
+			});
+			data[e.attr('name')] = result;
+		} else if(e.hasClass('editor-check-mask')) {
+			var result = 0;
+
+			e.children('input[type=checkbox]:checked').each(function() {
+				result |= 1<<$(this).index();
+			});
+			data[e.attr('id')] = result;
+		} else {
+			console.log(e);
+		}
 
 		$(this).removeClass('cambios-no-guardados')
 			.addClass('cambios-guardados');
@@ -59,7 +79,16 @@ $(function(){
 			paso.hide();
 			siguiente.show();
 
-			siguiente.children('select').chosen();
+			siguiente.children('select')
+				.chosen({no_results_text: "No se han encontrado resultados"})
+				.change(function() {
+					$(this).addClass('cambios-no-guardados')
+						.removeClass('cambios-guardados');
+				})
+				.focusout(function(){
+					GUIA.cambios($(this));
+				});
+			
 			siguiente.children('.editor-texto, .editor-minimo')
 				.not('div[contenteditable="true"]')
 				.each(function() {
@@ -70,8 +99,14 @@ $(function(){
 	});
 
 	var data = $('#datosEspecificos_6_1_1 > .hidden').text();
+	$('#datosEspecificos_6_1_1 > .hidden').remove();
 	$('#datosEspecificos_6_1_1')
 		.children('input[type=checkbox]')
+		.click(function() {
+			var padre = $(this).parent();
+			padre.addClass('cambios-no-guardados').removeClass('cambios-guardados');
+			GUIA.cambios(padre);
+		})
 		.each(function(index) {
 			if(data&(1<<index))
 				$(this).attr('checked','checked');
@@ -80,8 +115,14 @@ $(function(){
 		});
 
 	data = $('#datosEspecificos_9_1_1 > .hidden').text();
+	$('#datosEspecificos_9_1_1 > .hidden').remove();
 	$('#datosEspecificos_9_1_1')
 		.children('input[type=checkbox]')
+		.click(function() {
+			var padre = $(this).parent();
+			padre.addClass('cambios-no-guardados').removeClass('cambios-guardados');
+			GUIA.cambios(padre);
+		})
 		.each(function(index) {
 			if(data&(1<<index))
 				$(this).attr('checked','checked');

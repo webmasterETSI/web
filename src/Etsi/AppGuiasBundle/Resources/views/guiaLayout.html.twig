@@ -66,10 +66,10 @@
 			<div class="editor-minimo" id="creditosPracticosCampo" >{{ guia.creditosPracticosCampo }}</div><br>
 
 			<h3>Datos de profesores</h3>
-			<select name="profesores[]" data-placeholder="Profesores de la asignatura..." multiple >
+			<select name="profesores" data-placeholder="Profesores de la asignatura..." multiple >
 				{% for p in profesores %}
 				<option value="{{ p.id }}" {% if p in guia.profesores %}selected{% endif %}>
-					{{ p.nombre }}&lt;{{ p.email }}&gt;
+					{{ p.nombre }} &lt;{{ p.email }}&gt;
 				</option>
 				{% endfor %}
 			</select>
@@ -117,7 +117,7 @@
 			<h3>Datos específicos 6</h3>
 
 			<h4>Datos específicos 6.1:</h4>
-			<div id="datosEspecificos_6_1_1">
+			<div id="datosEspecificos_6_1_1" class="editor-check-mask">
 				<div class="hidden">{{ guia.datosEspecificos_6_1_1 }}</div>
 				<input type="checkbox">
 				<input type="checkbox">
@@ -152,7 +152,7 @@
 			<h3>Datos específicos 9</h3>
 
 			<h4>Datos específicos 9.1:</h4>
-			<div id="datosEspecificos_9_1_1">
+			<div id="datosEspecificos_9_1_1" class="editor-check-mask">
 				<div class="hidden">{{ guia.datosEspecificos_9_1_1 }}</div>
 				<input type="checkbox">
 				<input type="checkbox">

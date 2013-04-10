@@ -37,11 +37,6 @@ class AdminGuiaController extends Controller
         return $this->renderReturn();
     }
 
-    public function editAction($id, $paso, Request $request)
-    {
-        return new Response("Edit ".$id.", paso: ".$paso);
-    }
-
     public function deleteAction($id)
     {
         $messages = array(

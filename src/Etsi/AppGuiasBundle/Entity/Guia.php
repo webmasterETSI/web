@@ -146,14 +146,16 @@ class Guia
     protected $datosEspecificos_9_1_2;
 
     /**
-     * @ORM\OneToMany(targetEntity="Semana", mappedBy="guia")
+     * @ORM\Column(type="text")
      */
     protected $datosEspecificos_9_2;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\OneToMany(targetEntity="Semana", mappedBy="guia")
      */
     protected $datosEspecificos_10;
+
+
     /**
      * Constructor
      */
@@ -162,7 +164,7 @@ class Guia
         $this->profesores = new \Doctrine\Common\Collections\ArrayCollection();
         $this->datosEspecificos_4_1 = new \Doctrine\Common\Collections\ArrayCollection();
         $this->datosEspecificos_4_2 = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->datosEspecificos_9_2 = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->datosEspecificos_10 = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -659,26 +661,26 @@ class Guia
     }
 
     /**
-     * Set datosEspecificos_10
+     * Set datosEspecificos_9_2
      *
-     * @param string $datosEspecificos10
+     * @param string $datosEspecificos_9_2
      * @return Guia
      */
-    public function setDatosEspecificos_10($datosEspecificos10)
+    public function setDatosEspecificos_9_2($datosEspecificos_9_2)
     {
-        $this->datosEspecificos_10 = $datosEspecificos10;
+        $this->datosEspecificos_9_2 = $datosEspecificos_9_2;
     
         return $this;
     }
 
     /**
-     * Get datosEspecificos_10
+     * Get datosEspecificos_9_2
      *
      * @return string 
      */
-    public function getDatosEspecificos_10()
+    public function getDatosEspecificos_9_2()
     {
-        return $this->datosEspecificos_10;
+        return $this->datosEspecificos_9_2;
     }
 
     /**
@@ -840,47 +842,47 @@ class Guia
     }
 
     /**
-     * Add datosEspecificos_9_2
+     * Add datosEspecificos_10
      *
-     * @param Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos92
+     * @param Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos_10
      * @return Guia
      */
-    public function addDatosEspecificos_9_2(\Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos92)
+    public function addDatosEspecificos_10(\Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos_10)
     {
-        $this->datosEspecificos_9_2[] = $datosEspecificos92;
+        $this->datosEspecificos_10[] = $datosEspecificos_10;
     
         return $this;
     }
 
     /**
-     * Remove datosEspecificos_9_2
+     * Remove datosEspecificos_10
      *
-     * @param Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos92
+     * @param Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos_10
      */
-    public function removeDatosEspecificos_9_2(\Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos92)
+    public function removeDdatosEspecificos_10(\Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos_10)
     {
-        $this->datosEspecificos_9_2->removeElement($datosEspecificos92);
+        $this->datosEspecificos_10->removeElement($datosEspecificos_10);
     }
 
     /**
-     * Clear datosEspecificos_9_2
+     * Clear datosEspecificos_10
      *
      * @return Guia
      */
-    public function clearDatosEspecificos_9_2()
+    public function clearDatosEspecificos_10()
     {
-        $this->datosEspecificos_9_2->clear();
+        $this->datosEspecificos_10->clear();
         
         return $this;
     }
 
     /**
-     * Get datosEspecificos_9_2
+     * Get datosEspecificos_10
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getDatosEspecificos_9_2()
+    public function getDatosEspecificos_10()
     {
-        return $this->datosEspecificos_9_2;
+        return $this->datosEspecificos_10;
     }
 }

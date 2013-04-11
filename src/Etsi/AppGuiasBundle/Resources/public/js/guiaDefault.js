@@ -14,7 +14,7 @@ GUIA.saveCambios = function() {
 	$('.cambios-no-guardados').each(function() {
 		var e = $(this);
 		if(e.hasClass('editor-minimo')) {
-			data[e.attr('id')] = $(this).text()
+			data[e.attr('id')] = $(this).val();
 		} else if(e.hasClass('editor-texto')) {
 			data[e.attr('id')] = $(this).html();
 		} else if(e.is('select[multiple]')) {
@@ -26,8 +26,9 @@ GUIA.saveCambios = function() {
 		} else if(e.hasClass('editor-check-mask')) {
 			var result = 0;
 
-			e.children('input[type=checkbox]:checked').each(function() {
-				result |= 1<<$(this).index();
+			e.children('input[type=checkbox]').each(function(index) {
+				if($(this).is(':checked'))
+					result |= 1<<index;
 			});
 			data[e.attr('id')] = result;
 		} else {
@@ -60,40 +61,11 @@ GUIA.updateData = function(data) {
 
 
 $(function(){
-	var pasos = $('.pasos');
-	pasos.hide();
-	pasos.first().show();
+	$('select').chosen({no_results_text: "No se han encontrado resultados"});
 
-	$('#anterior').click(function() {
-		var paso = $('.pasos:visible');
-		if(paso.prev().hasClass('pasos')) {
-			paso.hide();
-			paso.prev().show();
-		}
-	});
-
-	$('#siguiente').click(function() {
-		var paso = $('.pasos:visible');
-		var siguiente = paso.next();
-		if(siguiente.hasClass('pasos')) {
-			paso.hide();
-			siguiente.show();
-
-			siguiente.children('select')
-				.chosen({no_results_text: "No se han encontrado resultados"})
-				.change(function() {
-					$(this).addClass('cambios-no-guardados')
-						.removeClass('cambios-guardados');
-					GUIA.cambios($(this));
-				});
-			
-			siguiente.children('.editor-texto, .editor-minimo')
-				.not('div[contenteditable="true"]')
-				.each(function() {
-					$(this).attr('contenteditable', 'true');
-					CKEDITOR.inline($(this).attr('id'));
-				});
-		}
+	$('.editor-minimo').bind('keyup', function() {
+		$(this).addClass('cambios-no-guardados').removeClass('cambios-guardados');
+		GUIA.cambios($(this));
 	});
 
 	var data = $('#datosEspecificos_6_1_1 > .hidden').text();
@@ -130,18 +102,7 @@ $(function(){
 });
 
 CKEDITOR.on( 'instanceCreated', function( e ) {
-	var editor = e.editor;
-	var jElement = $(editor.element.$);
-
-	if( jElement.hasClass('editor-minimo') ) {
-		editor.on( 'configLoaded', function() {
-			editor.config.removePlugins = 'colorbutton,find,flash,font,' +
-				'forms,iframe,image,newpage,removeformat,' +
-				'smiley,specialchar,stylescombo,templates';
-
-			editor.config.toolbarGroups = [{ name: 'undo' }];
-		});
-	}
+	var jElement = $(e.editor.element.$);
 
 	jElement.focusout(function(){
 		GUIA.cambios($(this));

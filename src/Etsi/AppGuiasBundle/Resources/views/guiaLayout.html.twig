@@ -1,14 +1,15 @@
-<!doctype html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="es">
 	<head>
-		<meta charset="utf-8"/>
-		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+		<title>Guias Docentes</title>
 
 
 		{% stylesheets
 			'@EtsiAppGuiasBundle/Resources/public/css/chosen.css'
-			'ckeditor/samples/sample.css'
-			'@EtsiAppGuiasBundle/Resources/public/css/editor.css' %}
+			'@EtsiAppGuiasBundle/Resources/public/css/editor.css'
+			'@EtsiAppGuiasBundle/Resources/public/css/guia-style.css' %}
 			<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen"/>
 		{% endstylesheets %}
 
@@ -23,7 +24,8 @@
 
 		{% javascripts
 			'@EtsiAppGuiasBundle/Resources/public/js/jquery-1.9.1.min.js'
-			'@EtsiAppGuiasBundle/Resources/public/js/chosen.jquery.min.js'
+			'@EtsiAppGuiasBundle/Resources/public/js/chosen.jquery.min.js' 
+			'@EtsiAppGuiasBundle/Resources/public/js/sliding.form.js'
 			'ckeditor/ckeditor.js'
 			'@EtsiAppGuiasBundle/Resources/public/js/guiaDefault.js' %}
 			<script src="{{ asset_url }}" type="text/javascript"></script>
@@ -36,154 +38,270 @@
 	</head>
 
 	<body>
-		<h1>AppGuíaDocente</h1>
-		<button id="anterior">&lt;-ANTERIOR</button> - <button id="siguiente">SIGUIENTE-&gt;</button>
+		<img src="{{ asset( 'images/guias/header_background.jpg' ) }}">	<!-- cabecera-->
+		<div id="titulo_cabecera"><span id="curso">Curso Curso {{ guia.curso }}/{{ guia.curso+1 }}</span></div>
 
-		<div class="pasos">
-			<ul>
-				<li>{{ guia.estado }}</li>
-				<li>{{ guia.fechaDeModificacion|date('m/d/Y H:i') }}</li>
+		<div id="miniaturas">   <!-- miniaturas de cada pantalla del forms-->
+			<div id="center">
+				<div class="navigation" style="display:none;">
+					<ul>
+						<li><a href="#"><div class="miniatura"></div></a></li>
+						<li><a href="#"><div class="miniatura"></div></a></li>
+						<li><a href="#"><div class="miniatura"></div></a></li>
+						<li><a href="#"><div class="miniatura"></div></a></li>
+						<li><a href="#"><div class="miniatura"></div></a></li>  
+						<li><a href="#"><div class="miniatura"></div></a></li> 
+						<li><a href="#"><div class="miniatura"></div></a></li> 
+						<li><a href="#"><div class="miniatura"></div></a></li>  
+						<li><a href="#"><div class="miniatura"></div></a></li> 
+						<li><a href="#"><div class="miniatura"></div></a></li> 
+						<li><a href="#"><div class="miniatura"></div></a></li>  
+					</ul>
+			 </div>
+			</div>
+		</div>
+
+		<div id="menu-estados" style="margin-bottom: 20px;"> <!-- por terminar-->
+			<ul id="button">
+				<li><a id="hover" href="#">[ESTADO 1: Por enviar]</a></li>
+				<li><a href="#">[ESTADO 2: Pendiente aprobación]</a></li>
+				<li><a href="#">[ESTADO 3: Publicada]</a></li>
+				<li><a href="#">[ESTADO 4: Publicada con fallos]</a></li>
 			</ul>
 		</div>
 
-		<div class="pasos">
-			<h3>Datos de {{ guia.asignatura.nombre }}</h3>
-			<h3 id="curso">Curso {{ guia.curso }}-{{ guia.curso+1 }}</h3>
+		<div id="wrapper">  <!-- div contenedor pantallas -->
+			<div id="steps">
+				<form>
+					<fieldset class="step">
+						<legend>
+							Paso#1: Asignatura
+						</legend>
+						<div class="contenedor">
+							<div class="in-titulo">{{ guia.asignatura.nombre }} &lt;{{ guia.asignatura.codigo }}&gt;</div>
 
-			<label>Creditos teoricos:</label>
-			<div class="editor-minimo" id="creditosTeoricos" >{{ guia.creditosTeoricos }}</div><br>
+							<label for="nombreI">Nombre en ingles</label>
+							<input class="long editor-minimo" id="nombreI" name="nombreI" value="{{ guia.asignatura.nombreI }}"/>
+						</div>
 
-			<label>Creditos practicos aula:</label>
-			<div class="editor-minimo" id="creditosPracticosAula" >{{ guia.creditosPracticosAula }}</div><br>
+						<div class="contenedor">
+							<label for="profesores">Datos de profesores</label>
+							<select name="profesores" data-placeholder="Seleccionar..." multiple class="long" >
+								{% for p in profesores %}
+								<option value="{{ p.id }}" {% if p in guia.profesores %}selected{% endif %}>
+									{{ p.nombre }} &lt;{{ p.email }}&gt;
+								</option>
+								{% endfor %}
+							</select>
+						</div>
 
-			<label>Creditos practicos informatica:</label>
-			<div class="editor-minimo" id="creditosPracticosInformatica" >{{ guia.creditosPracticosInformatica }}</div><br>
+						<div class="contenedor">
+							<div class="in-titulo">Datos de créditos:</div>
 
-			<label>Creditos practicos laboratorio:</label>
-			<div class="editor-minimo" id="creditosPracticosLaboratorio" >{{ guia.creditosPracticosLaboratorio }}</div><br>
+							<div class="right-legend">
+								Créditos totales<br>de la asignatura:<br>
+								<div class="texto-grande">{{ guia.asignatura.creditos }}</div>
+							</div>
 
-			<label>Creditos practicos campo:</label>
-			<div class="editor-minimo" id="creditosPracticosCampo" >{{ guia.creditosPracticosCampo }}</div><br>
+							<label for="creditosTeoricos" class="natural">Creditos teóricos</label>
+							<input class="editor-minimo" id="creditosTeoricos" name="creditosTeoricos" value="{{ guia.creditosTeoricos }}" />
 
-			<h3>Datos de profesores</h3>
-			<select name="profesores" data-placeholder="Profesores de la asignatura..." multiple >
-				{% for p in profesores %}
-				<option value="{{ p.id }}" {% if p in guia.profesores %}selected{% endif %}>
-					{{ p.nombre }} &lt;{{ p.email }}&gt;
-				</option>
-				{% endfor %}
-			</select>
-		</div>
+							<label for="creditosPracticosAula" class="natural">Creditos prácticos (aula)</label>
+							<input class="editor-minimo" id="creditosPracticosAula" name="creditosPracticosAula" value="{{ guia.creditosPracticosAula }}" />
 
-		<div class="pasos">
-			<h3>Datos específicos 1</h3>
-			
-			<h4>Datos específicos 1.1:</h4>
-			<div class="editor-texto" id="datosEspecificos_1_1" >{{ guia.datosEspecificos_1_1|raw }}</div>
-			
-			<h4>Datos específicos 1.2:</h4>
-			<div class="editor-texto" id="datosEspecificos_1_2" >{{ guia.datosEspecificos_1_2|raw }}</div>
-		</div>
+							<label for="creditosPracticosLaboratorio" class="natural">Creditos prácticos (laboratorio)</label>
+							<input class="editor-minimo" id="creditosPracticosLaboratorio" name="creditosPracticosLaboratorio" value="{{ guia.creditosPracticosLaboratorio }}" />
 
-		<div class="pasos">
-			<h3>Datos específicos 2</h3>
-			
-			<h4>Datos específicos 2.1:</h4>
-			<div class="editor-texto" id="datosEspecificos_2_1" >{{ guia.datosEspecificos_2_1|raw }}</div>
-			
-			<h4>Datos específicos 2.2:</h4>
-			<div class="editor-texto" id="datosEspecificos_2_2" >{{ guia.datosEspecificos_2_2|raw }}</div>
-		</div>
+							<label for="creditosPracticosCampo" class="natural">Creditos prácticos (trabajo de campo)</label>
+							<input class="editor-minimo" id="creditosPracticosCampo" name="creditosPracticosCampo" value="{{ guia.creditosPracticosCampo }}" />
 
-		<div class="pasos">
-			<h3>Datos específicos 3</h3>
-			<div class="editor-texto" id="datosEspecificos_3" >{{ guia.datosEspecificos_3|raw }}</div>
-		</div>
+							<label for="creditosPracticosInformatica" class="natural">Creditos prácticos (aula de informática)</label>
+							<input class="editor-minimo" id="creditosPracticosInformatica" name="creditosPracticosInformatica" value="{{ guia.creditosPracticosInformatica }}" />
+						</div>
+					</fieldset>
 
-		<div class="pasos">
-			<h3>Datos específicos 4</h3>
+					<fieldset class="step">
+						<legend>Paso#2: Descripción de contenidos</legend>
+						<div class="contenedor">
+							<div class="in-titulo">Breve descripción de contenidos:</div>
+							<div class="editor-texto" id="datosEspecificos_1_1" contenteditable="true" >{{ guia.datosEspecificos_1_1|raw }}</div>
+						</div>
+						<div class="contenedor">
+							<div class="in-titulo">Breve descripción de contenidos (en inglés):</div>
+							<div class="editor-texto" id="datosEspecificos_1_2" contenteditable="true" >{{ guia.datosEspecificos_1_2|raw }}</div>
+						</div>
+					</fieldset>
 
-			<h4>Datos específicos 4.1:</h4>
-			<select name="datosEspecificos_4_1" data-placeholder="Competencias..." multiple >
-				{% for c in competencias %}
-				{% if not c.transversal %}
-				<option value="{{ c.id }}" {% if c in guia.datosEspecificos_4_1 %}selected{% endif %}>{{ c.codigo }}: {{ c.nombre }}</option>
-				{% endif %}
-				{% endfor %}
-			</select>
+					<fieldset class="step">
+						<legend>Paso#3: Situación de la asignatura</legend>
+						<div class="contenedor">
+							<div class="in-titulo">Contexto dentro de la titulación:</div>
+							<div class="editor-texto" id="datosEspecificos_2_1" contenteditable="true" >{{ guia.datosEspecificos_2_1|raw }}</div>
+						</div>
+						<div class="contenedor">
+							<div class="in-titulo">Recomendaciones:</div>
+							<div class="editor-texto" id="datosEspecificos_2_2" contenteditable="true" >{{ guia.datosEspecificos_2_2|raw }}</div>
+						</div>
+					</fieldset>
 
-			<h4>Datos específicos 4.2:</h4>
-			<select name="datosEspecificos_4_2" data-placeholder="Competencias..." multiple >
-				{% for c in competencias %}
-				{% if c.transversal %}
-				<option value="{{ c.id }}" {% if c in guia.datosEspecificos_4_2 %}selected{% endif %}>{{ c.codigo }}: {{ c.nombre }}</option>
-				{% endif %}
-				{% endfor %}
-			</select>
+					<fieldset class="step">
+						<legend>Paso#4: Objetivos</legend>
+						<div class="contenedor">
+							<div class="in-titulo">Objetivos:</div>
+							<div class="editor-texto" id="datosEspecificos_3" contenteditable="true" >{{ guia.datosEspecificos_3|raw }}</div>
+						</div>
+					</fieldset>
 
-		</div>
+					<fieldset class="step">
+						<legend>Paso#5: Competencias a adquirir por los estudiantes</legend>
+						<div class="contenedor">
+							<div class="in-titulo">Competencias específicas:</div>
+							<select name="datosEspecificos_4_1" class="full" data-placeholder="Seleccionar..." multiple >
+								{% for c in competencias %}
+								{% if not c.transversal %}
+								<option value="{{ c.id }}" {% if c in guia.datosEspecificos_4_1 %}selected{% endif %}>{{ c.codigo }}: {{ c.nombre }}</option>
+								{% endif %}
+								{% endfor %}
+							</select>
+						</div>
+						<div class="contenedor">
+							<div class="in-titulo">Competencias transversales o genéricas:</div>
+							<select name="datosEspecificos_4_2" class="full" data-placeholder="Seleccionar..." multiple >
+								{% for c in competencias %}
+								{% if c.transversal %}
+								<option value="{{ c.id }}" {% if c in guia.datosEspecificos_4_2 %}selected{% endif %}>{{ c.codigo }}: {{ c.nombre }}</option>
+								{% endif %}
+								{% endfor %}
+							</select>
+						</div>
+					</fieldset>
 
-		<div class="pasos">
-			<h3>Datos específicos 5</h3>
-			<div>&lt;TABLA AUTOGENERADA&gt;</div>
+					<fieldset class="step">
+						<legend>Paso#6: Metodología</legend>
+						<div class="contenedor">
+							&lt;TABLA AUTOGENERADA&gt;
+						</div>
+					</fieldset>
 
+					<fieldset class="step">
+						<legend>Paso#7: Técnicas docentes</legend>
+						<div class="contenedor">
+							<div class="in-titulo">Técnicas docentes utilizadas</div>
+							<div id="datosEspecificos_6_1_1" class="editor-check-mask">
+								<div class="hidden">{{ guia.datosEspecificos_6_1_1 }}</div>
 
-			<h3>Datos específicos 6</h3>
+								<label for="opc1" class="natural">Sesiones académicas de teoría</label>
+								<input type="checkbox" name="opc1">
+								<div class="clear"></div>
 
-			<h4>Datos específicos 6.1:</h4>
-			<div id="datosEspecificos_6_1_1" class="editor-check-mask">
-				<div class="hidden">{{ guia.datosEspecificos_6_1_1 }}</div>
-				<input type="checkbox">
-				<input type="checkbox">
-				<input type="checkbox">
-				<input type="checkbox">
-				<input type="checkbox">
-				<input type="checkbox">
+								<label for="opc2" class="natural">Sesiones académicas de problemas</label>
+								<input type="checkbox" name="opc2">
+								<div class="clear"></div>
+
+								<label for="opc3" class="natural">Sesiones prácticas en laboratorio</label>
+								<input type="checkbox" name="opc3">
+								<div class="clear"></div>
+
+								<label for="opc4" class="natural">Seminarios, exposiciones y debates</label>
+								<input type="checkbox" name="opc4">
+								<div class="clear"></div>
+
+								<label for="opc5" class="natural">Trabajo en grupos reducidos</label>
+								<input type="checkbox" name="opc5">
+								<div class="clear"></div>
+
+								<label for="opc6" class="natural">Resolución y entrega de problemas/prácticas</label>
+								<input type="checkbox" name="opc6">
+								<div class="clear"></div>
+
+								<label for="opc7" class="natural">Realización de pruebas parciales evaluables</label>
+								<input type="checkbox" name="opc7">
+								<div class="clear"></div>
+							</div>
+							<label for="datosEspecificos_6_1_2">Otro: </label>
+							<input id="datosEspecificos_6_1_2" name="datosEspecificos_6_1_2" value="{{ guia.datosEspecificos_6_1_2 }}" class="natural" />
+						</div>
+
+						<div class="contenedor">
+							<div class="in-titulo">Desarrollo y justificación</div>
+							<div class="editor-texto" id="datosEspecificos_6_2" contenteditable="true">{{ guia.datosEspecificos_6_2|raw }}</div>
+						</div>
+					</fieldset>
+
+					<fieldset class="step">
+						<legend>Paso#8: Temario desarrollado</legend>
+						<div class="contenedor">
+							<div class="in-titulo">Temario desarrollado</div>
+							<div class="editor-texto" id="datosEspecificos_7" contenteditable="true">{{ guia.datosEspecificos_7|raw }}</div>
+						</div>
+					</fieldset>
+
+					<fieldset class="step">
+						<legend>Paso#9: Bibliografía</legend>
+						<div class="contenedor">
+							<div class="in-titulo">Bibliografía básica:</div>
+							<div class="editor-texto" id="datosEspecificos_8_1" contenteditable="true" >{{ guia.datosEspecificos_8_1|raw }}</div>
+						</div>
+						<div class="contenedor">
+							<div class="in-titulo">Bibliografía complementaria:</div>
+							<div class="editor-texto" id="datosEspecificos_8_2" contenteditable="true" >{{ guia.datosEspecificos_8_2|raw }}</div>
+						</div>
+					</fieldset>
+
+					<fieldset class="step">
+						<legend>Paso#10: Sistemas de evaluación e la adquisición de competencias</legend>
+						<div class="contenedor">
+						<div class="contenedor">
+							<div class="in-titulo">Técnicas de evaluación utilizadas</div>
+							<div id="datosEspecificos_9_1_1" class="editor-check-mask">
+								<div class="hidden">{{ guia.datosEspecificos_9_1_1 }}</div>
+
+								<label for="opc1" class="natural">Examen de teoría/problemas</label>
+								<input type="checkbox" name="opc1">
+								<div class="clear"></div>
+
+								<label for="opc2" class="natural">Trabajos desarrollados durante el curso</label>
+								<input type="checkbox" name="opc2">
+								<div class="clear"></div>
+
+								<label for="opc3" class="natural">Participación activa en las sesiones académicas</label>
+								<input type="checkbox" name="opc3">
+								<div class="clear"></div>
+
+								<label for="opc4" class="natural">Controles periódicos de adquisición de conocimientos/competencias</label>
+								<input type="checkbox" name="opc4">
+								<div class="clear"></div>
+
+								<label for="opc5" class="natural">Examen de prácticas</label>
+								<input type="checkbox" name="opc5">
+								<div class="clear"></div>
+							</div>
+							<label for="datosEspecificos_9_1_2">Otro: </label>
+							<input id="datosEspecificos_9_1_2" name="datosEspecificos_9_1_2" value="{{ guia.datosEspecificos_9_1_2 }}" class="natural" />
+						</div>
+
+						<div class="contenedor">
+							<div class="in-titulo">Desarrollo y justificación</div>
+							<div class="editor-texto" id="datosEspecificos_9_2" contenteditable="true">{{ guia.datosEspecificos_9_2|raw }}</div>
+						</div>
+					</fieldset>
+
+					<fieldset class="step">
+						<legend>Paso#11: Organización docente semanal orientativa</legend>
+						<div class="contenedor">
+							&lt;TABLA AUTOGENERADA EDITABLE&gt;
+						</div>
+					</fieldset>
+
+					<fieldset class="step">
+						<legend>Paso#12: Validación</legend>
+						<div class="contenedor submit">
+								<button id="registerButton" type="submit">ENVIAR PARA VALIDACIÓN</button>
+						</div>
+					</fieldset>
+				</form>
 			</div>
-			<label>Otro: </label><div id="datosEspecificos_6_1_2" class="editor-minimo" >{{ guia.datosEspecificos_6_1_2 }}</div>
-
-			<h4>Datos específicos 6.2:</h4>
-			<div class="editor-texto" id="datosEspecificos_6_2" >{{ guia.datosEspecificos_6_2|raw }}</div>
 		</div>
-
-		<div class="pasos">
-			<h3>Datos específicos 7:</h3>
-
-			<div class="editor-texto" id="datosEspecificos_7" >{{ guia.datosEspecificos_7|raw }}</div>
-		</div>
-
-		<div class="pasos">
-			<h3>Datos específicos 8</h3>
-			
-			<h4>Datos específicos 8.1:</h4>
-			<div class="editor-texto" id="datosEspecificos_8_1" >{{ guia.datosEspecificos_8_1|raw }}</div>
-			
-			<h4>Datos específicos 8.2:</h4>
-			<div class="editor-texto" id="datosEspecificos_8_2" >{{ guia.datosEspecificos_8_2|raw }}</div>
-		</div>
-
-		<div class="pasos">
-			<h3>Datos específicos 9</h3>
-
-			<h4>Datos específicos 9.1:</h4>
-			<div id="datosEspecificos_9_1_1" class="editor-check-mask">
-				<div class="hidden">{{ guia.datosEspecificos_9_1_1 }}</div>
-				<input type="checkbox">
-				<input type="checkbox">
-				<input type="checkbox">
-				<input type="checkbox">
-				<input type="checkbox">
-				<input type="checkbox">
-			</div>
-			<label>Otro: </label><div id="datosEspecificos_9_1_2" class="editor-minimo" >{{ guia.datosEspecificos_9_1_2|raw }}</div>
-
-			<h4>Datos específicos 9.2:</h4>
-			<div>&lt;TABLA AUTOGENERADA EDITABLE&gt;</div>
-		</div>
-
-		<div class="pasos">
-			<h3>Datos específicos 10:</h3>
-			<div class="editor-texto" id="datosEspecificos_10" >{{ guia.datosEspecificos_10|raw }}</div>
-		</div>
+	</div>  <!-- content-->
 	</body>
 </html>

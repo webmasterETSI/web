@@ -95,12 +95,12 @@
 							</select>
 						</div>
 
-						<div class="contenedor">
+						<div id="contenedor-creditos" class="contenedor">
 							<div class="in-titulo">Datos de créditos:</div>
 
 							<div class="right-legend">
 								Créditos totales<br>de la asignatura:<br>
-								<div class="texto-grande">{{ guia.asignatura.creditos }}</div>
+								<div id="creditos-totales" class="texto-grande">{{ guia.asignatura.creditos }}</div>
 							</div>
 
 							<label for="creditosTeoricos" class="natural">Creditos teóricos</label>
@@ -219,7 +219,7 @@
 								<div class="clear"></div>
 							</div>
 							<label for="datosEspecificos_6_1_2">Otro: </label>
-							<input id="datosEspecificos_6_1_2" name="datosEspecificos_6_1_2" value="{{ guia.datosEspecificos_6_1_2 }}" class="natural" />
+							<input id="datosEspecificos_6_1_2" name="datosEspecificos_6_1_2" value="{{ guia.datosEspecificos_6_1_2 }}" class="editor-minimo natural" />
 						</div>
 
 						<div class="contenedor">
@@ -251,7 +251,6 @@
 					<fieldset class="step">
 						<legend>Paso#10: Sistemas de evaluación e la adquisición de competencias</legend>
 						<div class="contenedor">
-						<div class="contenedor">
 							<div class="in-titulo">Técnicas de evaluación utilizadas</div>
 							<div id="datosEspecificos_9_1_1" class="editor-check-mask">
 								<div class="hidden">{{ guia.datosEspecificos_9_1_1 }}</div>
@@ -277,7 +276,7 @@
 								<div class="clear"></div>
 							</div>
 							<label for="datosEspecificos_9_1_2">Otro: </label>
-							<input id="datosEspecificos_9_1_2" name="datosEspecificos_9_1_2" value="{{ guia.datosEspecificos_9_1_2 }}" class="natural" />
+							<input id="datosEspecificos_9_1_2" name="datosEspecificos_9_1_2" value="{{ guia.datosEspecificos_9_1_2 }}" class="editor-minimo natural" />
 						</div>
 
 						<div class="contenedor">
@@ -289,7 +288,56 @@
 					<fieldset class="step">
 						<legend>Paso#11: Organización docente semanal orientativa</legend>
 						<div class="contenedor">
-							&lt;TABLA AUTOGENERADA EDITABLE&gt;
+							<table> 
+								<thead> 
+									<tr> 
+										<th rowspan="2">Semana</th> 
+										<th rowspan="2">Horas de clases (grupos grandes)</th>
+										<th colspan="4">Horas de clases/prácticas (grupos reducidos)</th> 
+										<th rowspan="2">Examen</th>
+										<th rowspan="2">Observaciones</th>
+									</tr> 
+									<tr> 
+										<th>Aula</th> 
+										<th>Sala de informática</th> 
+										<th>Laboratorio</th> 
+										<th>Prácticas de campo</th>
+									</tr> 
+								</thead> 
+								<tbody>
+									{% for e in semanas %}
+									{% if e.numeroSemana == 16 %}
+									<tr><td class="margin" colspan="8"></td></tr>
+									{% endif %}
+									<tr>
+										<td style="text-align: center;" class="numero-semana">
+											<b>#{{ e.numeroSemana }}</b>
+										</td>
+										<td>
+											<input class="editor-semana margenes" name="horasGruposGrandes" value="{{ e.horasGruposGrandes }}" />
+										</td>
+										<td>
+											<input class="editor-semana margenes" name="horasGruposReducidosAula" value="{{ e.horasGruposReducidosAula }}" />
+										</td>
+										<td>
+											<input class="editor-semana margenes" name="horasGruposReducidosInformatica" value="{{ e.horasGruposReducidosInformatica }}" />
+										</td>
+										<td>
+											<input class="editor-semana margenes" name="horasGruposReducidosLaboratorio" value="{{ e.horasGruposReducidosLaboratorio }}" />
+										</td>
+										<td>
+											<input class="editor-semana margenes" name="horasGruposReducidosCampo" value="{{ e.horasGruposReducidosCampo }}" />
+										</td>
+										<td>
+											<input class="editor-semana peque" name="examen" value="{{ e.examen }}" />
+										</td>
+										<td>
+											<input class="editor-semana peque" name="observaciones" value="{{ e.observaciones }}" />
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody> 
+							</table>
 						</div>
 					</fieldset>
 

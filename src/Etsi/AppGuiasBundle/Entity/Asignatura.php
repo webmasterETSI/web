@@ -1,8 +1,7 @@
 <?php
 namespace Etsi\AppGuiasBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM,
-    JMS\Serializer\Annotation\Exclude;
+use Doctrine\ORM\Mapping as ORM;
 
 
 /**
@@ -27,8 +26,6 @@ class Asignatura
 
     /**
      * @ORM\OneToMany(targetEntity="Guia", mappedBy="asignatura")
-     *
-     * @Exclude
      */
     private $guias;
 

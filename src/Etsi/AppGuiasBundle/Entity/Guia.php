@@ -29,27 +29,27 @@ class Guia
     protected $profesores;
     
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     protected $creditosTeoricos;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     protected $creditosPracticosAula;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     protected $creditosPracticosInformatica;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     protected $creditosPracticosLaboratorio;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     protected $creditosPracticosCampo;
 

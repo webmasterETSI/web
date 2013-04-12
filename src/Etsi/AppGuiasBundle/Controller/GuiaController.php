@@ -43,17 +43,21 @@ class GuiaController extends Controller
             'datosEspecificos_10',
         );
 
-        $referencia = array( 'asignatura' );
+        $especial = array(
+            //'asignatura',
+            'nombreI',
+            'semanas'
+        );
 
         $referenciaMultiple = array(
             'profesores',
             'datosEspecificos_4_1',
             'datosEspecificos_4_2',
-            'datosEspecificos_9_2',
+            //'datosEspecificos_10',
         );
 
         if(in_array($nombre, $campos)) return 1;
-        if(in_array($nombre, $referencia)) return 2;
+        if(in_array($nombre, $especial)) return 2;
         if(in_array($nombre, $referenciaMultiple)) return 3;
         return 0;
     }
@@ -81,10 +85,29 @@ class GuiaController extends Controller
                         switch($name) {
                             case 'asignatura':
                                 $entidad = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->find($value);
+                                $entity->setAsignatura($entidad);
+                                break;
+
+                            case 'nombreI':
+                                $entity->getAsignatura()
+                                    ->setNombreI($value);
+
+                            case 'semanas':
+                                $semanas = $entity->getDatosEspecificos_10();
+                                foreach($value as $semana) {
+                                    $num = $semana->numeroSemana-1;
+                                    if(isset($semanas[$num]) && !empty($semanas[$num])) {
+                                        $semanas[$num]->setHorasGruposGrandes($semana->horasGruposGrandes);
+                                        $semanas[$num]->setHorasGruposReducidosAula($semana->horasGruposReducidosAula);
+                                        $semanas[$num]->setHorasGruposReducidosInformatica($semana->horasGruposReducidosInformatica);
+                                        $semanas[$num]->setHorasGruposReducidosLaboratorio($semana->horasGruposReducidosLaboratorio);
+                                        $semanas[$num]->setHorasGruposReducidosCampo($semana->horasGruposReducidosCampo);
+                                        $semanas[$num]->setExamen($semana->examen);
+                                        $semanas[$num]->setObservaciones($semana->observaciones);
+                                    }
+                                }
                                 break;
                         }
-                        $method = 'set'.ucfirst($name);
-                        call_user_func(array($entity, $method), $entidad);
                         break;
                         
                     case 3:
@@ -95,7 +118,7 @@ class GuiaController extends Controller
                             case 'profesores': $cadena = 'EtsiAppGuiasBundle:Profesor'; break;
                             case 'datosEspecificos_4_1': 
                             case 'datosEspecificos_4_2': $cadena = 'EtsiAppGuiasBundle:Competencia'; break;
-                            case 'datosEspecificos_9_2': $cadena = 'EtsiAppGuiasBundle:Semana'; break;
+                            case 'datosEspecificos_10': $cadena = 'EtsiAppGuiasBundle:Semana'; break;
                         }
 
                         $method = 'add'.ucfirst($name);
@@ -123,7 +146,7 @@ class GuiaController extends Controller
         
         $guia = $em->getRepository('EtsiAppGuiasBundle:Guia')->find($id);
         $grados = $em->getRepository('EtsiAppGuiasBundle:Grado')->findAll();
-        $semanas = $em->getRepository('EtsiAppGuiasBundle:Semana')->findByGuia($id);
+        $semanas = $guia->getDatosEspecificos_10();
         $profesores = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findAll();
 
         $gradosAsignatura = $guia->getAsignatura()->getGrados();

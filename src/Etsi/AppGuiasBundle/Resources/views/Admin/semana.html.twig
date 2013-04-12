@@ -62,6 +62,14 @@
 				{{ macros.input('Laboratorio', 'horasGruposReducidosLaboratorio', entity.horasGruposReducidosLaboratorio|default('')) }}
 				{{ macros.input('Campo', 'horasGruposReducidosCampo', entity.horasGruposReducidosCampo|default('')) }}
 			</fieldset>
+
+			{% if entity %}
+			<fieldset>
+				<label>Guía</label>
+				<div class="clear"></div>
+				<a href="{{ path('etsi_app_guia_guia_pasos', { 'id': entity.guia.id }) }}" style="margin-left: 6px;">{{ entity.guia.asignatura.nombre }} curso {{ entity.guia.curso }} - {{ entity.guia.curso+1 }}</a>
+			</fieldset>
+			{% endif %}
 		</div>
 		<footer>
 			<div class="submit_link">

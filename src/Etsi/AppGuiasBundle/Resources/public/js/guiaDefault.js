@@ -31,6 +31,20 @@ GUIA.saveCambios = function() {
 					result |= 1<<index;
 			});
 			data[e.attr('id')] = result;
+		} else if(e.is('tr')) {
+			var semana = {
+				numeroSemana: parseInt(e.find('.numero-semana').text().replace('#', '')),
+				horasGruposGrandes: parseFloat(e.find('input[name=horasGruposGrandes]').val().replace(',', '.')),
+				horasGruposReducidosAula: parseFloat(e.find('input[name=horasGruposReducidosAula]').val().replace(',', '.')),
+				horasGruposReducidosInformatica: parseFloat(e.find('input[name=horasGruposReducidosInformatica]').val().replace(',', '.')), 
+				horasGruposReducidosLaboratorio: parseFloat(e.find('input[name=horasGruposReducidosLaboratorio]').val().replace(',', '.')),
+				horasGruposReducidosCampo: parseFloat(e.find('input[name=horasGruposReducidosCampo]').val().replace(',', '.')),
+				examen: e.find('input[name=examen]').val(),
+				observaciones: e.find('input[name=observaciones]').val()
+			};
+
+			if( !data.semanas ) data.semanas = [];
+			data.semanas.push(semana);
 		} else {
 			console.log(e);
 		}
@@ -61,11 +75,33 @@ GUIA.updateData = function(data) {
 
 
 $(function(){
+	// Calculo de créditos correctos
+	$('#contenedor-creditos > input').bind('keyup', function() {
+		var total = parseFloat($(this).val().replace(',', '.'));
+		$(this).siblings('input').each(function() {
+			total += parseFloat($(this).val().replace(',', '.'));
+		});
+
+		if( total != parseFloat($('#creditos-totales').text()) )
+			$('#creditos-totales').addClass('error');
+		else
+			$('#creditos-totales').removeClass('error');
+	}).
+	first().trigger('keyup');
+
+
+	// Configuración de autosalvado y edición en los respectivos campos
 	$('select').chosen({no_results_text: "No se han encontrado resultados"});
 
 	$('.editor-minimo').bind('keyup', function() {
 		$(this).addClass('cambios-no-guardados').removeClass('cambios-guardados');
 		GUIA.cambios($(this));
+	});
+
+	$('.editor-semana').bind('keyup', function() {
+		var fila = $(this).closest('tr'); 
+		fila.addClass('cambios-no-guardados').removeClass('cambios-guardados');
+		GUIA.cambios(fila);
 	});
 
 	var data = $('#datosEspecificos_6_1_1 > .hidden').text();

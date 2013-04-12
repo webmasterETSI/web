@@ -260,6 +260,10 @@ span.error{
 	width: 300px!important;
 }
 
+#steps .peque{
+	width: 180px!important;
+}
+
 #steps .break{
 	margin-right: 500px;
 }
@@ -330,6 +334,10 @@ span.error{
 	font-weight:bold;
 }
 
+#steps form .right-legend .error {
+	color:#A12;
+}
+
 #steps form .right-legend .texto-grande {
 	display: block;
 	font-size:35px;	
@@ -340,3 +348,70 @@ span.error{
 	clear:both;
 }
 /*>>>>>>>>>>>>>>>>*/
+
+
+/* 
+	Cusco Sky table styles
+	written by Braulio Soncco http://www.buayacorp.com
+*/
+
+table, th, td {
+	border: 1px solid #D4E0EE;
+	border-collapse: collapse;
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	color: #555;
+
+	width: 100%;
+}
+
+caption {
+	font-size: 150%;
+	font-weight: bold;
+	margin: 5px;
+}
+
+td, th {
+	padding: 4px;
+}
+
+td .margenes {
+	margin: auto 30px;
+}
+
+table .margin {
+	background: #E6EDF5;
+}
+
+thead th {
+	text-align: center;
+	background: #E6EDF5;
+	color: #4F76A3;
+	font-size: 100% !important;
+}
+
+tbody th {
+	font-weight: bold;
+}
+
+tbody tr { background: #FCFDFE; }
+
+tbody tr.odd { background: #F7F9FC; }
+
+table a:link {
+	color: #718ABE;
+	text-decoration: none;
+}
+
+table a:visited {
+	color: #718ABE;
+	text-decoration: none;
+}
+
+table a:hover {
+	color: #718ABE;
+	text-decoration: underline !important;
+}
+
+tfoot th, tfoot td {
+	font-size: 85%;
+}

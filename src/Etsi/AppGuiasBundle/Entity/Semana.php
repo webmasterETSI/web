@@ -1,8 +1,7 @@
 <?php
 namespace Etsi\AppGuiasBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM,
-    JMS\Serializer\Annotation\Exclude;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="semana")
@@ -19,8 +18,6 @@ class Semana
 
     /**
      * @ORM\ManyToOne(targetEntity="Guia", inversedBy="datosEspecificos_9_2")
-     *
-     * @Exclude
      */
     protected $guia;
 
@@ -31,27 +28,27 @@ class Semana
     protected $numeroSemana;
     
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     protected $horasGruposGrandes;
     
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     protected $horasGruposReducidosAula;
     
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     protected $horasGruposReducidosInformatica;
     
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     protected $horasGruposReducidosLaboratorio;
     
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     protected $horasGruposReducidosCampo;
     

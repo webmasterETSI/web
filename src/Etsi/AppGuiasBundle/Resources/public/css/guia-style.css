@@ -1,5 +1,5 @@
 *{
-	margin:0px;
+	margin:0px auto;
 	padding:0px;
 }
 
@@ -8,6 +8,8 @@ body{
 	font-size:13px;
 	background: #f2f2f2;
 	font-family:"Century Gothic", Helvetica, sans-serif;
+
+	width: 1000px;
 }
 
 #content{
@@ -73,14 +75,14 @@ body{
     margin-right: 10px;
     margin-left: 5px;
     padding:20px 0px 20px 0px;
-}editor-minimo
+}
 
 
 /*>>>>>>>>>>>>>>>>*/
 
 /*Menu estados ( de los 4 estados posibles )*/
 
-#Menu_estados{
+#menu-estados{
     text-align:right;
     background-color:#b3b3b3;
     color:#FFFFFF;
@@ -94,33 +96,32 @@ body{
 
 
 #button {
-padding: 0;
-text-align: center;
+	padding: 0;
+	text-align: center;
 }
 
 #button li {
-display: inline;
+	display: inline;
 }
 
 
 #button li a {
-font-size:13px;    
-text-decoration: none;
-float:center;
-width:250px;
-padding: 10px 39px 5px 39px;
-background-color: #b3b3b3;
-color: #ededed;
+	font-size:13px;
+	text-decoration: none;
+	float:center;
+	width:250px;
+	padding: 10px 39px 5px 39px;
+	background-color: #b3b3b3;
+	color: #ededed;
 }
 
 
 #button li #hover {
-background-color: #cbcbcb;
+	background-color: #cbcbcb;
 
-padding: 10px 39px 5px 39px;
+	padding: 10px 39px 5px 39px;
 
-color: #666;
-
+	color: #666;
 }
 
 

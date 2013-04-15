@@ -50,7 +50,7 @@
 				{{ macros.input('Nombre', 'nombre', entity.nombre|default('')) }}
 
 				<label>Grado padre</label>
-				<select style="margin-bottom: 10px;" name="gradoPadre">
+				<select class="chosen-select" style="margin-bottom: 10px;" name="gradoPadre">
 					<option value=""></option>
 
 					{% for e in entities %}

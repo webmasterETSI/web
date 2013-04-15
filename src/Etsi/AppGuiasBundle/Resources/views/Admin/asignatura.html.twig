@@ -70,16 +70,26 @@
 				</select>
 			</fieldset>
 
-
 			<fieldset>
 				<label>Grados en los que aparece</label>
-				<select class="chosen-select" data-placeholder="Seleccionar..." name="grados[]" multiple style="height: 150px; margin-bottom: 10px;">
+				<select class="chosen-select" data-placeholder="Seleccionar..." name="grados[]" multiple style="margin-bottom: 10px;">
 					{% for g in grados %}
 					<option value="{{ g.id }}" {% if entity and g in entity.grados %}selected{% endif %}>
 						{% if g.gradoPadre %}
 						{{ g.gradoPadre.nombre }}, itinerario de 
 						{% endif %}
 						{{ g.nombre }}
+					</option>
+					{% endfor %}
+				</select>
+			</fieldset>
+
+			<fieldset>
+				<label>Profesor coordinador</label>
+				<select class="chosen-select"  data-placeholder="Seleccionar..." name="coordinador" style="margin-bottom: 10px;">
+					{% for p in profesores %}
+					<option value="{{ p.id }}" {% if entity and p == entity.coordinador %}selected{% endif %}>
+						{{ p.nombre }}
 					</option>
 					{% endfor %}
 				</select>

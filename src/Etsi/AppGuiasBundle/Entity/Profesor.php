@@ -35,12 +35,20 @@ class Profesor
      * @ORM\ManyToMany(targetEntity="Guia", mappedBy="profesores")
      */
     protected $guias;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Asignatura", mappedBy="coordinador")
+     */
+    private $asignaturasCoordinadas;
+
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->guias = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->asignaturasCoordinadas = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -165,5 +173,50 @@ class Profesor
     public function getGuias()
     {
         return $this->guias;
+    }
+
+    /**
+     * Add asignaturasCoordinadas
+     *
+     * @param Etsi\AppGuiasBundle\Entity\Asignatura $asignatura
+     * @return Profesor
+     */
+    public function addAsignaturasCoordinadas(\Etsi\AppGuiasBundle\Entity\Asignatura $asignatura)
+    {
+        $this->asignaturasCoordinadas[] = $asignatura;
+    
+        return $this;
+    }
+
+    /**
+     * Remove asignaturasCoordinadas
+     *
+     * @param Etsi\AppGuiasBundle\Entity\Asignatura $asignatura
+     */
+    public function removeAsignaturasCoordinadas(\Etsi\AppGuiasBundle\Entity\Asignatura $asignatura)
+    {
+        $this->asignaturasCoordinadas->removeElement($asignatura);
+    }
+
+    /**
+     * Clear guia
+     *
+     * @return Profesor
+     */
+    public function clearAsignaturasCoordinadas()
+    {
+        $this->asignaturasCoordinadas->clear();
+        
+        return $this;
+    }
+
+    /**
+     * Get asignaturasCoordinadas
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getAsignaturasCoordinadas()
+    {
+        return $this->asignaturasCoordinadas;
     }
 }

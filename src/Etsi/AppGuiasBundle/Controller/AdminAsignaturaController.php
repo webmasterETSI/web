@@ -10,6 +10,7 @@ use Common\Herramientas;
 
 use Etsi\AppGuiasBundle\Entity\Asignatura,
     Etsi\AppGuiasBundle\Entity\Area,
+    Etsi\AppGuiasBundle\Entity\Profesor,
     Etsi\AppGuiasBundle\Entity\Grado;
 
 class AdminAsignaturaController extends Controller
@@ -21,10 +22,11 @@ class AdminAsignaturaController extends Controller
     ) {
         $em = $this->getDoctrine()->getManager();
 
+        $entity = $id?$em->getRepository('EtsiAppGuiasBundle:Asignatura')->find($id):null;
+        $profesores = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findAll();
         $entities = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->findAll();
         $grados = $em->getRepository('EtsiAppGuiasBundle:Grado')->findAll();
         $areas = $em->getRepository('EtsiAppGuiasBundle:Area')->findAll();
-        $entity = $id?$em->getRepository('EtsiAppGuiasBundle:Asignatura')->find($id):null;
 
         if(!$messages) {
             $messages = array(
@@ -41,6 +43,7 @@ class AdminAsignaturaController extends Controller
                 'entities' => $entities,
                 'grados' => $grados,
                 'areas' => $areas,
+                'profesores' => $profesores,
                 'entity' => $entity,
             )
         );
@@ -53,11 +56,14 @@ class AdminAsignaturaController extends Controller
             'codigo',
             'caracter',
             'creditos',
-            'curso'
+            'curso',
+            'coordinador'
         );
 
         if(Herramientas::allFields($camposObligatorios, $data)) {
             $em = $this->getDoctrine()->getManager();
+
+            $coordinador = $em->getRepository('EtsiAppGuiasBundle:Profesor')->find($data['coordinador']);
 
             $entity->setNombre($data['nombre']);
             $entity->setNombreI($data['nombreI']);
@@ -66,6 +72,7 @@ class AdminAsignaturaController extends Controller
             $entity->setCreditos($data['creditos']);
             $entity->setCurso($data['curso']);
             $entity->setCuatrimestre($data['cuatrimestre']);
+            $entity->setCoordinador($coordinador);
 
             $entity->clearGrados();
             if(isset($data['grados']) && !empty($data['grados'])) {

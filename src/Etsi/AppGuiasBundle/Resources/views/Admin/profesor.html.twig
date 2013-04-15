@@ -46,6 +46,19 @@
 				{{ macros.input('eMail', 'email', entity.email|default('')) }}
 				{{ macros.input('Teléfono', 'tlf', entity.tlf|default('')) }}
 			</fieldset>
+			<fieldset>
+				<label>Asignaturas que coordina</label>
+				<div class="clear"></div>
+				<ul>
+					{% if entity %}
+					{% for a in entity.asignaturasCoordinadas %}
+					<li>
+						<a href="{{ path('eaga_asignatura_edit', {'id': a.id}) }}">{{ a.codigo }}: {{ a.nombre|truncate(40) }}</a>
+					</li>
+					{% endfor %}
+					{% endif %}
+				</ul>
+			</fieldset>
 		</div>
 		<footer>
 			<div class="submit_link">

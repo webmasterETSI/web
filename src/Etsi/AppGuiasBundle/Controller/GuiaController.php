@@ -163,6 +163,7 @@ class GuiaController extends Controller
                 $guia->setCurso($curso);
                 $guia->setAsignatura($asignatura);
                 $guia->setFechaDeModificacion(new DateTime());
+                $guia->addProfesores($asignatura->getCoordinador());
 
                 $em->persist($guia);
                 $em->flush();

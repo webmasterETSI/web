@@ -69,6 +69,12 @@ class Asignatura
      * @ORM\Column(type="integer")
      */
     protected $cuatrimestre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Profesor", inversedBy="asignaturasCoordinadas")
+     */
+    protected $coordinador;
+
     /**
      * Constructor
      */
@@ -384,4 +390,28 @@ class Asignatura
     {
         return $this->areas;
     }
+
+    /**
+     * Set coordinador
+     *
+     * @param Etsi\AppGuiasBundle\Entity\Profesor $coordinador
+     * @return Asignatura
+     */
+    public function setCoordinador(\Etsi\AppGuiasBundle\Entity\Profesor $coordinador = null)
+    {
+        $this->coordinador = $coordinador;
+    
+        return $this;
+    }
+
+    /**
+     * Get coordinador
+     *
+     * @return Etsi\AppGuiasBundle\Entity\Profesor 
+     */
+    public function getCoordinador()
+    {
+        return $this->coordinador;
+    }
+
 }

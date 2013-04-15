@@ -92,7 +92,11 @@ $(function(){
 
 
 	// Configuración de autosalvado y edición en los respectivos campos
-	$('select').chosen({no_results_text: "No se han encontrado resultados"});
+	$('select').chosen({no_results_text: "No se han encontrado resultados"})
+		.change(function() {
+			$(this).addClass('cambios-no-guardados').removeClass('cambios-guardados');
+			GUIA.cambios($(this));
+		});
 
 	$('.editor-minimo').bind('keyup', function() {
 		$(this).addClass('cambios-no-guardados').removeClass('cambios-guardados');

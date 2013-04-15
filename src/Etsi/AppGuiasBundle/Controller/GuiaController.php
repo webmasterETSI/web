@@ -42,7 +42,7 @@ class GuiaController extends Controller
             'datosEspecificos_8_2',
             'datosEspecificos_9_1_1',
             'datosEspecificos_9_1_2',
-            'datosEspecificos_10',
+            'datosEspecificos_9_2',
         );
 
         $especial = array(
@@ -93,6 +93,7 @@ class GuiaController extends Controller
                             case 'nombreI':
                                 $entity->getAsignatura()
                                     ->setNombreI($value);
+                                break;
 
                             case 'semanas':
                                 $semanas = $entity->getDatosEspecificos_10();

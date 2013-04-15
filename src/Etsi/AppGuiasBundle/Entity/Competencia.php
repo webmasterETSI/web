@@ -27,9 +27,9 @@ class Competencia
     protected $nombre;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
-    protected $transversal;
+    protected $tipo;
 
     /**
      * @ORM\ManyToOne(targetEntity="Grado", inversedBy="competenciasDeGrado")
@@ -93,26 +93,26 @@ class Competencia
     }
 
     /**
-     * Set transversal
+     * Set tipo
      *
-     * @param string $transversal
+     * @param string $tipo
      * @return Competencia
      */
-    public function setTransversal($transversal)
+    public function setTipo($tipo)
     {
-        $this->transversal = $transversal;
+        $this->tipo = $tipo;
     
         return $this;
     }
 
     /**
-     * Get transversal
+     * Get tipo
      *
      * @return boolean 
      */
-    public function getTransversal()
+    public function getTipo()
     {
-        return $this->transversal;
+        return $this->tipo;
     }
 
     /**

@@ -44,14 +44,14 @@ class AdminCompetenciaController extends Controller
     }
 
     private function fillEntity($entity, $data) {
-        $camposObligatorios = array( 'nombre', 'codigo', 'grado' );
+        $camposObligatorios = array( 'nombre', 'codigo', 'grado', 'tipo' );
 
         if(Herramientas::allFields($camposObligatorios, $data)) {
             $em = $this->getDoctrine()->getManager();
 
             $entity->setNombre($data['nombre']);
             $entity->setCodigo($data['codigo']);
-            $entity->setTransversal($data['transversal']);
+            $entity->setTipo($data['tipo']);
 
             $grado = $em->getRepository('EtsiAppGuiasBundle:Grado')->find($data['grado']);
             $entity->setGrado($grado);

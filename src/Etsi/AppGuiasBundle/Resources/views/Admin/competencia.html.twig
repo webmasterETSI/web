@@ -49,8 +49,10 @@
 
 				<label>Tipo de competencia</label>
 				<p style="clear: both; margin-left: 20px; margin-bottom:20px;">
-					Específica <input type="radio" name="transversal" value="0" {% if not entity or not entity.transversal %}checked{% endif %}><br>
-					Transversal <input type="radio" name="transversal" value="1" {% if entity and entity.transversal %}checked{% endif %}> 
+					Básica <input type="radio" name="tipo" value="1" {% if not entity or entity.tipo == 1 %}checked{% endif %}><br>
+					General <input type="radio" name="tipo" value="2" {% if entity and entity.tipo == 2 %}checked{% endif %}> <br>
+					Transversal <input type="radio" name="tipo" value="3" {% if entity and entity.tipo == 3 %}checked{% endif %}> <br>
+					Específica <input type="radio" name="tipo" value="4" {% if entity and entity.tipo == 4 %}checked{% endif %}> 
 				</p>
 				
 				<label>Grado de competencia</label>

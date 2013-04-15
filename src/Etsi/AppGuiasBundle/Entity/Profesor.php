@@ -22,7 +22,7 @@ class Profesor
     protected $nombre;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true)
      */
     protected $email;
 
@@ -41,7 +41,6 @@ class Profesor
      */
     private $asignaturasCoordinadas;
 
-
     /**
      * Constructor
      */
@@ -50,7 +49,7 @@ class Profesor
         $this->guias = new \Doctrine\Common\Collections\ArrayCollection();
         $this->asignaturasCoordinadas = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *

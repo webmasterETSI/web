@@ -77,9 +77,10 @@ GUIA.updateData = function(data) {
 $(function(){
 	// Calculo de créditos correctos
 	$('#contenedor-creditos > input').bind('keyup', function() {
-		var total = parseFloat($(this).val().replace(',', '.'));
+		$(this).val($(this).val().replace(',', '.'));
+		var total = parseFloat($(this).val());
 		$(this).siblings('input').each(function() {
-			total += parseFloat($(this).val().replace(',', '.'));
+			total += parseFloat($(this).val());
 		});
 
 		if( total != parseFloat($('#creditos-totales').text()) )

@@ -131,6 +131,7 @@ class GuiaController extends Controller
                         break;
                 }
             }
+            $entity->setFechaDeModificacion(new DateTime());
 
             $em->flush();
 

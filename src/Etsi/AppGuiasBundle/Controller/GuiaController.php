@@ -7,8 +7,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     Symfony\Component\HttpFoundation\Request;
 
 use Common\Herramientas;
+use DateTime;
 
-use Etsi\AppGuiasBundle\Entity\Competencia,
+use Etsi\AppGuiasBundle\Entity\Asignatura,
+    Etsi\AppGuiasBundle\Entity\Competencia,
     Etsi\AppGuiasBundle\Entity\Grado,
     Etsi\AppGuiasBundle\Entity\Guia,
     Etsi\AppGuiasBundle\Entity\Profesor,
@@ -137,6 +139,55 @@ class GuiaController extends Controller
         } else
             $response->setStatusCode('400');
 
+        return $response;
+    }
+
+    public function newAction($idAsignatura, $curso)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $asignatura = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->find($idAsignatura);
+        if($asignatura) {
+            $query = $em->getRepository('EtsiAppGuiasBundle:Guia')
+                ->createQueryBuilder('g')
+                ->where('g.asignatura = :asignatura AND g.curso = :curso')
+                ->setParameter('asignatura', $idAsignatura)
+                ->setParameter('curso', $curso)
+                ->getQuery();
+
+            $guia = $query->getResult();
+
+            if(!$guia) {
+                $guia = new Guia();
+
+                $guia->setCurso($curso);
+                $guia->setAsignatura($asignatura);
+                $guia->setFechaDeModificacion(new DateTime());
+
+                $em->persist($guia);
+                $em->flush();
+
+                $semanas = $asignatura->getCuatrimestre()==3?30:15;
+
+                for($i=1; $i<=$semanas; $i++) {
+                    $semana = new Semana();
+
+                    $semana->setNumeroSemana($i);
+                    $semana->setGuia($guia);
+
+                    $em->persist($semana);
+                }
+                $em->flush();
+                $em->clear();
+
+                return $this->pasosAction($guia->getId());
+            }
+        }
+
+
+        $response = new Response();
+        $response->setStatusCode('400');
+        $response->setContent('Error...');
         return $response;
     }
 

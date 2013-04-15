@@ -30,37 +30,37 @@ class Semana
     /**
      * @ORM\Column(type="float")
      */
-    protected $horasGruposGrandes;
+    protected $horasGruposGrandes = 0;
     
     /**
      * @ORM\Column(type="float")
      */
-    protected $horasGruposReducidosAula;
+    protected $horasGruposReducidosAula = 0;
     
     /**
      * @ORM\Column(type="float")
      */
-    protected $horasGruposReducidosInformatica;
+    protected $horasGruposReducidosInformatica = 0;
     
     /**
      * @ORM\Column(type="float")
      */
-    protected $horasGruposReducidosLaboratorio;
+    protected $horasGruposReducidosLaboratorio = 0;
     
     /**
      * @ORM\Column(type="float")
      */
-    protected $horasGruposReducidosCampo;
+    protected $horasGruposReducidosCampo = 0;
     
     /**
      * @ORM\Column(type="string")
      */
-    protected $examen;
+    protected $examen = "";
     
     /**
      * @ORM\Column(type="string")
      */
-    protected $observaciones;
+    protected $observaciones = "";
 
     /**
      * Get id

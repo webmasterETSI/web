@@ -31,32 +31,32 @@ class Guia
     /**
      * @ORM\Column(type="float")
      */
-    protected $creditosTeoricos;
+    protected $creditosTeoricos = 0;
 
     /**
      * @ORM\Column(type="float")
      */
-    protected $creditosPracticosAula;
+    protected $creditosPracticosAula = 0;
 
     /**
      * @ORM\Column(type="float")
      */
-    protected $creditosPracticosInformatica;
+    protected $creditosPracticosInformatica = 0;
 
     /**
      * @ORM\Column(type="float")
      */
-    protected $creditosPracticosLaboratorio;
+    protected $creditosPracticosLaboratorio = 0;
 
     /**
      * @ORM\Column(type="float")
      */
-    protected $creditosPracticosCampo;
+    protected $creditosPracticosCampo = 0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $estado;
+    protected $estado = 0;
 
     /**
      * @ORM\Column(type="datetime")
@@ -71,27 +71,27 @@ class Guia
     /**
      * @ORM\Column(type="text")
      */
-    protected $datosEspecificos_1_1;
+    protected $datosEspecificos_1_1 = "";
 
     /**
      * @ORM\Column(type="text")
      */
-    protected $datosEspecificos_1_2;
+    protected $datosEspecificos_1_2 = "";
 
     /**
      * @ORM\Column(type="text")
      */
-    protected $datosEspecificos_2_1;
+    protected $datosEspecificos_2_1 = "";
 
     /**
      * @ORM\Column(type="text")
      */
-    protected $datosEspecificos_2_2;
+    protected $datosEspecificos_2_2 = "";
 
     /**
      * @ORM\Column(type="text")
      */
-    protected $datosEspecificos_3;
+    protected $datosEspecificos_3 = "";
 
     /**
      * @ORM\ManyToMany(targetEntity="Competencia")
@@ -108,47 +108,47 @@ class Guia
     /**
      * @ORM\Column(type="integer")
      */
-    protected $datosEspecificos_6_1_1;
+    protected $datosEspecificos_6_1_1 = 0;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $datosEspecificos_6_1_2;
+    protected $datosEspecificos_6_1_2 = "";
 
     /**
      * @ORM\Column(type="text")
      */
-    protected $datosEspecificos_6_2;
+    protected $datosEspecificos_6_2 = "";
 
     /**
      * @ORM\Column(type="text")
      */
-    protected $datosEspecificos_7;
+    protected $datosEspecificos_7 = "";
 
     /**
      * @ORM\Column(type="text")
      */
-    protected $datosEspecificos_8_1;
+    protected $datosEspecificos_8_1 = "";
 
     /**
      * @ORM\Column(type="text")
      */
-    protected $datosEspecificos_8_2;
+    protected $datosEspecificos_8_2 = "";
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $datosEspecificos_9_1_1;
+    protected $datosEspecificos_9_1_1 = 0;
 
     /**
      * @ORM\Column(type="string")
      */
-    protected $datosEspecificos_9_1_2;
+    protected $datosEspecificos_9_1_2 = "";
 
     /**
      * @ORM\Column(type="text")
      */
-    protected $datosEspecificos_9_2;
+    protected $datosEspecificos_9_2 = "";
 
     /**
      * @ORM\OneToMany(targetEntity="Semana", mappedBy="guia")

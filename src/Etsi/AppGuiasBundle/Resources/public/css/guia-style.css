@@ -127,6 +127,20 @@ body{
 
 /*>>>>>>>>>>>>>>>>*/
 
+/*footer*/
+
+#footer{
+    text-align:right;
+    background-color:#cbcbcb;
+    color:#FFFFFF;
+    font-size:20px;
+    float:left;
+    width:1000px;
+    margin-top:-3px;
+    padding:10px 0px 10px 0px;
+}
+
+/*>>>>>>>>>>>>>>>>*/
 
 /*contenedores pantallas*/
 
@@ -306,13 +320,13 @@ span.error{
 	-moz-box-shadow:0px 0px 3px #aaa;
 	-webkit-box-shadow:0px 0px 3px #aaa;
 	box-shadow:0px 0px 3px #aaa;
-	background:#4797ED;
+	background:#cbcbcb;
 }
 
 #steps form button:hover {
-	background:#d8d8d8;
-	color:#666;
-	text-shadow:1px 1px 1px #fff;
+	background:#b3b3b3;
+	color:#ffffff;
+	text-shadow: 0 1px 1px #777;
 }
 
 #steps form .right-legend {
@@ -339,7 +353,7 @@ span.error{
 }
 
 #steps form .right-legend .error {
-	color:#A12;
+	color:rgb(190, 139, 119);
 }
 
 #steps form .right-legend .texto-grande {
@@ -360,7 +374,7 @@ span.error{
 */
 
 table, th, td {
-	border: 1px solid #D4E0EE;
+	border: 1px solid rgb(221, 221, 221);
 	border-collapse: collapse;
 	font-family: "Trebuchet MS", Arial, sans-serif;
 	color: #555;
@@ -379,7 +393,11 @@ td, th {
 }
 
 td .margenes {
+<<<<<<< HEAD
 	margin: auto 25px;
+=======
+	margin: auto 10px;
+>>>>>>> ec684df17fd77adaa6eb0a25fb567d1482c60469
 }
 
 table .margin {
@@ -388,8 +406,8 @@ table .margin {
 
 thead th {
 	text-align: center;
-	background: #E6EDF5;
-	color: #4F76A3;
+	background: rgb(238, 238, 238);
+	color: #666666;
 	font-size: 100% !important;
 }
 

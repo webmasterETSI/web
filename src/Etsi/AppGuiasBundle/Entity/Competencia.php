@@ -22,7 +22,7 @@ class Competencia
     protected $codigo;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     protected $nombre;
 

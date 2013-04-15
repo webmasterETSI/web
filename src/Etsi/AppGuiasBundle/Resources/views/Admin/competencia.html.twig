@@ -45,7 +45,10 @@
 			<fieldset>
 				<label>Datos de competencia</label>
 				{{ macros.input('Código', 'codigo', entity.codigo|default('')) }}
-				{{ macros.input('Nombre', 'nombre', entity.nombre|default('')) }}
+
+				<textarea placeholder="Datos" name="nombre" style="width:92%; height: 150px; margin-bottom: 10px;">
+					{%- if entity %}{{ entity.nombre }}{% endif -%}
+				</textarea>
 
 				<label>Tipo de competencia</label>
 				<p style="clear: both; margin-left: 20px; margin-bottom:20px;">
@@ -56,7 +59,7 @@
 				</p>
 				
 				<label>Grado de competencia</label>
-				<select data-placeholder="Seleccionar..." name="grado" >
+				<select class="chosen-select" data-placeholder="Seleccionar..." name="grado" >
 					<option></option>
 					{% for g in grados %}
 					<option value="{{ g.id }}" {% if entity and g == entity.grado %}selected{% endif -%}>

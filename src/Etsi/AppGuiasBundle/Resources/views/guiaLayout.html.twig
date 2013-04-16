@@ -27,7 +27,8 @@
 			'@EtsiAppGuiasBundle/Resources/public/js/chosen.jquery.min.js' 
 			'@EtsiAppGuiasBundle/Resources/public/js/sliding.form.js'
 			'ckeditor/ckeditor.js'
-			'@EtsiAppGuiasBundle/Resources/public/js/guiaDefault.js' %}
+			'@EtsiAppGuiasBundle/Resources/public/js/guia.default.js'
+			'@EtsiAppGuiasBundle/Resources/public/js/guia.miniaturas.js' %}
 			<script src="{{ asset_url }}" type="text/javascript"></script>
 		{% endjavascripts %}
 
@@ -78,14 +79,14 @@
 						<legend>
 							Paso#1: Asignatura
 						</legend>
-						<div class="contenedor">
+						<div class="contenedor{% if not guia.asignatura.nombreI %} empty{% endif %}">
 							<div class="in-titulo">{{ guia.asignatura.nombre }} &lt;{{ guia.asignatura.codigo }}&gt;</div>
 
 							<label for="nombreI">Nombre en ingles</label>
 							<input class="long editor-minimo" id="nombreI" name="nombreI" value="{{ guia.asignatura.nombreI }}"/>
 						</div>
 
-						<div class="contenedor">
+						<div class="contenedor{% if guia.profesores|length == 0 %} empty{% endif %}">
 							<label for="profesores">Datos de profesores</label>
 							<select name="profesores" data-placeholder="Seleccionar..." multiple class="long" >
 								{% for p in profesores %}
@@ -96,7 +97,7 @@
 							</select>
 						</div>
 
-						<div id="contenedor-creditos" class="contenedor">
+						<div id="contenedor-creditos" class="contenedor{% if guia.creditosTeoricos+guia.creditosPracticosAula+guia.creditosPracticosLaboratorio+guia.creditosPracticosCampo+guia.creditosPracticosInformatica != guia.asignatura.creditos %} empty{% endif %}">
 							<div class="in-titulo">Datos de créditos:</div>
 
 							<div class="right-legend">
@@ -123,11 +124,11 @@
 
 					<fieldset class="step">
 						<legend>Paso#2: Descripción de contenidos</legend>
-						<div class="contenedor">
+						<div class="contenedor{% if guia.datosEspecificos_1_1|striptags is empty %} empty{% endif %}">
 							<div class="in-titulo">Breve descripción de contenidos:</div>
 							<div class="editor-texto" id="datosEspecificos_1_1" contenteditable="true" >{{ guia.datosEspecificos_1_1|raw }}</div>
 						</div>
-						<div class="contenedor">
+						<div class="contenedor{% if guia.datosEspecificos_1_2|striptags is empty %} empty{% endif %}">
 							<div class="in-titulo">Breve descripción de contenidos (en inglés):</div>
 							<div class="editor-texto" id="datosEspecificos_1_2" contenteditable="true" >{{ guia.datosEspecificos_1_2|raw }}</div>
 						</div>
@@ -135,11 +136,11 @@
 
 					<fieldset class="step">
 						<legend>Paso#3: Situación de la asignatura</legend>
-						<div class="contenedor">
+						<div class="contenedor{% if guia.datosEspecificos_2_1|striptags is empty %} empty{% endif %}">
 							<div class="in-titulo">Contexto dentro de la titulación:</div>
 							<div class="editor-texto" id="datosEspecificos_2_1" contenteditable="true" >{{ guia.datosEspecificos_2_1|raw }}</div>
 						</div>
-						<div class="contenedor">
+						<div class="contenedor{% if guia.datosEspecificos_2_2|striptags is empty %} empty{% endif %}">
 							<div class="in-titulo">Recomendaciones:</div>
 							<div class="editor-texto" id="datosEspecificos_2_2" contenteditable="true" >{{ guia.datosEspecificos_2_2|raw }}</div>
 						</div>
@@ -147,7 +148,7 @@
 
 					<fieldset class="step">
 						<legend>Paso#4: Objetivos</legend>
-						<div class="contenedor">
+						<div class="contenedor{% if guia.datosEspecificos_3|striptags is empty %} empty{% endif %}">
 							<div class="in-titulo">Objetivos:</div>
 							<div class="editor-texto" id="datosEspecificos_3" contenteditable="true" >{{ guia.datosEspecificos_3|raw }}</div>
 						</div>
@@ -155,7 +156,7 @@
 
 					<fieldset class="step">
 						<legend>Paso#5: Competencias a adquirir por los estudiantes</legend>
-						<div class="contenedor">
+						<div class="contenedor{% if guia.datosEspecificos_4_1|length == 0 %} empty{% endif %}">
 							<div class="in-titulo">Competencias específicas:</div>
 							<select name="datosEspecificos_4_1" class="full" data-placeholder="Seleccionar..." multiple >
 								{% for c in competencias %}
@@ -165,7 +166,7 @@
 								{% endfor %}
 							</select>
 						</div>
-						<div class="contenedor">
+						<div class="contenedor{% if guia.datosEspecificos_4_2|length == 0 %} empty{% endif %}">
 							<div class="in-titulo">Competencias transversales o genéricas:</div>
 							<select name="datosEspecificos_4_2" class="full" data-placeholder="Seleccionar..." multiple >
 								{% for c in competencias %}
@@ -223,7 +224,7 @@
 							<input id="datosEspecificos_6_1_2" name="datosEspecificos_6_1_2" value="{{ guia.datosEspecificos_6_1_2 }}" class="editor-minimo natural" />
 						</div>
 
-						<div class="contenedor">
+						<div class="contenedor{% if guia.datosEspecificos_6_2|striptags is empty %} empty{% endif %}">
 							<div class="in-titulo">Desarrollo y justificación</div>
 							<div class="editor-texto" id="datosEspecificos_6_2" contenteditable="true">{{ guia.datosEspecificos_6_2|raw }}</div>
 						</div>
@@ -231,7 +232,7 @@
 
 					<fieldset class="step">
 						<legend>Paso#8: Temario desarrollado</legend>
-						<div class="contenedor">
+						<div class="contenedor{% if guia.datosEspecificos_7|striptags is empty %} empty{% endif %}">
 							<div class="in-titulo">Temario desarrollado</div>
 							<div class="editor-texto" id="datosEspecificos_7" contenteditable="true">{{ guia.datosEspecificos_7|raw }}</div>
 						</div>
@@ -239,11 +240,11 @@
 
 					<fieldset class="step">
 						<legend>Paso#9: Bibliografía</legend>
-						<div class="contenedor">
+						<div class="contenedor{% if guia.datosEspecificos_8_1|striptags is empty %} empty{% endif %}">
 							<div class="in-titulo">Bibliografía básica:</div>
 							<div class="editor-texto" id="datosEspecificos_8_1" contenteditable="true" >{{ guia.datosEspecificos_8_1|raw }}</div>
 						</div>
-						<div class="contenedor">
+						<div class="contenedor{% if guia.datosEspecificos_8_2|striptags is empty %} empty{% endif %}">
 							<div class="in-titulo">Bibliografía complementaria:</div>
 							<div class="editor-texto" id="datosEspecificos_8_2" contenteditable="true" >{{ guia.datosEspecificos_8_2|raw }}</div>
 						</div>
@@ -280,7 +281,7 @@
 							<input id="datosEspecificos_9_1_2" name="datosEspecificos_9_1_2" value="{{ guia.datosEspecificos_9_1_2 }}" class="editor-minimo natural" />
 						</div>
 
-						<div class="contenedor">
+						<div class="contenedor{% if guia.datosEspecificos_9_2|striptags is empty %} empty{% endif %}">
 							<div class="in-titulo">Desarrollo y justificación</div>
 							<div class="editor-texto" id="datosEspecificos_9_2" contenteditable="true">{{ guia.datosEspecificos_9_2|raw }}</div>
 						</div>

@@ -6,6 +6,12 @@ GUIA.cambios = function(elemento) {
 	if(GUIA.saveTimeout)
 		window.clearTimeout(GUIA.saveTimeout);
 	GUIA.saveTimeout = window.setTimeout(GUIA.saveCambios, 5000);
+
+	var contenedor = elemento.parents('div.contenedor').first();
+	if(contenedor.hasClass('empty')) {
+		contenedor.removeClass('empty');
+		$('.navigation > ul').miniaturiza('refresh');
+	}
 }
 
 
@@ -140,6 +146,9 @@ $(function(){
 			else
 				$(this).removeAttr('checked');
 		});
+
+
+	$('.navigation > ul').miniaturiza();
 });
 
 CKEDITOR.on( 'instanceCreated', function( e ) {

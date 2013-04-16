@@ -1,10 +1,12 @@
-etsi_app_guias:
-    pattern:  /guias
-    defaults: { _controller: EtsiAppGuiasBundle:Default:index }
+login:
+    pattern: /login
+    defaults: { _controller: EtsiAppGuiasBundle:Security:login }
 
-etsi_app_guias_demo:
-    pattern:  /guias/demo
-    defaults: { _controller: EtsiAppGuiasBundle:Default:demo }
+login_check:
+    pattern: /login_check
+
+logout:
+    pattern: /logout
 
 
 etsi_app_guia_guia_pasos:
@@ -21,23 +23,34 @@ etsi_app_guia_guia_new:
     defaults: { _controller: EtsiAppGuiasBundle:Guia:new }
 
 
+EtsiAppGuiasBundle_admin_role:
+    resource: "@EtsiAppGuiasBundle/Resources/config/routing/admin_role.yml"
+    prefix:   /admin/role
+
 etsi_app_guias_admin_area:
-    resource: "@EtsiAppGuiasBundle/Resources/config/admin_area_routing.yml"
+    resource: "@EtsiAppGuiasBundle/Resources/config/routing/admin_area_routing.yml"
+    prefix:   /admin/area
 
 etsi_app_guias_admin_asignatura:
-    resource: "@EtsiAppGuiasBundle/Resources/config/admin_asignatura_routing.yml"
+    resource: "@EtsiAppGuiasBundle/Resources/config/routing/admin_asignatura_routing.yml"
+    prefix:   /admin/asignatura
 
 etsi_app_guias_admin_competencia:
-    resource: "@EtsiAppGuiasBundle/Resources/config/admin_competencia_routing.yml"
+    resource: "@EtsiAppGuiasBundle/Resources/config/routing/admin_competencia_routing.yml"
+    prefix:   /admin/competencia
 
 etsi_app_guias_admin_grado:
-    resource: "@EtsiAppGuiasBundle/Resources/config/admin_grado_routing.yml"
+    resource: "@EtsiAppGuiasBundle/Resources/config/routing/admin_grado_routing.yml"
+    prefix:   /admin/grado
 
 etsi_app_guias_admin_guia:
-    resource: "@EtsiAppGuiasBundle/Resources/config/admin_guia_routing.yml"
+    resource: "@EtsiAppGuiasBundle/Resources/config/routing/admin_guia_routing.yml"
+    prefix:   /admin/guia
 
 etsi_app_guias_admin_profesor:
-    resource: "@EtsiAppGuiasBundle/Resources/config/admin_profesor_routing.yml"
+    resource: "@EtsiAppGuiasBundle/Resources/config/routing/admin_profesor_routing.yml"
+    prefix:   /admin/profesor
 
 etsi_app_guias_admin_semana:
-    resource: "@EtsiAppGuiasBundle/Resources/config/admin_semana_routing.yml"
+    resource: "@EtsiAppGuiasBundle/Resources/config/routing/admin_semana_routing.yml"
+    prefix:   /admin/semana

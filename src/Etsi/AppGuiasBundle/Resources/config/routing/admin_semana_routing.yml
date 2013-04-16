@@ -1,15 +1,15 @@
 eaga_semana_index:
-    pattern:  /guias/admin/semanas
+    pattern:  /
     defaults: { _controller: EtsiAppGuiasBundle:AdminSemana:index }
 
 eaga_semana_new:
-    pattern:  /guias/admin/semana/new
+    pattern:  /new
     defaults: { _controller: EtsiAppGuiasBundle:AdminSemana:new }
 
 eaga_semana_edit:
-    pattern:  /guias/admin/semana/edit/{id}
+    pattern:  /edit/{id}
     defaults: { _controller: EtsiAppGuiasBundle:AdminSemana:edit }
 
 eaga_semana_delete:
-    pattern:  /guias/admin/semana/delete/{id}
+    pattern:  /delete/{id}
     defaults: { _controller: EtsiAppGuiasBundle:AdminSemana:delete }

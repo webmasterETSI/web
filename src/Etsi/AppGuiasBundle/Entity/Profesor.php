@@ -1,13 +1,14 @@
 <?php
 namespace Etsi\AppGuiasBundle\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="profesor")
  * @ORM\Entity
  */
-class Profesor
+class Profesor implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -41,6 +42,26 @@ class Profesor
      */
     private $asignaturasCoordinadas;
 
+        /**
+     * @ORM\Column(name="password", type="string", length=255)
+     */
+    protected $password;
+
+    /**
+     * @ORM\Column(name="salt", type="string", length=255)
+     */
+    protected $salt;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Rol")
+     * @ORM\JoinTable(name="profesor_rol",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+     * )
+     */
+    protected $roles;
+
+
     /**
      * Constructor
      */
@@ -48,6 +69,145 @@ class Profesor
     {
         $this->guias = new \Doctrine\Common\Collections\ArrayCollection();
         $this->asignaturasCoordinadas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return \serialize(array(
+            $this->id,
+            $this->nombre,
+            $this->email,
+            $this->tlf,
+            $this->salt,
+            $this->password
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->nombre,
+            $this->email,
+            $this->tlf,
+            $this->salt,
+            $this->password
+        ) = \unserialize($serialized);
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
+
+    /**
+     * Get salt
+     *
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * Add user_roles
+     *
+     * @param Maycol\BlogBundle\Entity\Rol $userRols
+     */
+    public function addRole(\Etsi\AppGuiasBundle\Entity\Rol $userRols)
+    {
+        $this->roles[] = $userRols;
+    }
+
+    public function clearRoles()
+    {
+        $this->roles->clear();
+        return $this;
+    }
+    
+
+    public function setUserRoles($roles) {
+        $this->roles = $roles;
+    }
+
+    /**
+     * Get user_roles
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getUserRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * Get roles
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getRoles()
+    {
+        return $this->roles->toArray(); //IMPORTANTE: el mecanismo de seguridad de Sf2 requiere ésto como un array
+    }
+
+    /**
+     * Compares this user to another to determine if they are the same.
+     *
+     * @param UserInterface $user The user
+     * @return boolean True if equal, false othwerwise.
+     */
+    public function equals(UserInterface $user) {
+        return md5($this->getUsername()) == md5($user->getUsername());
+    }
+
+    /**
+     * Erases the user credentials.
+     */
+    public function eraseCredentials() {
+
     }
 
     /**

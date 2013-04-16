@@ -1,7 +1,7 @@
 eaga_guia_index:
-    pattern:  /guias/admin/guias
+    pattern:  /
     defaults: { _controller: EtsiAppGuiasBundle:AdminGuia:index }
 
 eaga_guia_delete:
-    pattern:  /guias/admin/guia/delete/{id}
+    pattern:  /delete/{id}
     defaults: { _controller: EtsiAppGuiasBundle:AdminGuia:delete }

@@ -8,7 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
 
 use Common\Herramientas;
 
-use Etsi\AppGuiasBundle\Entity\Profesor;
+use Etsi\AppGuiasBundle\Entity\Profesor,
+    Etsi\AppGuiasBundle\Entity\Rol;
 
 class AdminProfesorController extends Controller
 {
@@ -20,6 +21,7 @@ class AdminProfesorController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findAll();
+        $roles = $em->getRepository('EtsiAppGuiasBundle:Rol')->findAll();
         $entity = $id?$em->getRepository('EtsiAppGuiasBundle:Profesor')->find($id):null;
 
         if(!$messages) {
@@ -36,6 +38,7 @@ class AdminProfesorController extends Controller
                 'messages' => $messages,
                 'entities' => $entities,
                 'entity' => $entity,
+                'roles' => $roles,
             )
         );
     }
@@ -44,15 +47,33 @@ class AdminProfesorController extends Controller
         $camposObligatorios = array(
             'nombre',
             'email',
+            'password',
             'tlf'
         );
 
         if(Herramientas::allFields($camposObligatorios, $data)) {
+            $em = $this->getDoctrine()->getManager();
+            
             $entity->setNombre($data['nombre']);
             $entity->setEmail($data['email']);
             $entity->setTlf($data['tlf']);
+            
+            if($data['password'] != $entity->getPassword()) {
+                $entity->setSalt(md5(time()));
+                $encoder = new \Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder('sha512', true, 10);
+                $password = $encoder->encodePassword($data['password'], $entity->getSalt());
+                $entity->setPassword($password);
+            }
 
-            $em = $this->getDoctrine()->getManager();
+
+            $entity->clearRoles();
+            if(isset($data['roles']) && !empty($data['roles'])) {
+                foreach($data['roles'] as $value) {
+                    $rol = $em->getRepository('EtsiAppGuiasBundle:Rol')->find($value);
+                    $entity->addRole($rol);
+                }
+            }
+
             $em->persist($entity);
             $em->flush();
 

@@ -1,15 +1,15 @@
 eaga_profesor_index:
-    pattern:  /guias/admin/profesores
+    pattern:  /
     defaults: { _controller: EtsiAppGuiasBundle:AdminProfesor:index }
 
 eaga_profesor_new:
-    pattern:  /guias/admin/profesor/new
+    pattern:  /new
     defaults: { _controller: EtsiAppGuiasBundle:AdminProfesor:new }
 
 eaga_profesor_edit:
-    pattern:  /guias/admin/profesor/edit/{id}
+    pattern:  /edit/{id}
     defaults: { _controller: EtsiAppGuiasBundle:AdminProfesor:edit }
 
 eaga_profesor_delete:
-    pattern:  /guias/admin/profesor/delete/{id}
+    pattern:  /delete/{id}
     defaults: { _controller: EtsiAppGuiasBundle:AdminProfesor:delete }

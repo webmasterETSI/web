@@ -45,6 +45,7 @@
 				{{ macros.input('Nombre', 'nombre', entity.nombre|default('')) }}
 				{{ macros.input('eMail', 'email', entity.email|default('')) }}
 				{{ macros.input('Teléfono', 'tlf', entity.tlf|default('')) }}
+				{{ macros.input('Contraseña', 'password', entity.password|default('')) }}
 			</fieldset>
 			<fieldset>
 				<label>Asignaturas que coordina</label>
@@ -58,6 +59,17 @@
 					{% endfor %}
 					{% endif %}
 				</ul>
+			</fieldset>
+
+			<fieldset>
+				<label>Roles asignados</label>
+				<select class="chosen-select" data-placeholder="Seleccionar..." name="roles[]" multiple style="margin-bottom: 10px;">
+					{% for r in roles %}
+					<option value="{{ r.id }}" {% if entity and r in entity.roles %}selected{% endif %}>
+						{{ r.name }}
+					</option>
+					{% endfor %}
+				</select>
 			</fieldset>
 		</div>
 		<footer>

@@ -1,15 +1,15 @@
 eaga_area_index:
-    pattern:  /guias/admin/areas
+    pattern:  /
     defaults: { _controller: EtsiAppGuiasBundle:AdminArea:index }
 
 eaga_area_new:
-    pattern:  /guias/admin/area/new
+    pattern:  /new
     defaults: { _controller: EtsiAppGuiasBundle:AdminArea:new }
 
 eaga_area_edit:
-    pattern:  /guias/admin/area/edit/{id}
+    pattern:  /edit/{id}
     defaults: { _controller: EtsiAppGuiasBundle:AdminArea:edit }
 
 eaga_area_delete:
-    pattern:  /guias/admin/area/delete/{id}
+    pattern:  /delete/{id}
     defaults: { _controller: EtsiAppGuiasBundle:AdminArea:delete }

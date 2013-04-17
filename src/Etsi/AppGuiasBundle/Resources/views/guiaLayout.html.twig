@@ -1,358 +1,349 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="es">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
-		<title>Guias Docentes</title>
+{% extends "EtsiAppGuiasBundle::baseLayout.html.twig" %}
 
 
-		{% stylesheets
-			'@EtsiAppGuiasBundle/Resources/public/css/chosen.css'
-			'@EtsiAppGuiasBundle/Resources/public/css/editor.css'
-			'@EtsiAppGuiasBundle/Resources/public/css/guia-style.css' %}
-			<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen"/>
-		{% endstylesheets %}
+{% block css %}
+	{% stylesheets
+		'@EtsiAppGuiasBundle/Resources/public/css/chosen.css'
+		'@EtsiAppGuiasBundle/Resources/public/css/editor.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen"/>
+	{% endstylesheets %}
+{% endblock %}
 
-		<!--[if lt IE 9]>
-		<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
+{% block js_preload %}
+	<script type="text/javascript">
+		var CKEDITOR_BASEPATH = '{{ asset("ckeditor/") }}'; 
+	</script>
+{% endblock %}
+{% block js %}
+	{% javascripts
+		'@EtsiAppGuiasBundle/Resources/public/js/chosen.jquery.min.js' 
+		'@EtsiAppGuiasBundle/Resources/public/js/sliding.form.js'
+		'ckeditor/ckeditor.js'
+		'@EtsiAppGuiasBundle/Resources/public/js/guia.default.js'
+		'@EtsiAppGuiasBundle/Resources/public/js/guia.miniaturas.js' %}
+		<script src="{{ asset_url }}" type="text/javascript"></script>
+	{% endjavascripts %}
 
-		<script type="text/javascript">
-			var CKEDITOR_BASEPATH = '{{ asset("ckeditor/") }}'; 
-		</script>
+	<script type="text/javascript">
+		GUIA.updateGuia = '{{ path("etsi_app_guias_guia_update", { "id": guia.id }) }}';
+	</script>
+{% endblock %}
 
-		{% javascripts
-			'@EtsiAppGuiasBundle/Resources/public/js/jquery-1.9.1.min.js'
-			'@EtsiAppGuiasBundle/Resources/public/js/chosen.jquery.min.js' 
-			'@EtsiAppGuiasBundle/Resources/public/js/sliding.form.js'
-			'ckeditor/ckeditor.js'
-			'@EtsiAppGuiasBundle/Resources/public/js/guia.default.js'
-			'@EtsiAppGuiasBundle/Resources/public/js/guia.miniaturas.js' %}
-			<script src="{{ asset_url }}" type="text/javascript"></script>
-		{% endjavascripts %}
+{% block titulo_cabecera %}
+	Curso Curso {{ guia.curso }}/{{ guia.curso+1 }}, 
+	última edición: {{ guia.fechaDeModificacion|date("d/m/Y H:i") }}
+{% endblock %}
 
-		<script type="text/javascript">
-			GUIA.updateGuia = '{{ path("etsi_app_guias_guia_update", { "id": guia.id }) }}';
-		</script>
-	</style>
-	</head>
-
-	<body>
-		<img src="{{ asset( 'images/guias/header_background.jpg' ) }}">	<!-- cabecera-->
-		<div id="titulo_cabecera"><span id="curso">Curso Curso {{ guia.curso }}/{{ guia.curso+1 }}</span></div>
-
-		<div id="miniaturas">   <!-- miniaturas de cada pantalla del forms-->
-			<div id="center">
-				<div class="navigation" style="display:none;">
-					<ul>
-						<li><a href="#"><div class="miniatura"></div></a></li>
-						<li><a href="#"><div class="miniatura"></div></a></li>
-						<li><a href="#"><div class="miniatura"></div></a></li>
-						<li><a href="#"><div class="miniatura"></div></a></li>
-						<li><a href="#"><div class="miniatura"></div></a></li>  
-						<li><a href="#"><div class="miniatura"></div></a></li> 
-						<li><a href="#"><div class="miniatura"></div></a></li> 
-						<li><a href="#"><div class="miniatura"></div></a></li>  
-						<li><a href="#"><div class="miniatura"></div></a></li> 
-						<li><a href="#"><div class="miniatura"></div></a></li> 
-						<li><a href="#"><div class="miniatura"></div></a></li>  
-						<li><a href="#"><div class="miniatura"></div></a></li>  
-					</ul>
-			 </div>
-			</div>
+{% block top_menu %}
+	<div id="miniaturas">   <!-- miniaturas de cada pantalla del forms-->
+		<div id="center">
+			<div class="navigation" style="display:none;">
+				<ul>
+					<li class="selected"><a href="#"><div class="miniatura"></div></a></li>
+					<li><a href="#"><div class="miniatura"></div></a></li>
+					<li><a href="#"><div class="miniatura"></div></a></li>
+					<li><a href="#"><div class="miniatura"></div></a></li>
+					<li><a href="#"><div class="miniatura"></div></a></li>  
+					<li><a href="#"><div class="miniatura"></div></a></li> 
+					<li><a href="#"><div class="miniatura"></div></a></li> 
+					<li><a href="#"><div class="miniatura"></div></a></li>  
+					<li><a href="#"><div class="miniatura"></div></a></li> 
+					<li><a href="#"><div class="miniatura"></div></a></li> 
+					<li><a href="#"><div class="miniatura"></div></a></li>  
+					<li><a href="#"><div class="miniatura"></div></a></li>  
+				</ul>
+		 </div>
 		</div>
+	</div>
 
-		<div id="menu-estados"> <!-- por terminar-->
-			<ul id="button">
-				<li><a id="hover" href="#">[ESTADO 1: Por enviar]</a></li>
-				<li><a href="#">[ESTADO 2: Pendiente aprobación]</a></li>
-				<li><a href="#">[ESTADO 3: Publicada]</a></li>
-				<li><a href="#">[ESTADO 4: Publicada con fallos]</a></li>
-			</ul>
-		</div>
+	<div id="menu-estados"> <!-- por terminar-->
+		<ul id="button">
+			<li><a id="hover" href="#">[ESTADO 1: Por enviar]</a></li>
+			<li><a href="#">[ESTADO 2: Pendiente aprobación]</a></li>
+			<li><a href="#">[ESTADO 3: Publicada]</a></li>
+			<li><a href="#">[ESTADO 4: Publicada con fallos]</a></li>
+		</ul>
+	</div>
+{% endblock %}
 
-		<div id="wrapper">  <!-- div contenedor pantallas -->
-			<div id="steps">
-				<form>
-					<fieldset class="step">
-						<legend>
-							Paso#1: Asignatura
-						</legend>
-						<div class="contenedor{% if not guia.asignatura.nombreI %} empty{% endif %}">
-							<div class="in-titulo">{{ guia.asignatura.nombre }} &lt;{{ guia.asignatura.codigo }}&gt;</div>
 
-							<label for="nombreI">Nombre en ingles</label>
-							<input class="long editor-minimo" id="nombreI" name="nombreI" value="{{ guia.asignatura.nombreI }}"/>
-						</div>
+{% block wrapper %}
+	<div id="steps">
+		<form>
+			<fieldset class="step">
+				<legend>
+					Paso#1: Asignatura
+				</legend>
+				<div class="contenedor{% if not guia.asignatura.nombreI %} empty{% endif %}">
+					<div class="in-titulo">{{ guia.asignatura.nombre }} &lt;{{ guia.asignatura.codigo }}&gt;</div>
 
-						<div class="contenedor{% if guia.profesores|length == 0 %} empty{% endif %}">
-							<label for="profesores">Datos de profesores</label>
-							<select name="profesores" data-placeholder="Seleccionar..." multiple class="long" >
-								{% for p in profesores %}
-								<option value="{{ p.id }}" {% if p in guia.profesores %}selected{% endif %}>
-									{{ p.nombre }} &lt;{{ p.email }}&gt;
-								</option>
-								{% endfor %}
-							</select>
-						</div>
+					<label for="nombreI">Nombre en ingles</label>
+					<input class="long editor-minimo" id="nombreI" name="nombreI" value="{{ guia.asignatura.nombreI }}"/>
+				</div>
 
-						<div id="contenedor-creditos" class="contenedor{% if guia.creditosTeoricos+guia.creditosPracticosAula+guia.creditosPracticosLaboratorio+guia.creditosPracticosCampo+guia.creditosPracticosInformatica != guia.asignatura.creditos %} empty{% endif %}">
-							<div class="in-titulo">Datos de créditos:</div>
+				<div class="contenedor{% if guia.profesores|length == 0 %} empty{% endif %}">
+					<label for="profesores">Datos de profesores</label>
+					<select name="profesores" data-placeholder="Seleccionar..." multiple class="long" >
+						{% for p in profesores %}
+						<option value="{{ p.id }}" {% if p in guia.profesores %}selected{% endif %}>
+							{{ p.nombre }} &lt;{{ p.email }}&gt;
+						</option>
+						{% endfor %}
+					</select>
+				</div>
 
-							<div class="right-legend">
-								Créditos totales<br>de la asignatura:<br>
-								<div id="creditos-totales" class="texto-grande">{{ guia.asignatura.creditos }}</div>
-							</div>
+				<div id="contenedor-creditos" class="contenedor{% if guia.creditosTeoricos+guia.creditosPracticosAula+guia.creditosPracticosLaboratorio+guia.creditosPracticosCampo+guia.creditosPracticosInformatica != guia.asignatura.creditos %} empty{% endif %}">
+					<div class="in-titulo">Datos de créditos:</div>
 
-							<label for="creditosTeoricos" class="natural">Creditos teóricos</label>
-							<input class="editor-minimo" id="creditosTeoricos" name="creditosTeoricos" value="{{ guia.creditosTeoricos }}" />
+					<div class="right-legend">
+						Créditos totales<br>de la asignatura:<br>
+						<div id="creditos-totales" class="texto-grande">{{ guia.asignatura.creditos }}</div>
+					</div>
 
-							<label for="creditosPracticosAula" class="natural">Creditos prácticos (aula)</label>
-							<input class="editor-minimo" id="creditosPracticosAula" name="creditosPracticosAula" value="{{ guia.creditosPracticosAula }}" />
+					<label for="creditosTeoricos" class="natural">Creditos teóricos</label>
+					<input class="editor-minimo" id="creditosTeoricos" name="creditosTeoricos" value="{{ guia.creditosTeoricos }}" />
 
-							<label for="creditosPracticosLaboratorio" class="natural">Creditos prácticos (laboratorio)</label>
-							<input class="editor-minimo" id="creditosPracticosLaboratorio" name="creditosPracticosLaboratorio" value="{{ guia.creditosPracticosLaboratorio }}" />
+					<label for="creditosPracticosAula" class="natural">Creditos prácticos (aula)</label>
+					<input class="editor-minimo" id="creditosPracticosAula" name="creditosPracticosAula" value="{{ guia.creditosPracticosAula }}" />
 
-							<label for="creditosPracticosCampo" class="natural">Creditos prácticos (trabajo de campo)</label>
-							<input class="editor-minimo" id="creditosPracticosCampo" name="creditosPracticosCampo" value="{{ guia.creditosPracticosCampo }}" />
+					<label for="creditosPracticosLaboratorio" class="natural">Creditos prácticos (laboratorio)</label>
+					<input class="editor-minimo" id="creditosPracticosLaboratorio" name="creditosPracticosLaboratorio" value="{{ guia.creditosPracticosLaboratorio }}" />
 
-							<label for="creditosPracticosInformatica" class="natural">Creditos prácticos (aula de informática)</label>
-							<input class="editor-minimo" id="creditosPracticosInformatica" name="creditosPracticosInformatica" value="{{ guia.creditosPracticosInformatica }}" />
-						</div>
-					</fieldset>
+					<label for="creditosPracticosCampo" class="natural">Creditos prácticos (trabajo de campo)</label>
+					<input class="editor-minimo" id="creditosPracticosCampo" name="creditosPracticosCampo" value="{{ guia.creditosPracticosCampo }}" />
 
-					<fieldset class="step">
-						<legend>Paso#2: Descripción de contenidos</legend>
-						<div class="contenedor{% if guia.datosEspecificos_1_1|striptags is empty %} empty{% endif %}">
-							<div class="in-titulo">Breve descripción de contenidos:</div>
-							<div class="editor-texto" id="datosEspecificos_1_1" contenteditable="true" >{{ guia.datosEspecificos_1_1|raw }}</div>
-						</div>
-						<div class="contenedor{% if guia.datosEspecificos_1_2|striptags is empty %} empty{% endif %}">
-							<div class="in-titulo">Breve descripción de contenidos (en inglés):</div>
-							<div class="editor-texto" id="datosEspecificos_1_2" contenteditable="true" >{{ guia.datosEspecificos_1_2|raw }}</div>
-						</div>
-					</fieldset>
+					<label for="creditosPracticosInformatica" class="natural">Creditos prácticos (aula de informática)</label>
+					<input class="editor-minimo" id="creditosPracticosInformatica" name="creditosPracticosInformatica" value="{{ guia.creditosPracticosInformatica }}" />
+				</div>
+			</fieldset>
 
-					<fieldset class="step">
-						<legend>Paso#3: Situación de la asignatura</legend>
-						<div class="contenedor{% if guia.datosEspecificos_2_1|striptags is empty %} empty{% endif %}">
-							<div class="in-titulo">Contexto dentro de la titulación:</div>
-							<div class="editor-texto" id="datosEspecificos_2_1" contenteditable="true" >{{ guia.datosEspecificos_2_1|raw }}</div>
-						</div>
-						<div class="contenedor{% if guia.datosEspecificos_2_2|striptags is empty %} empty{% endif %}">
-							<div class="in-titulo">Recomendaciones:</div>
-							<div class="editor-texto" id="datosEspecificos_2_2" contenteditable="true" >{{ guia.datosEspecificos_2_2|raw }}</div>
-						</div>
-					</fieldset>
+			<fieldset class="step">
+				<legend>Paso#2: Descripción de contenidos</legend>
+				<div class="contenedor{% if guia.datosEspecificos_1_1|striptags is empty %} empty{% endif %}">
+					<div class="in-titulo">Breve descripción de contenidos:</div>
+					<div class="editor-texto" id="datosEspecificos_1_1" contenteditable="true" >{{ guia.datosEspecificos_1_1|raw }}</div>
+				</div>
+				<div class="contenedor{% if guia.datosEspecificos_1_2|striptags is empty %} empty{% endif %}">
+					<div class="in-titulo">Breve descripción de contenidos (en inglés):</div>
+					<div class="editor-texto" id="datosEspecificos_1_2" contenteditable="true" >{{ guia.datosEspecificos_1_2|raw }}</div>
+				</div>
+			</fieldset>
 
-					<fieldset class="step">
-						<legend>Paso#4: Objetivos</legend>
-						<div class="contenedor{% if guia.datosEspecificos_3|striptags is empty %} empty{% endif %}">
-							<div class="in-titulo">Objetivos:</div>
-							<div class="editor-texto" id="datosEspecificos_3" contenteditable="true" >{{ guia.datosEspecificos_3|raw }}</div>
-						</div>
-					</fieldset>
+			<fieldset class="step">
+				<legend>Paso#3: Situación de la asignatura</legend>
+				<div class="contenedor{% if guia.datosEspecificos_2_1|striptags is empty %} empty{% endif %}">
+					<div class="in-titulo">Contexto dentro de la titulación:</div>
+					<div class="editor-texto" id="datosEspecificos_2_1" contenteditable="true" >{{ guia.datosEspecificos_2_1|raw }}</div>
+				</div>
+				<div class="contenedor{% if guia.datosEspecificos_2_2|striptags is empty %} empty{% endif %}">
+					<div class="in-titulo">Recomendaciones:</div>
+					<div class="editor-texto" id="datosEspecificos_2_2" contenteditable="true" >{{ guia.datosEspecificos_2_2|raw }}</div>
+				</div>
+			</fieldset>
 
-					<fieldset class="step">
-						<legend>Paso#5: Competencias a adquirir por los estudiantes</legend>
-						<div class="contenedor{% if guia.datosEspecificos_4_1|length == 0 %} empty{% endif %}">
-							<div class="in-titulo">Competencias específicas:</div>
-							<select name="datosEspecificos_4_1" class="full" data-placeholder="Seleccionar..." multiple >
-								{% for c in competencias %}
-								{% if c.tipo == 1 or c.tipo == 2 %}
-								<option value="{{ c.id }}" {% if c in guia.datosEspecificos_4_1 %}selected{% endif %}>{{ c.codigo }}: {{ c.nombre }}</option>
-								{% endif %}
-								{% endfor %}
-							</select>
-						</div>
-						<div class="contenedor{% if guia.datosEspecificos_4_2|length == 0 %} empty{% endif %}">
-							<div class="in-titulo">Competencias transversales o genéricas:</div>
-							<select name="datosEspecificos_4_2" class="full" data-placeholder="Seleccionar..." multiple >
-								{% for c in competencias %}
-								{% if  c.tipo == 3 or c.tipo == 4  %}
-								<option value="{{ c.id }}" {% if c in guia.datosEspecificos_4_2 %}selected{% endif %}>{{ c.codigo }}: {{ c.nombre }}</option>
-								{% endif %}
-								{% endfor %}
-							</select>
-						</div>
-					</fieldset>
+			<fieldset class="step">
+				<legend>Paso#4: Objetivos</legend>
+				<div class="contenedor{% if guia.datosEspecificos_3|striptags is empty %} empty{% endif %}">
+					<div class="in-titulo">Objetivos:</div>
+					<div class="editor-texto" id="datosEspecificos_3" contenteditable="true" >{{ guia.datosEspecificos_3|raw }}</div>
+				</div>
+			</fieldset>
 
-					<fieldset class="step">
-						<legend>Paso#6: Metodología</legend>
-						<div class="contenedor">
-							&lt;TABLA AUTOGENERADA&gt;
-						</div>
-					</fieldset>
+			<fieldset class="step">
+				<legend>Paso#5: Competencias a adquirir por los estudiantes</legend>
+				<div class="contenedor{% if guia.datosEspecificos_4_1|length == 0 %} empty{% endif %}">
+					<div class="in-titulo">Competencias específicas:</div>
+					<select name="datosEspecificos_4_1" class="full" data-placeholder="Seleccionar..." multiple >
+						{% for c in competencias %}
+						{% if c.tipo == 1 or c.tipo == 2 %}
+						<option value="{{ c.id }}" {% if c in guia.datosEspecificos_4_1 %}selected{% endif %}>{{ c.codigo }}: {{ c.nombre }}</option>
+						{% endif %}
+						{% endfor %}
+					</select>
+				</div>
+				<div class="contenedor{% if guia.datosEspecificos_4_2|length == 0 %} empty{% endif %}">
+					<div class="in-titulo">Competencias transversales o genéricas:</div>
+					<select name="datosEspecificos_4_2" class="full" data-placeholder="Seleccionar..." multiple >
+						{% for c in competencias %}
+						{% if  c.tipo == 3 or c.tipo == 4  %}
+						<option value="{{ c.id }}" {% if c in guia.datosEspecificos_4_2 %}selected{% endif %}>{{ c.codigo }}: {{ c.nombre }}</option>
+						{% endif %}
+						{% endfor %}
+					</select>
+				</div>
+			</fieldset>
 
-					<fieldset class="step">
-						<legend>Paso#7: Técnicas docentes</legend>
-						<div class="contenedor">
-							<div class="in-titulo">Técnicas docentes utilizadas</div>
-							<div id="datosEspecificos_6_1_1" class="editor-check-mask">
-								<div class="hidden">{{ guia.datosEspecificos_6_1_1 }}</div>
+			<fieldset class="step">
+				<legend>Paso#6: Metodología</legend>
+				<div class="contenedor">
+					&lt;TABLA AUTOGENERADA&gt;
+				</div>
+			</fieldset>
 
-								<label for="opc1" class="natural">Sesiones académicas de teoría</label>
-								<input type="checkbox" name="opc1">
-								<div class="clear"></div>
+			<fieldset class="step">
+				<legend>Paso#7: Técnicas docentes</legend>
+				<div class="contenedor">
+					<div class="in-titulo">Técnicas docentes utilizadas</div>
+					<div id="datosEspecificos_6_1_1" class="editor-check-mask">
+						<div class="hidden">{{ guia.datosEspecificos_6_1_1 }}</div>
 
-								<label for="opc2" class="natural">Sesiones académicas de problemas</label>
-								<input type="checkbox" name="opc2">
-								<div class="clear"></div>
+						<label for="opc1" class="natural">Sesiones académicas de teoría</label>
+						<input type="checkbox" name="opc1">
+						<div class="clear"></div>
 
-								<label for="opc3" class="natural">Sesiones prácticas en laboratorio</label>
-								<input type="checkbox" name="opc3">
-								<div class="clear"></div>
+						<label for="opc2" class="natural">Sesiones académicas de problemas</label>
+						<input type="checkbox" name="opc2">
+						<div class="clear"></div>
 
-								<label for="opc4" class="natural">Seminarios, exposiciones y debates</label>
-								<input type="checkbox" name="opc4">
-								<div class="clear"></div>
+						<label for="opc3" class="natural">Sesiones prácticas en laboratorio</label>
+						<input type="checkbox" name="opc3">
+						<div class="clear"></div>
 
-								<label for="opc5" class="natural">Trabajo en grupos reducidos</label>
-								<input type="checkbox" name="opc5">
-								<div class="clear"></div>
+						<label for="opc4" class="natural">Seminarios, exposiciones y debates</label>
+						<input type="checkbox" name="opc4">
+						<div class="clear"></div>
 
-								<label for="opc6" class="natural">Resolución y entrega de problemas/prácticas</label>
-								<input type="checkbox" name="opc6">
-								<div class="clear"></div>
+						<label for="opc5" class="natural">Trabajo en grupos reducidos</label>
+						<input type="checkbox" name="opc5">
+						<div class="clear"></div>
 
-								<label for="opc7" class="natural">Realización de pruebas parciales evaluables</label>
-								<input type="checkbox" name="opc7">
-								<div class="clear"></div>
-							</div>
-							<label for="datosEspecificos_6_1_2">Otro: </label>
-							<input id="datosEspecificos_6_1_2" name="datosEspecificos_6_1_2" value="{{ guia.datosEspecificos_6_1_2 }}" class="editor-minimo natural" />
-						</div>
+						<label for="opc6" class="natural">Resolución y entrega de problemas/prácticas</label>
+						<input type="checkbox" name="opc6">
+						<div class="clear"></div>
 
-						<div class="contenedor{% if guia.datosEspecificos_6_2|striptags is empty %} empty{% endif %}">
-							<div class="in-titulo">Desarrollo y justificación</div>
-							<div class="editor-texto" id="datosEspecificos_6_2" contenteditable="true">{{ guia.datosEspecificos_6_2|raw }}</div>
-						</div>
-					</fieldset>
+						<label for="opc7" class="natural">Realización de pruebas parciales evaluables</label>
+						<input type="checkbox" name="opc7">
+						<div class="clear"></div>
+					</div>
+					<label for="datosEspecificos_6_1_2">Otro: </label>
+					<input id="datosEspecificos_6_1_2" name="datosEspecificos_6_1_2" value="{{ guia.datosEspecificos_6_1_2 }}" class="editor-minimo natural" />
+				</div>
 
-					<fieldset class="step">
-						<legend>Paso#8: Temario desarrollado</legend>
-						<div class="contenedor{% if guia.datosEspecificos_7|striptags is empty %} empty{% endif %}">
-							<div class="in-titulo">Temario desarrollado</div>
-							<div class="editor-texto" id="datosEspecificos_7" contenteditable="true">{{ guia.datosEspecificos_7|raw }}</div>
-						</div>
-					</fieldset>
+				<div class="contenedor{% if guia.datosEspecificos_6_2|striptags is empty %} empty{% endif %}">
+					<div class="in-titulo">Desarrollo y justificación</div>
+					<div class="editor-texto" id="datosEspecificos_6_2" contenteditable="true">{{ guia.datosEspecificos_6_2|raw }}</div>
+				</div>
+			</fieldset>
 
-					<fieldset class="step">
-						<legend>Paso#9: Bibliografía</legend>
-						<div class="contenedor{% if guia.datosEspecificos_8_1|striptags is empty %} empty{% endif %}">
-							<div class="in-titulo">Bibliografía básica:</div>
-							<div class="editor-texto" id="datosEspecificos_8_1" contenteditable="true" >{{ guia.datosEspecificos_8_1|raw }}</div>
-						</div>
-						<div class="contenedor{% if guia.datosEspecificos_8_2|striptags is empty %} empty{% endif %}">
-							<div class="in-titulo">Bibliografía complementaria:</div>
-							<div class="editor-texto" id="datosEspecificos_8_2" contenteditable="true" >{{ guia.datosEspecificos_8_2|raw }}</div>
-						</div>
-					</fieldset>
+			<fieldset class="step">
+				<legend>Paso#8: Temario desarrollado</legend>
+				<div class="contenedor{% if guia.datosEspecificos_7|striptags is empty %} empty{% endif %}">
+					<div class="in-titulo">Temario desarrollado</div>
+					<div class="editor-texto" id="datosEspecificos_7" contenteditable="true">{{ guia.datosEspecificos_7|raw }}</div>
+				</div>
+			</fieldset>
 
-					<fieldset class="step">
-						<legend>Paso#10: Sistemas de evaluación e la adquisición de competencias</legend>
-						<div class="contenedor">
-							<div class="in-titulo">Técnicas de evaluación utilizadas</div>
-							<div id="datosEspecificos_9_1_1" class="editor-check-mask">
-								<div class="hidden">{{ guia.datosEspecificos_9_1_1 }}</div>
+			<fieldset class="step">
+				<legend>Paso#9: Bibliografía</legend>
+				<div class="contenedor{% if guia.datosEspecificos_8_1|striptags is empty %} empty{% endif %}">
+					<div class="in-titulo">Bibliografía básica:</div>
+					<div class="editor-texto" id="datosEspecificos_8_1" contenteditable="true" >{{ guia.datosEspecificos_8_1|raw }}</div>
+				</div>
+				<div class="contenedor{% if guia.datosEspecificos_8_2|striptags is empty %} empty{% endif %}">
+					<div class="in-titulo">Bibliografía complementaria:</div>
+					<div class="editor-texto" id="datosEspecificos_8_2" contenteditable="true" >{{ guia.datosEspecificos_8_2|raw }}</div>
+				</div>
+			</fieldset>
 
-								<label for="opc1" class="natural">Examen de teoría/problemas</label>
-								<input type="checkbox" name="opc1">
-								<div class="clear"></div>
+			<fieldset class="step">
+				<legend>Paso#10: Sistemas de evaluación e la adquisición de competencias</legend>
+				<div class="contenedor">
+					<div class="in-titulo">Técnicas de evaluación utilizadas</div>
+					<div id="datosEspecificos_9_1_1" class="editor-check-mask">
+						<div class="hidden">{{ guia.datosEspecificos_9_1_1 }}</div>
 
-								<label for="opc2" class="natural">Trabajos desarrollados durante el curso</label>
-								<input type="checkbox" name="opc2">
-								<div class="clear"></div>
+						<label for="opc1" class="natural">Examen de teoría/problemas</label>
+						<input type="checkbox" name="opc1">
+						<div class="clear"></div>
 
-								<label for="opc3" class="natural">Participación activa en las sesiones académicas</label>
-								<input type="checkbox" name="opc3">
-								<div class="clear"></div>
+						<label for="opc2" class="natural">Trabajos desarrollados durante el curso</label>
+						<input type="checkbox" name="opc2">
+						<div class="clear"></div>
 
-								<label for="opc4" class="natural">Controles periódicos de adquisición de conocimientos/competencias</label>
-								<input type="checkbox" name="opc4">
-								<div class="clear"></div>
+						<label for="opc3" class="natural">Participación activa en las sesiones académicas</label>
+						<input type="checkbox" name="opc3">
+						<div class="clear"></div>
 
-								<label for="opc5" class="natural">Examen de prácticas</label>
-								<input type="checkbox" name="opc5">
-								<div class="clear"></div>
-							</div>
-							<label for="datosEspecificos_9_1_2">Otro: </label>
-							<input id="datosEspecificos_9_1_2" name="datosEspecificos_9_1_2" value="{{ guia.datosEspecificos_9_1_2 }}" class="editor-minimo natural" />
-						</div>
+						<label for="opc4" class="natural">Controles periódicos de adquisición de conocimientos/competencias</label>
+						<input type="checkbox" name="opc4">
+						<div class="clear"></div>
 
-						<div class="contenedor{% if guia.datosEspecificos_9_2|striptags is empty %} empty{% endif %}">
-							<div class="in-titulo">Desarrollo y justificación</div>
-							<div class="editor-texto" id="datosEspecificos_9_2" contenteditable="true">{{ guia.datosEspecificos_9_2|raw }}</div>
-						</div>
-					</fieldset>
+						<label for="opc5" class="natural">Examen de prácticas</label>
+						<input type="checkbox" name="opc5">
+						<div class="clear"></div>
+					</div>
+					<label for="datosEspecificos_9_1_2">Otro: </label>
+					<input id="datosEspecificos_9_1_2" name="datosEspecificos_9_1_2" value="{{ guia.datosEspecificos_9_1_2 }}" class="editor-minimo natural" />
+				</div>
 
-					<fieldset class="step">
-						<legend>Paso#11: Organización docente semanal orientativa</legend>
-						<div class="contenedor">
-							<table> 
-								<thead> 
-									<tr> 
-										<th rowspan="2">Semana</th> 
-										<th rowspan="2">Horas de clases (grupos grandes)</th>
-										<th colspan="4">Horas de clases/prácticas (grupos reducidos)</th> 
-										<th rowspan="2">Examen</th>
-										<th rowspan="2">Observaciones</th>
-									</tr> 
-									<tr> 
-										<th>Aula</th> 
-										<th>Sala de informática</th> 
-										<th>Laboratorio</th> 
-										<th>Prácticas de campo</th>
-									</tr> 
-								</thead> 
-								<tbody>
-									{% for e in semanas %}
-									{% if e.numeroSemana == 16 %}
-									<tr><td class="margin" colspan="8"></td></tr>
-									{% endif %}
-									<tr>
-										<td style="text-align: center;" class="numero-semana">
-											<b>#{{ e.numeroSemana }}</b>
-										</td>
-										<td>
-											<input class="editor-semana margenes" name="horasGruposGrandes" value="{{ e.horasGruposGrandes }}" />
-										</td>
-										<td>
-											<input class="editor-semana margenes" name="horasGruposReducidosAula" value="{{ e.horasGruposReducidosAula }}" />
-										</td>
-										<td>
-											<input class="editor-semana margenes" name="horasGruposReducidosInformatica" value="{{ e.horasGruposReducidosInformatica }}" />
-										</td>
-										<td>
-											<input class="editor-semana margenes" name="horasGruposReducidosLaboratorio" value="{{ e.horasGruposReducidosLaboratorio }}" />
-										</td>
-										<td>
-											<input class="editor-semana margenes" name="horasGruposReducidosCampo" value="{{ e.horasGruposReducidosCampo }}" />
-										</td>
-										<td>
-											<input class="editor-semana peque" name="examen" value="{{ e.examen }}" />
-										</td>
-										<td>
-											<input class="editor-semana peque" name="observaciones" value="{{ e.observaciones }}" />
-										</td>
-									</tr>
-									{% endfor %}
-								</tbody> 
-							</table>
-						</div>
-					</fieldset>
+				<div class="contenedor{% if guia.datosEspecificos_9_2|striptags is empty %} empty{% endif %}">
+					<div class="in-titulo">Desarrollo y justificación</div>
+					<div class="editor-texto" id="datosEspecificos_9_2" contenteditable="true">{{ guia.datosEspecificos_9_2|raw }}</div>
+				</div>
+			</fieldset>
 
-					<fieldset class="step">
-						<legend>Paso#12: Validación</legend>
-						<div class="contenedor submit">
-								<button id="registerButton" type="submit">ENVIAR PARA VALIDACIÓN</button>
-						</div>
-					</fieldset>
-				</form>
-			</div>
-			<div id="footer"></div>
-		</div>
-	</div>  <!-- content-->
-	</body>
-</html>
+			<fieldset class="step">
+				<legend>Paso#11: Organización docente semanal orientativa</legend>
+				<div class="contenedor">
+					<table> 
+						<thead> 
+							<tr> 
+								<th rowspan="2">Semana</th> 
+								<th rowspan="2">Horas de clases (grupos grandes)</th>
+								<th colspan="4">Horas de clases/prácticas (grupos reducidos)</th> 
+								<th rowspan="2">Examen</th>
+								<th rowspan="2">Observaciones</th>
+							</tr> 
+							<tr> 
+								<th>Aula</th> 
+								<th>Sala de informática</th> 
+								<th>Laboratorio</th> 
+								<th>Prácticas de campo</th>
+							</tr> 
+						</thead> 
+						<tbody>
+							{% for e in semanas %}
+							{% if e.numeroSemana == 16 %}
+							<tr><td class="margin" colspan="8"></td></tr>
+							{% endif %}
+							<tr>
+								<td style="text-align: center;" class="numero-semana">
+									<b>#{{ e.numeroSemana }}</b>
+								</td>
+								<td>
+									<input class="editor-semana margenes" name="horasGruposGrandes" value="{{ e.horasGruposGrandes }}" />
+								</td>
+								<td>
+									<input class="editor-semana margenes" name="horasGruposReducidosAula" value="{{ e.horasGruposReducidosAula }}" />
+								</td>
+								<td>
+									<input class="editor-semana margenes" name="horasGruposReducidosInformatica" value="{{ e.horasGruposReducidosInformatica }}" />
+								</td>
+								<td>
+									<input class="editor-semana margenes" name="horasGruposReducidosLaboratorio" value="{{ e.horasGruposReducidosLaboratorio }}" />
+								</td>
+								<td>
+									<input class="editor-semana margenes" name="horasGruposReducidosCampo" value="{{ e.horasGruposReducidosCampo }}" />
+								</td>
+								<td>
+									<input class="editor-semana peque" name="examen" value="{{ e.examen }}" />
+								</td>
+								<td>
+									<input class="editor-semana peque" name="observaciones" value="{{ e.observaciones }}" />
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody> 
+					</table>
+				</div>
+			</fieldset>
+
+			<fieldset class="step">
+				<legend>Paso#12: Validación</legend>
+				<div class="contenedor submit">
+					<button id="registerButton" type="submit">ENVIAR PARA VALIDACIÓN</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+{% endblock %}

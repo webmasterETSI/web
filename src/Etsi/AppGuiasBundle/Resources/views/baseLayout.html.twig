@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="es">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+		<title>{% block title %}Guias Docentes{% endblock %}</title>
+
+
+		{% stylesheets '@EtsiAppGuiasBundle/Resources/public/css/guia-style.css' %}
+			<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen"/>
+		{% endstylesheets %}
+		{% block css %}{% endblock %}
+
+		<!--[if lt IE 9]>
+		<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		{% block js_preload %}{% endblock %}
+
+		{% javascripts '@EtsiAppGuiasBundle/Resources/public/js/jquery-1.9.1.min.js' %}
+			<script src="{{ asset_url }}" type="text/javascript"></script>
+		{% endjavascripts %}
+		{% block js %}{% endblock %}
+	</style>
+	</head>
+
+	<body>
+		<img src="{{ asset( 'images/guias/header_background.jpg' ) }}">	<!-- cabecera-->
+		<div id="titulo_cabecera">
+			<span id="curso">{% block titulo_cabecera %}{% endblock %}</span>
+		</div>
+
+		{% block top_menu %}{% endblock %}
+
+		<div id="wrapper">  <!-- div contenedor pantallas -->
+			{% block wrapper %}{% endblock %}
+			<div id="footer">{% block footer %}{% endblock %}</div>
+		</div>
+	</div>  <!-- content-->
+	</body>
+</html>

@@ -1,11 +1,32 @@
-{% if error %}
-<div>{{ error.message }}</div>
+{% extends "EtsiAppGuiasBundle::baseLayout.html.twig" %}
 
-{% endif %}
-<form action="{{ path('login_check') }}" method="post"><label for="username">Username:</label>
-	<input id="username" type="text" name="_username" value="{{ last_username }}" />
-	<label for="password">Password:</label>
-	<input id="password" type="password" name="_password" />
 
-	<input type="submit" name="login" />
-</form>
+{% block titulo_cabecera %}
+	AppLogin
+{% endblock %}
+
+{% block wrapper %}
+	<div id="steps">
+		<form action="{{ path('login_check') }}" method="post">
+			<fieldset class="step">
+				{% if error %}
+					<legend>{{ error.message }}</legend>
+				{% endif %}
+
+				<div class="contenedor">
+					<div class="in-titulo">Datos de acceso</div>
+
+					<label for="username" class="natural">Usuario:</label>
+					<input id="username" class="natural" type="text" name="_username" value="{{ last_username }}" />
+					<div class="clear"></div>
+					<label for="password" class="natural">Contraseña:</label>
+					<input id="password" class="natural" type="password" name="_password" />
+
+					<div class="contenedor submit">
+						<button id="registerButton" name="login" type="submit">LOGIN</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+{% endblock %}

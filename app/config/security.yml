@@ -1,32 +1,41 @@
-#security:
-#    encoders:
-#        Etsi\AppGuiasBundle\Entity\Profesor:
-#            algorithm: sha512
-#            encode-as-base64: true
-#            iterations: 10
+security:
+    encoders:
+        Etsi\AppGuiasBundle\Entity\Profesor:
+            algorithm: sha512
+            encode-as-base64: true
+            iterations: 10
+        Symfony\Component\Security\Core\User\User:
+            plaintext
 
-#    providers:
+    providers:
 #        user_db:
 #            entity: { class: Etsi\AppGuiasBundle\Entity\Profesor, property: email }
+        in_memory:
+            memory:
+                users:
+                    admin: { password: admin, roles: 'ROLE_ADMIN' }
 
-#    firewalls:
-#        dev:
-#            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-#            security: false
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
 
-#        login:
-#            pattern:  ^/login$
-#            security: false
+        login:
+            pattern:  ^/login$
+            security: false
 
-#        secured_area:
-#            pattern:    ^/
-#            form_login:
-#                login_path: /login
-#                check_path: /login_check
-#            logout:
-#                path: /logout
-#                target: /
+        secured_area:
+            pattern:    ^/
+            form_login:
+                login_path: /login
+                check_path: /login_check
+            logout:
+                path: /logout
+                target: /
 
-#    access_control:
-#      - { path: ^/admin, roles: ROLE_ADMIN }
-#      - { path: ^/guia, roles: ROLE_PROFESOR }
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER, ROLE_PROFESOR]
+
+    access_control:
+      - { path: ^/admin, roles: ROLE_ADMIN }
+      - { path: ^/guia, roles: ROLE_PROFESOR }

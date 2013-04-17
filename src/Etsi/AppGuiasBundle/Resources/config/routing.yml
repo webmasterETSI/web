@@ -9,18 +9,23 @@ logout:
     pattern: /logout
 
 
+etsi_app_guia_guia:
+    pattern:  /
+    defaults: { _controller: EtsiAppGuiasBundle:Guia:index }
+
 etsi_app_guia_guia_pasos:
     pattern:  /guia/{id}
     defaults: { _controller: EtsiAppGuiasBundle:Guia:pasos }
 
 etsi_app_guias_guia_update:
     pattern:  /guia/{id}/update
-    defaults: { _controller: "EtsiAppGuiasBundle:Guia:update" }
+    defaults: { _controller: EtsiAppGuiasBundle:Guia:update }
     requirements: { _method: post }
 
 etsi_app_guia_guia_new:
-    pattern:  /guia/new/{idAsignatura}/{curso}
+    pattern:  /new
     defaults: { _controller: EtsiAppGuiasBundle:Guia:new }
+    requirements: { _method: post }
 
 
 EtsiAppGuiasBundle_admin_role:

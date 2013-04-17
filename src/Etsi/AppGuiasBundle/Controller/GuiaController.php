@@ -144,10 +144,12 @@ class GuiaController extends Controller
         return $response;
     }
 
-    public function newAction($idAsignatura, $curso)
+    public function newAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        
+        $idAsignatura = $request->request->get('asignatura');
+        $curso = $request->request->get('curso');
+
         $asignatura = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->find($idAsignatura);
         if($asignatura) {
             $query = $em->getRepository('EtsiAppGuiasBundle:Guia')
@@ -157,7 +159,7 @@ class GuiaController extends Controller
                 ->setParameter('curso', $curso)
                 ->getQuery();
 
-            $guia = $query->getResult();
+            $guia = $query->getOneOrNullResult();
 
             if(!$guia) {
                 $guia = new Guia();
@@ -182,15 +184,13 @@ class GuiaController extends Controller
                 }
                 $em->flush();
                 $em->clear();
-
-                return $this->pasosAction($guia->getId());
             }
+            return $this->pasosAction($guia->getId());
         }
 
 
         $response = new Response();
         $response->setStatusCode('400');
-        $response->setContent('Error...');
         return $response;
     }
 
@@ -199,27 +199,50 @@ class GuiaController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $guia = $em->getRepository('EtsiAppGuiasBundle:Guia')->find($id);
-        $grados = $em->getRepository('EtsiAppGuiasBundle:Grado')->findAll();
-        $semanas = $guia->getDatosEspecificos_10();
-        $profesores = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findAll();
+        if($guia) {
+            $grados = $em->getRepository('EtsiAppGuiasBundle:Grado')->findAll();
+            $semanas = $guia->getDatosEspecificos_10();
+            $profesores = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findAll();
 
-        $gradosAsignatura = $guia->getAsignatura()->getGrados();
-        $competencias = new \Doctrine\Common\Collections\ArrayCollection();
+            $gradosAsignatura = $guia->getAsignatura()->getGrados();
+            $competencias = new \Doctrine\Common\Collections\ArrayCollection();
 
-        foreach($gradosAsignatura as $grado) {
-            $competenciasDeGrado = $grado->getCompetenciasDeGrado();
-            foreach($competenciasDeGrado as $competencia)
-                $competencias[] = $competencia;
+            foreach($gradosAsignatura as $grado) {
+                $competenciasDeGrado = $grado->getCompetenciasDeGrado();
+                foreach($competenciasDeGrado as $competencia)
+                    $competencias[] = $competencia;
+            }
+
+            return $this->render(
+                'EtsiAppGuiasBundle::guia.html.twig',
+                array(
+                    'guia' => $guia,
+                    'grados' => $grados,
+                    'semanas' => $semanas,
+                    'profesores' => $profesores,
+                    'competencias' => $competencias,
+                )
+            );
         }
 
+        $response = new Response();
+        $response->setStatusCode('400');
+        return $response;
+    }
+
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $profesores = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findAll();
+
+        $entity = $this->get('security.context')->getToken()->getUser();
+        $entity->getUsername();
+
         return $this->render(
-            'EtsiAppGuiasBundle::guiaLayout.html.twig',
+            'EtsiAppGuiasBundle::dashboard.html.twig',
             array(
-                'guia' => $guia,
-                'grados' => $grados,
-                'semanas' => $semanas,
+                'entity' => $entity,
                 'profesores' => $profesores,
-                'competencias' => $competencias,
             )
         );
     }

@@ -1,0 +1,75 @@
+{% extends "EtsiAppGuiasBundle::baseLayout.html.twig" %}
+
+
+{% block titulo_cabecera %}
+	AppDashboard
+{% endblock %}
+
+{% block wrapper %}
+	<div id="steps">
+		<form action="{{ path('etsi_app_guia_guia_new') }}" method="post">
+			<fieldset class="step">
+				{% if entity.asignaturasCoordinadas|length > 0 %}
+				<div class="contenedor">
+					<div class="in-titulo">Crear nueva guía:</div>
+
+					<div class="clear"></div>
+					<label for="asignatura" class="natural">Asignatura</label>
+					<select name="asignatura" data-placeholder="Seleccionar..." class="natural" >
+						{% for a in entity.asignaturasCoordinadas %}
+						<option value="{{ a.id }}">
+							{{ a.codigo }}: {{ a.nombre }}
+						</option>
+						{% endfor %}
+					</select>
+
+					<div class="clear"></div>
+					<label for="curso" class="natural">Curso</label>
+					<select name="curso" data-placeholder="Seleccionar..." class="natural" >
+						{% for curso in range(("now"|date("Y"))-1,("now"|date("Y"))+1) %}
+						<option value="{{ curso }}">{{ curso }} - {{ curso+1 }}</option>
+						{% endfor %}
+					</select>
+
+					<div class="contenedor submit">
+						<button id="registerButton" type="submit">CREAR</button>
+					</div>
+				</div>
+
+				<div class="contenedor">
+					<div class="in-titulo">Asignaturas coordinadas:</div>
+
+					<div class="clear"></div>
+					<ul>
+						{% if entity %}
+						{% for a in entity.asignaturasCoordinadas %}
+						<li>
+							{{ a.codigo }}: {{ a.nombre }}
+						</li>
+						{% endfor %}
+						{% endif %}
+					</ul>
+				</div>
+				{% endif %}
+
+				<div class="contenedor">
+					<div class="in-titulo">Guias:</div>
+
+					<div class="clear"></div>
+					<ul>
+						{% if entity %}
+						{% for g in entity.guias %}
+						<li>
+							<a href="{{ path('etsi_app_guia_guia_pasos', {'id': g.id}) }}">
+								{{ g.curso }} - {{ g.curso+1 }}: 
+								{{ g.asignatura.nombre }} &lt;{{ g.asignatura.codigo }}&gt;
+							</a
+						</li>
+						{% endfor %}
+						{% endif %}
+					</ul>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+{% endblock %}

@@ -29,11 +29,6 @@
 	</script>
 {% endblock %}
 
-{% block titulo_cabecera %}
-	Curso Curso {{ guia.curso }}/{{ guia.curso+1 }}, 
-	última edición: {{ guia.fechaDeModificacion|date("d/m/Y H:i") }}
-{% endblock %}
-
 {% block top_menu %}
 	<div id="miniaturas">   <!-- miniaturas de cada pantalla del forms-->
 		<div id="center">
@@ -75,7 +70,11 @@
 					Paso#1: Asignatura
 				</legend>
 				<div class="contenedor{% if not guia.asignatura.nombreI %} empty{% endif %}">
-					<div class="in-titulo">{{ guia.asignatura.nombre }} &lt;{{ guia.asignatura.codigo }}&gt;</div>
+					<div class="in-titulo">
+						{{ guia.asignatura.nombre }} &lt;{{ guia.asignatura.codigo }}&gt; 
+						- Curso {{ guia.curso }}/{{ guia.curso+1 }} 
+						- última edición: {{ guia.fechaDeModificacion|date("d/m/Y H:i") }}
+					</div>
 
 					<label for="nombreI">Nombre en ingles</label>
 					<input class="long editor-minimo" id="nombreI" name="nombreI" value="{{ guia.asignatura.nombreI }}"/>
@@ -86,7 +85,7 @@
 					<select name="profesores" data-placeholder="Seleccionar..." multiple class="long" >
 						{% for p in profesores %}
 						<option value="{{ p.id }}" {% if p in guia.profesores %}selected{% endif %}>
-							{{ p.nombre }} &lt;{{ p.email }}&gt;
+							{{- p.nombre }} &lt;{{ p.email }}&gt;
 						</option>
 						{% endfor %}
 					</select>

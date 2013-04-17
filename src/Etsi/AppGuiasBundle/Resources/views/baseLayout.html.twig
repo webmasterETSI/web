@@ -26,10 +26,16 @@
 	</head>
 
 	<body>
-		<img src="{{ asset( 'images/guias/header_background.jpg' ) }}">	<!-- cabecera-->
+		<img id="imagen-cabecera" src="{{ asset( 'images/guias/header_background.jpg' ) }}">	<!-- cabecera-->
+
+		{% if app.user %}
 		<div id="titulo_cabecera">
-			<span id="curso">{% block titulo_cabecera %}{% endblock %}</span>
+			<ul>
+				<li><a href="{{ path('logout') }}">logout</a></li>
+				<li><a href="{{ path('etsi_app_guia_guia') }}">dashboard</a></li>
+			</ul>
 		</div>
+		{% endif %}
 
 		{% block top_menu %}{% endblock %}
 

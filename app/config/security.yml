@@ -8,12 +8,12 @@ security:
             plaintext
 
     providers:
-#        user_db:
-#            entity: { class: Etsi\AppGuiasBundle\Entity\Profesor, property: email }
-        in_memory:
-            memory:
-                users:
-                    admin: { password: admin, roles: 'ROLE_ADMIN' }
+        user_db:
+            entity: { class: Etsi\AppGuiasBundle\Entity\Profesor, property: email }
+#        in_memory:
+#            memory:
+#                users:
+#                    admin: { password: admin, roles: 'ROLE_ADMIN' }
 
     firewalls:
         dev:

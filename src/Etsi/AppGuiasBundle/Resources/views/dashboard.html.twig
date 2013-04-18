@@ -64,7 +64,7 @@
 					<div class="in-titulo">Guias</div>
 
 					<div class="clear"></div>
-					<table class="tablesorter"> 
+					<table id="tabla-todo"> 
 						<thead> 
 							<tr> 
 								<th>Asignatura</th> 
@@ -74,7 +74,7 @@
 							</tr> 
 						</thead> 
 						<tbody>
-							{% set estados = ['1. Pendiente de revisión', '2. Publicada con errores', '3. Publicada pendiente de revisión', '4. Publicada'] %}
+							{% set estados = ['1: Por enviar', '2: Pendiente aprobación', '3: Publicada', '4: Publicada con fallos'] %}
 							{% for e in guias %}
 							<tr>
 								<td>
@@ -89,6 +89,15 @@
 							{% endfor %}
 						</tbody> 
 					</table>
+
+					<div style="margin-top: 50px; width: 100%"></div>
+					<label>Filtros según estado</label>
+					<button class="boton-chico" id="filtro-enviar">Pendientes de envío</button>
+					<button class="boton-chico" id="filtro-aprobar">Pendientes de aprobación</button>
+					<button class="boton-chico" id="filtro-publicada">Publicadas</button>
+					<button class="boton-chico" id="filtro-fallos">Publicadas con fallos</button>
+					<button class="boton-chico" id="filtro-todo">Todas las guías</button>
+					<div class="clear"></div>
 				</div>
 			</fieldset>
 		</form>

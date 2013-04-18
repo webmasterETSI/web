@@ -4,9 +4,7 @@ namespace Etsi\AppGuiasBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
 	Symfony\Component\HttpFoundation\Response,
-    Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;  
- 
+    Symfony\Component\HttpFoundation\Request;   
 
 use Common\Herramientas;
 
@@ -91,8 +89,6 @@ class AdminProfesorController extends Controller
 
     public function newAction(Request $request)
     {
-        $logged = null;//$this->get('security.context')->isGranted('ROLE_USER');
-
         $messages = array(
             'success' => array(),
             'warning' => array(),
@@ -102,31 +98,11 @@ class AdminProfesorController extends Controller
         $entity  = new Profesor();
         $data = $request->request->all();
 
-        if($this->fillEntity($entity, $data)) {
+        if($this->fillEntity($entity, $data))
             $messages['success'][] = 'Profesor guardada correctamente';
-
-            if(!$logged){
-                $em = $this->getDoctrine()->getManager();
-                $rol = $em->getRepository('EtsiAppGuiasBundle:Rol')->findOneByName('ROLE_PROFESOR');
-                $entity->addRole($rol);
-                $em->flush();
-
-                $token = new UsernamePasswordToken($entity, $data['password'], 'secured_area', array('ROLE_PROFESOR'));
-                $request = $this->getRequest();
-                $session = $request->getSession();
-                $session->set('_security_secured_area',  serialize($token));
-
-                return $this->redirect($this->generateUrl('etsi_app_guia_guia'));
-            }
-        } else {
+        else
             $messages['error'][] = 'Faltan campos obligatorios, profesor no guardada';
 
-            if(!$logged){
-                return $this->render('EtsiAppGuiasBundle::login.html.twig', array(
-                    'messages'      => array('error' => array('Faltan campos obligatorios, cuenta no creada'))
-                ));
-            }
-        }
 
         return $this->renderReturn(
             $this->generateUrl('eaga_profesor_edit', array('id' => $entity->getId())),

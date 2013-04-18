@@ -21,7 +21,7 @@ security:
             security: false
 
         anonymous:
-            pattern:  ^/admin/profesor/new$
+            pattern:  ^/usuario$
             security: false
 
         secured_area:

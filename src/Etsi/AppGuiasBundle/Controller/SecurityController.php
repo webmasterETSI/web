@@ -30,10 +30,12 @@ class SecurityController extends Controller
         } else {
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
         }
+
+        $messages = $error?array('error' => array($error)):array();
         
         return $this->render('EtsiAppGuiasBundle::login.html.twig', array(
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-            'error'         => $error,
+            'messages'      => $messages,
         ));
     }
 }

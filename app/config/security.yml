@@ -20,6 +20,10 @@ security:
             pattern:  ^/login$
             security: false
 
+        anonymous:
+            pattern:  ^/admin/profesor/new$
+            security: false
+
         secured_area:
             pattern:    ^/
             form_login:
@@ -28,6 +32,7 @@ security:
             logout:
                 path: /logout
                 target: /
+
 
     role_hierarchy:
         ROLE_ADMIN: [ROLE_USER, ROLE_PROFESOR, ROLE_REVISOR]

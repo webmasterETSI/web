@@ -27,10 +27,15 @@ etsi_app_guia_guia_new:
     defaults: { _controller: EtsiAppGuiasBundle:Guia:new }
     requirements: { _method: post }
 
+etsi_app_guia_guia_coordinador:
+    pattern:  /coordinador
+    defaults: { _controller: EtsiAppGuiasBundle:Guia:coordinador }
+    requirements: { _method: post }
 
-EtsiAppGuiasBundle_admin_role:
-    resource: "@EtsiAppGuiasBundle/Resources/config/routing/admin_role.yml"
-    prefix:   /admin/role
+
+#EtsiAppGuiasBundle_admin_role:
+#    resource: "@EtsiAppGuiasBundle/Resources/config/routing/admin_role.yml"
+#    prefix:   /admin/role
 
 etsi_app_guias_admin_area:
     resource: "@EtsiAppGuiasBundle/Resources/config/routing/admin_area_routing.yml"

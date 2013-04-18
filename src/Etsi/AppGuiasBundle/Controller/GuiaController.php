@@ -152,6 +152,8 @@ class GuiaController extends Controller
 
         $asignatura = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->find($idAsignatura);
         if($asignatura) {
+            $mensajes = array('info' => array('La guía ya existía, guía cargada'));
+
             $query = $em->getRepository('EtsiAppGuiasBundle:Guia')
                 ->createQueryBuilder('g')
                 ->where('g.asignatura = :asignatura AND g.curso = :curso')
@@ -184,17 +186,16 @@ class GuiaController extends Controller
                 }
                 $em->flush();
                 $em->clear();
+                $mensajes = array('success' => array('Guía creada correctamente'));
             }
-            return $this->pasosAction($guia->getId());
+            return $this->pasosAction($guia->getId(), $mensajes);
         }
 
 
-        $response = new Response();
-        $response->setStatusCode('400');
-        return $response;
+        return $this->indexAction( array('error' => array('No se ha podido crear la guía')) );
     }
 
-    public function pasosAction($id)
+    public function pasosAction($id, $mensajes = array())
     {
         $em = $this->getDoctrine()->getManager();
         
@@ -221,28 +222,53 @@ class GuiaController extends Controller
                     'semanas' => $semanas,
                     'profesores' => $profesores,
                     'competencias' => $competencias,
+                    'messages' => $mensajes
                 )
             );
         }
 
-        $response = new Response();
-        $response->setStatusCode('400');
-        return $response;
+        return $this->indexAction( array('error' => array('No se ha podido cargar la guía')) );
     }
 
-    public function indexAction()
+
+    public function coordinadorAction(Request $request)
+    {
+        $idAsignatura = $request->request->get('asignatura');
+        $idProfesor = $request->request->get('profesor');
+
+        if(!empty($idAsignatura) && !empty($idProfesor)) {
+            $em = $this->getDoctrine()->getManager();
+            $asignatura = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->find($idAsignatura);
+            $profesor = $em->getRepository('EtsiAppGuiasBundle:Profesor')->find($idProfesor);
+
+            if($asignatura && $profesor) {
+                $asignatura->setCoordinador($profesor);
+                $em->flush();
+                return $this->indexAction( array('success' => array('Asignado '.$profesor->getNombre().' como coordinador de '.$asignatura->getNombre())) );
+            }
+            return $this->indexAction( array('error' => array('El profesor o la asignatura seleccionado no existe')) );
+        }
+
+        return $this->indexAction( array('error' => array('IDs incorrectos')) );
+    }
+
+    public function indexAction($mensajes = array())
     {
         $em = $this->getDoctrine()->getManager();
+        $guias = $em->getRepository('EtsiAppGuiasBundle:Guia')->findAll();
         $profesores = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findAll();
+        $asignaturas = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->findAll();
 
         $entity = $this->get('security.context')->getToken()->getUser();
-        $entity->getUsername();
 
         return $this->render(
             'EtsiAppGuiasBundle::dashboard.html.twig',
             array(
                 'entity' => $entity,
+                'guias' => $guias,
                 'profesores' => $profesores,
+                'asignaturas' => $asignaturas,
+                'messages' => $mensajes
             )
         );
     }

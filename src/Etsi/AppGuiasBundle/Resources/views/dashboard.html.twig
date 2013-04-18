@@ -1,73 +1,163 @@
 {% extends "EtsiAppGuiasBundle::baseLayout.html.twig" %}
 
 
+{% block css %}
+	{% stylesheets
+		'@EtsiAppGuiasBundle/Resources/public/css/dataTables/dashboard_table.css' 
+		'@EtsiAppGuiasBundle/Resources/public/css/chosen.css' %}
+		<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen"/>
+	{% endstylesheets %}
+{% endblock %}
+
+
+{% block js %}
+	{% javascripts
+		'@EtsiAppGuiasBundle/Resources/public/js/chosen.jquery.min.js' 
+		'@EtsiAppGuiasBundle/Resources/public/js/jquery.dataTables.min.js'
+		'@EtsiAppGuiasBundle/Resources/public/js/guia.dashboard.js' %}
+		<script src="{{ asset_url }}" type="text/javascript"></script>
+	{% endjavascripts %}
+{% endblock %}
+
 {% block titulo_cabecera %}
 	AppDashboard
 {% endblock %}
 
 {% block wrapper %}
 	<div id="steps">
-		<form action="{{ path('etsi_app_guia_guia_new') }}" method="post">
+
+		{% if is_granted('ROLE_REVISOR') %}
+		<form action="{{ path('etsi_app_guia_guia_coordinador') }}" method="post">
 			<fieldset class="step">
-				{% if entity.asignaturasCoordinadas|length > 0 %}
 				<div class="contenedor">
-					<div class="in-titulo">Crear nueva guía:</div>
+					<div class="in-titulo">Gestión de coordinadores</div>
 
 					<div class="clear"></div>
 					<label for="asignatura" class="natural">Asignatura</label>
-					<select name="asignatura" data-placeholder="Seleccionar..." class="natural" >
-						{% for a in entity.asignaturasCoordinadas %}
+					<select name="asignatura" data-placeholder="Seleccionar..." class="long" >
+						{% for a in asignaturas %}
 						<option value="{{ a.id }}">
-							{{ a.codigo }}: {{ a.nombre }}
+							{{- a.codigo }}: {{ a.nombre -}}
+							{% if a.coordinador %} &lt;{{ a.coordinador.nombre }}&gt;{% endif -%}
 						</option>
 						{% endfor %}
 					</select>
 
 					<div class="clear"></div>
+					<label for="profesor" class="natural">Profesor</label>
+					<select name="profesor" data-placeholder="Seleccionar..." class="long" >
+						{% for p in profesores %}
+						<option value="{{ p.id }}">{{ p.nombre }} &lt;{{ p.email }}&gt;</option>
+						{% endfor %}
+					</select>
+
+					<div class="contenedor submit">
+						<button id="registerButton" type="submit">ASIGNAR COORDINADOR</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+
+		<form>
+			<fieldset class="step">
+				<div class="contenedor">
+					<div class="in-titulo">Guias</div>
+
+					<div class="clear"></div>
+					<table class="tablesorter"> 
+						<thead> 
+							<tr> 
+								<th>Asignatura</th> 
+								<th>Estado</th>
+								<th>Fecha de modificación</th> 
+								<th>Curso</th>
+							</tr> 
+						</thead> 
+						<tbody>
+							{% set estados = ['1. Pendiente de revisión', '2. Publicada con errores', '3. Publicada pendiente de revisión', '4. Publicada'] %}
+							{% for e in guias %}
+							<tr>
+								<td>
+									<a href="{{ path('etsi_app_guia_guia_pasos', {'id': e.id}) }}">
+										{{ e.asignatura.nombre }} &lt;{{ e.asignatura.codigo }}&gt;
+									</a>
+								</td>
+								<td>{{ estados[e.estado] }} </td>
+								<td>{{ e.fechaDeModificacion|date("d/m/Y H:i") }}</td>
+								<td>{{ e.curso }} - {{ e.curso+1 }}</td>
+							</tr>
+							{% endfor %}
+						</tbody> 
+					</table>
+				</div>
+			</fieldset>
+		</form>
+		{% endif %}
+
+		{% if entity.asignaturasCoordinadas|length > 0 %}
+		<form action="{{ path('etsi_app_guia_guia_new') }}" method="post">
+			<fieldset class="step">
+				<div class="contenedor">
+					<div class="in-titulo">Asignaturas coordinadas</div>
+
+					<div class="clear"></div>
+					<label for="asignatura" class="natural">Asignatura</label>
+					<select name="asignatura" data-placeholder="Seleccionar..." class="long" >
+						{% for a in entity.asignaturasCoordinadas %}
+						<option value="{{ a.id }}">{{ a.codigo }}: {{ a.nombre }}</option>
+						{% endfor %}
+					</select>
+
+					<div class="clear"></div>
 					<label for="curso" class="natural">Curso</label>
-					<select name="curso" data-placeholder="Seleccionar..." class="natural" >
+					<select name="curso" data-placeholder="Seleccionar..." class="peque" >
 						{% for curso in range(("now"|date("Y"))-1,("now"|date("Y"))+1) %}
 						<option value="{{ curso }}">{{ curso }} - {{ curso+1 }}</option>
 						{% endfor %}
 					</select>
 
 					<div class="contenedor submit">
-						<button id="registerButton" type="submit">CREAR</button>
+						<button id="registerButton" type="submit">CREAR NUEVA GUÍA</button>
 					</div>
 				</div>
+			</fieldset>
+		</form>
+		{% endif %}
 
+		<form>
+			<fieldset class="step">
 				<div class="contenedor">
-					<div class="in-titulo">Asignaturas coordinadas:</div>
+					<div class="in-titulo">Edición de guías</div>
 
 					<div class="clear"></div>
-					<ul>
-						{% if entity %}
-						{% for a in entity.asignaturasCoordinadas %}
-						<li>
-							{{ a.codigo }}: {{ a.nombre }}
-						</li>
-						{% endfor %}
-						{% endif %}
-					</ul>
-				</div>
-				{% endif %}
-
-				<div class="contenedor">
-					<div class="in-titulo">Guias:</div>
-
-					<div class="clear"></div>
-					<ul>
-						{% if entity %}
-						{% for g in entity.guias %}
-						<li>
-							<a href="{{ path('etsi_app_guia_guia_pasos', {'id': g.id}) }}">
-								{{ g.curso }} - {{ g.curso+1 }}: 
-								{{ g.asignatura.nombre }} &lt;{{ g.asignatura.codigo }}&gt;
-							</a
-						</li>
-						{% endfor %}
-						{% endif %}
-					</ul>
+					{% if entity %}
+					<table class="tablesorter"> 
+						<thead> 
+							<tr> 
+								<th>Código de la asignatura</th>
+								<th>Nombre de la asignatura</th>
+								<th>Curso</th> 
+							</tr> 
+						</thead> 
+						<tbody>
+							{% for e in entity.guias %}
+							<tr>
+								<td>
+									<a href="{{ path('etsi_app_guia_guia_pasos', {'id': e.id}) }}">
+										{{ e.asignatura.codigo }}
+									</a>
+								</td>
+								<td>
+									<a href="{{ path('etsi_app_guia_guia_pasos', {'id': e.id}) }}">
+										{{ e.asignatura.nombre }}
+									</a>
+								</td>
+								<td>{{ e.curso }} - {{ e.curso+1 }}</td>
+							</tr>
+							{% endfor %}
+						</tbody> 
+					</table>
+					{% endif %}
 				</div>
 			</fieldset>
 		</form>

@@ -18,7 +18,9 @@
 
 		{% block js_preload %}{% endblock %}
 
-		{% javascripts '@EtsiAppGuiasBundle/Resources/public/js/jquery-1.9.1.min.js' %}
+		{% javascripts 
+			'@EtsiAppGuiasBundle/Resources/public/js/jquery-1.9.1.min.js'
+			'@EtsiAppGuiasBundle/Resources/public/js/guia.default.js' %}
 			<script src="{{ asset_url }}" type="text/javascript"></script>
 		{% endjavascripts %}
 		{% block js %}{% endblock %}
@@ -33,6 +35,9 @@
 			<ul>
 				<li><a href="{{ path('logout') }}">logout</a></li>
 				<li><a href="{{ path('etsi_app_guia_guia') }}">dashboard</a></li>
+				{% if is_granted('ROLE_ADMIN') %}
+				<li><a href="{{ path('eaga_asignatura_index') }}">rawAdmin</a></li>
+				{% endif %}
 			</ul>
 		</div>
 		{% endif %}
@@ -40,6 +45,37 @@
 		{% block top_menu %}{% endblock %}
 
 		<div id="wrapper">  <!-- div contenedor pantallas -->
+			{% block messages %}
+				{% if messages is defined %}
+					{% if messages.error is defined %}
+					{% for m in messages.error %}
+						<h4 class="alert_error temporal">{{ m }}</h4>
+					{% endfor %}
+					{% endif %}
+
+					{% if messages.warning is defined %}
+					{% for m in messages.warning %}
+						<h4 class="alert_warning temporal">{{ m }}</h4>
+					{% endfor %}
+					{% endif %}
+
+					{% if messages.success is defined %}
+					{% for m in messages.success %}
+						<h4 class="alert_success temporal">{{ m }}</h4>
+					{% endfor %}
+					{% endif %}
+
+					{% if messages.info is defined %}
+					{% for m in messages.info %}
+						<h4 class="alert_info temporal">{{ m }}</h4>
+					{% endfor %}
+					{% endif %}
+				{% endif %}
+			{% endblock %}
+
+			{% block section %}
+			{% endblock %}
+
 			{% block wrapper %}{% endblock %}
 			<div id="footer">{% block footer %}{% endblock %}</div>
 		</div>

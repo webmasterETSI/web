@@ -34,7 +34,7 @@
 	<body>
 		<header id="header">
 			<hgroup>
-				<h1 class="site_title"><a href="#">AppGuias Admin</a></h1>
+				<h1 class="site_title"><a href="{{ path('etsi_app_guia_guia') }}">&lt; AppGuias</a></h1>
 				<h2 class="section_title">{% block sectionTitle %}Dashboard{% endblock %}</h2>
 			</hgroup>
 		</header>
@@ -90,17 +90,31 @@
 
 		<section id="main" class="column">
 			{% block messages %}
-				{% for m in messages.error %}
-					<h4 class="alert_error temporal">{{ m }}</h4>
-				{% endfor %}
+				{% if messages is defined %}
+					{% if messages.error is defined %}
+					{% for m in messages.error %}
+						<h4 class="alert_error temporal">{{ m }}</h4>
+					{% endfor %}
+					{% endif %}
 
-				{% for m in messages.warning %}
-					<h4 class="alert_warning temporal">{{ m }}</h4>
-				{% endfor %}
+					{% if messages.warning is defined %}
+					{% for m in messages.warning %}
+						<h4 class="alert_warning temporal">{{ m }}</h4>
+					{% endfor %}
+					{% endif %}
 
-				{% for m in messages.success %}
-					<h4 class="alert_success temporal">{{ m }}</h4>
-				{% endfor %}
+					{% if messages.success is defined %}
+					{% for m in messages.success %}
+						<h4 class="alert_success temporal">{{ m }}</h4>
+					{% endfor %}
+					{% endif %}
+
+					{% if messages.info is defined %}
+					{% for m in messages.info %}
+						<h4 class="alert_info temporal">{{ m }}</h4>
+					{% endfor %}
+					{% endif %}
+				{% endif %}
 			{% endblock %}
 
 			{% block section %}

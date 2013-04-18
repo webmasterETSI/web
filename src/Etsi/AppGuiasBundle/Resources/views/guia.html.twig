@@ -19,7 +19,7 @@
 		'@EtsiAppGuiasBundle/Resources/public/js/chosen.jquery.min.js' 
 		'@EtsiAppGuiasBundle/Resources/public/js/sliding.form.js'
 		'ckeditor/ckeditor.js'
-		'@EtsiAppGuiasBundle/Resources/public/js/guia.default.js'
+		'@EtsiAppGuiasBundle/Resources/public/js/guia.edicion.js'
 		'@EtsiAppGuiasBundle/Resources/public/js/guia.miniaturas.js' %}
 		<script src="{{ asset_url }}" type="text/javascript"></script>
 	{% endjavascripts %}
@@ -35,7 +35,6 @@
 			<div class="navigation" style="display:none;">
 				<ul>
 					<li class="selected"><a href="#"><div class="miniatura"></div></a></li>
-					<li><a href="#"><div class="miniatura"></div></a></li>
 					<li><a href="#"><div class="miniatura"></div></a></li>
 					<li><a href="#"><div class="miniatura"></div></a></li>
 					<li><a href="#"><div class="miniatura"></div></a></li>  
@@ -72,8 +71,8 @@
 				<div class="contenedor{% if not guia.asignatura.nombreI %} empty{% endif %}">
 					<div class="in-titulo">
 						{{ guia.asignatura.nombre }} &lt;{{ guia.asignatura.codigo }}&gt; 
-						- Curso {{ guia.curso }}/{{ guia.curso+1 }} 
-						- última edición: {{ guia.fechaDeModificacion|date("d/m/Y H:i") }}
+						- Curso {{ guia.curso }}/{{ guia.curso+1 }}<br>
+						Última edición: {{ guia.fechaDeModificacion|date("d/m/Y H:i") }}
 					</div>
 
 					<label for="nombreI">Nombre en ingles</label>
@@ -100,19 +99,19 @@
 					</div>
 
 					<label for="creditosTeoricos" class="natural">Creditos teóricos</label>
-					<input class="editor-minimo" id="creditosTeoricos" name="creditosTeoricos" value="{{ guia.creditosTeoricos }}" />
+					<input class="editor-minimo mini" id="creditosTeoricos" name="creditosTeoricos" value="{{ guia.creditosTeoricos }}" />
 
 					<label for="creditosPracticosAula" class="natural">Creditos prácticos (aula)</label>
-					<input class="editor-minimo" id="creditosPracticosAula" name="creditosPracticosAula" value="{{ guia.creditosPracticosAula }}" />
+					<input class="editor-minimo mini" id="creditosPracticosAula" name="creditosPracticosAula" value="{{ guia.creditosPracticosAula }}" />
 
 					<label for="creditosPracticosLaboratorio" class="natural">Creditos prácticos (laboratorio)</label>
-					<input class="editor-minimo" id="creditosPracticosLaboratorio" name="creditosPracticosLaboratorio" value="{{ guia.creditosPracticosLaboratorio }}" />
+					<input class="editor-minimo mini" id="creditosPracticosLaboratorio" name="creditosPracticosLaboratorio" value="{{ guia.creditosPracticosLaboratorio }}" />
 
 					<label for="creditosPracticosCampo" class="natural">Creditos prácticos (trabajo de campo)</label>
-					<input class="editor-minimo" id="creditosPracticosCampo" name="creditosPracticosCampo" value="{{ guia.creditosPracticosCampo }}" />
+					<input class="editor-minimo mini" id="creditosPracticosCampo" name="creditosPracticosCampo" value="{{ guia.creditosPracticosCampo }}" />
 
 					<label for="creditosPracticosInformatica" class="natural">Creditos prácticos (aula de informática)</label>
-					<input class="editor-minimo" id="creditosPracticosInformatica" name="creditosPracticosInformatica" value="{{ guia.creditosPracticosInformatica }}" />
+					<input class="editor-minimo mini" id="creditosPracticosInformatica" name="creditosPracticosInformatica" value="{{ guia.creditosPracticosInformatica }}" />
 				</div>
 			</fieldset>
 
@@ -173,15 +172,8 @@
 			</fieldset>
 
 			<fieldset class="step">
-				<legend>Paso#6: Metodología</legend>
-				<div class="contenedor">
-					&lt;TABLA AUTOGENERADA&gt;
-				</div>
-			</fieldset>
-
-			<fieldset class="step">
-				<legend>Paso#7: Técnicas docentes</legend>
-				<div class="contenedor">
+				<legend>Paso#6: Técnicas docentes</legend>
+				<div class="contenedor{% if not guia.datosEspecificos_6_1_1 %} empty{% endif %}">
 					<div class="in-titulo">Técnicas docentes utilizadas</div>
 					<div id="datosEspecificos_6_1_1" class="editor-check-mask">
 						<div class="hidden">{{ guia.datosEspecificos_6_1_1 }}</div>
@@ -225,7 +217,7 @@
 			</fieldset>
 
 			<fieldset class="step">
-				<legend>Paso#8: Temario desarrollado</legend>
+				<legend>Paso#7: Temario desarrollado</legend>
 				<div class="contenedor{% if guia.datosEspecificos_7|striptags is empty %} empty{% endif %}">
 					<div class="in-titulo">Temario desarrollado</div>
 					<div class="editor-texto" id="datosEspecificos_7" contenteditable="true">{{ guia.datosEspecificos_7|raw }}</div>
@@ -233,7 +225,7 @@
 			</fieldset>
 
 			<fieldset class="step">
-				<legend>Paso#9: Bibliografía</legend>
+				<legend>Paso#8: Bibliografía</legend>
 				<div class="contenedor{% if guia.datosEspecificos_8_1|striptags is empty %} empty{% endif %}">
 					<div class="in-titulo">Bibliografía básica:</div>
 					<div class="editor-texto" id="datosEspecificos_8_1" contenteditable="true" >{{ guia.datosEspecificos_8_1|raw }}</div>
@@ -245,8 +237,8 @@
 			</fieldset>
 
 			<fieldset class="step">
-				<legend>Paso#10: Sistemas de evaluación e la adquisición de competencias</legend>
-				<div class="contenedor">
+				<legend>Paso#9: Sistemas de evaluación e la adquisición de competencias</legend>
+				<div class="contenedor{% if not guia.datosEspecificos_9_1_1 %} empty{% endif %}">
 					<div class="in-titulo">Técnicas de evaluación utilizadas</div>
 					<div id="datosEspecificos_9_1_1" class="editor-check-mask">
 						<div class="hidden">{{ guia.datosEspecificos_9_1_1 }}</div>
@@ -282,7 +274,7 @@
 			</fieldset>
 
 			<fieldset class="step">
-				<legend>Paso#11: Organización docente semanal orientativa</legend>
+				<legend>Paso#10: Organización docente semanal orientativa</legend>
 				<div class="contenedor">
 					<table> 
 						<thead> 
@@ -310,19 +302,19 @@
 									<b>#{{ e.numeroSemana }}</b>
 								</td>
 								<td>
-									<input class="editor-semana margenes" name="horasGruposGrandes" value="{{ e.horasGruposGrandes }}" />
+									<input class="editor-semana margenes mini" name="horasGruposGrandes" value="{{ e.horasGruposGrandes }}" />
 								</td>
 								<td>
-									<input class="editor-semana margenes" name="horasGruposReducidosAula" value="{{ e.horasGruposReducidosAula }}" />
+									<input class="editor-semana margenes mini" name="horasGruposReducidosAula" value="{{ e.horasGruposReducidosAula }}" />
 								</td>
 								<td>
-									<input class="editor-semana margenes" name="horasGruposReducidosInformatica" value="{{ e.horasGruposReducidosInformatica }}" />
+									<input class="editor-semana margenes mini" name="horasGruposReducidosInformatica" value="{{ e.horasGruposReducidosInformatica }}" />
 								</td>
 								<td>
-									<input class="editor-semana margenes" name="horasGruposReducidosLaboratorio" value="{{ e.horasGruposReducidosLaboratorio }}" />
+									<input class="editor-semana margenes mini" name="horasGruposReducidosLaboratorio" value="{{ e.horasGruposReducidosLaboratorio }}" />
 								</td>
 								<td>
-									<input class="editor-semana margenes" name="horasGruposReducidosCampo" value="{{ e.horasGruposReducidosCampo }}" />
+									<input class="editor-semana margenes mini" name="horasGruposReducidosCampo" value="{{ e.horasGruposReducidosCampo }}" />
 								</td>
 								<td>
 									<input class="editor-semana peque" name="examen" value="{{ e.examen }}" />

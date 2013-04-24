@@ -9,7 +9,7 @@ GUIA.cambios = function(elemento) {
 };
 
 
-GUIA.saveCambios = function() {
+GUIA.saveCambios = function(estado) {
 	var data = {};
 	$('.cambios-no-guardados').each(function() {
 		var e = $(this);
@@ -53,24 +53,49 @@ GUIA.saveCambios = function() {
 			.addClass('cambios-guardados');
 	});
 
+	if(typeof estado === 'number') {
+		data['estado'] = estado;
+		var callback = function() {
+			document.location.href = GUIA.dashboard;
+		}
+	}
+
 	window.setTimeout(function() {
 		$('.cambios-guardados').removeClass('cambios-guardados');
 	}, 5000);
 
-	GUIA.updateData(data);
+	GUIA.updateData(data,callback);
 
 	if(GUIA.saveTimeout)
 		window.clearTimeout(GUIA.saveTimeout);
 };
 
-GUIA.updateData = function(data) {
+GUIA.updateData = function(data, callback) {
 	$.ajax({
 		type:'POST',
 		url: GUIA.updateGuia,
 		data: JSON.stringify(data),
 		contentType : 'application/json',
-		cache: false
-	});
+		cache: false,
+
+		error: function(data) {
+			var error = $('<h4></h4>')
+			.addClass('alert_error')
+			.text(data.responseText)
+			.delay(5000).hide('slow');
+
+			$('#wrapper').prepend(error);
+		},
+		success: function(data) {
+			var error = $('<h4></h4>')
+			.addClass('alert_success')
+			.text('Cambios guardados correctamente')
+			.delay(5000).hide('slow');
+
+			$('#wrapper').prepend(error);
+		},
+		complete: callback
+	})
 };
 
 GUIA.testSemanas = function() {
@@ -237,6 +262,14 @@ $(function(){
 
 
 	$('.navigation > ul').miniaturiza();
+
+	$('form').submit(function() { return false; });
+
+	$('#button-enviar').click(    function() { GUIA.saveCambios(1); });
+	$('#button-aprobar').click(   function() { GUIA.saveCambios(2); });
+	$('#button-rechazar').click(  function() { GUIA.saveCambios(0); });
+	$('#button-fallos').click(    function() { GUIA.saveCambios(3); });
+	$('#button-corregida').click( function() { GUIA.saveCambios(2); });
 });
 
 CKEDITOR.on( 'instanceCreated', function( e ) {

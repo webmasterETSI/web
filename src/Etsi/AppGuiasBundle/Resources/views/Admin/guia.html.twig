@@ -19,7 +19,7 @@
 			</tr> 
 		</thead> 
 		<tbody>
-			{% set estados = ['Pendiente de revisión', 'Publicada con errores', 'Publicada pendiente de revisión', 'Publicada'] %}
+			{% set estados = ['1: Por enviar', '2: Pendiente aprobación', '3: Publicada', '4: Publicada con fallos'] %}
 			{% for e in entities %}
 			<tr>
 				<td>{{ e.asignatura.nombre }}</td>

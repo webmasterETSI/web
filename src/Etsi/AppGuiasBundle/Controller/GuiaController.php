@@ -70,76 +70,87 @@ class GuiaController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('EtsiAppGuiasBundle:Guia')->find($id);
+        $estado = $entity->getEstado();
 
-        if($entity) {
-            $fields = array('nombre','descripcion');
-
+        if( $entity ) {
             $data = json_decode($request->getContent());
 
-            foreach($data as $name => $value) {
-                switch($this->tipoDeCampo($name)) {
-                    case 1:
-                        $method = 'set'.ucfirst($name);
-                        call_user_func(array($entity, $method), $value);
-                        break;
+            if($estado==0 || $estado==3) {
+                $fields = array('nombre','descripcion');
+                foreach($data as $name => $value) {
+                    switch($this->tipoDeCampo($name)) {
+                        case 1:
+                            $method = 'set'.ucfirst($name);
+                            call_user_func(array($entity, $method), $value);
+                            break;
 
-                    case 2:
-                        switch($name) {
-                            case 'asignatura':
-                                $entidad = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->find($value);
-                                $entity->setAsignatura($entidad);
-                                break;
+                        case 2:
+                            switch($name) {
+                                case 'asignatura':
+                                    $entidad = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->find($value);
+                                    $entity->setAsignatura($entidad);
+                                    break;
 
-                            case 'nombreI':
-                                $entity->getAsignatura()
-                                    ->setNombreI($value);
-                                break;
+                                case 'nombreI':
+                                    $entity->getAsignatura()
+                                        ->setNombreI($value);
+                                    break;
 
-                            case 'semanas':
-                                $semanas = $entity->getDatosEspecificos_10();
-                                foreach($value as $semana) {
-                                    $num = $semana->numeroSemana-1;
-                                    if(isset($semanas[$num]) && !empty($semanas[$num])) {
-                                        $semanas[$num]->setHorasGruposGrandes($semana->horasGruposGrandes);
-                                        $semanas[$num]->setHorasGruposReducidosAula($semana->horasGruposReducidosAula);
-                                        $semanas[$num]->setHorasGruposReducidosInformatica($semana->horasGruposReducidosInformatica);
-                                        $semanas[$num]->setHorasGruposReducidosLaboratorio($semana->horasGruposReducidosLaboratorio);
-                                        $semanas[$num]->setHorasGruposReducidosCampo($semana->horasGruposReducidosCampo);
-                                        $semanas[$num]->setExamen($semana->examen);
-                                        $semanas[$num]->setObservaciones($semana->observaciones);
+                                case 'semanas':
+                                    $semanas = $entity->getDatosEspecificos_10();
+                                    foreach($value as $semana) {
+                                        $num = $semana->numeroSemana-1;
+                                        if(isset($semanas[$num]) && !empty($semanas[$num])) {
+                                            $semanas[$num]->setHorasGruposGrandes($semana->horasGruposGrandes);
+                                            $semanas[$num]->setHorasGruposReducidosAula($semana->horasGruposReducidosAula);
+                                            $semanas[$num]->setHorasGruposReducidosInformatica($semana->horasGruposReducidosInformatica);
+                                            $semanas[$num]->setHorasGruposReducidosLaboratorio($semana->horasGruposReducidosLaboratorio);
+                                            $semanas[$num]->setHorasGruposReducidosCampo($semana->horasGruposReducidosCampo);
+                                            $semanas[$num]->setExamen($semana->examen);
+                                            $semanas[$num]->setObservaciones($semana->observaciones);
+                                        }
                                     }
-                                }
-                                break;
-                        }
-                        break;
-                        
-                    case 3:
-                        $method = 'clear'.ucfirst($name);
-                        call_user_func(array($entity, $method));
+                                    break;
+                            }
+                            break;
+                            
+                        case 3:
+                            $method = 'clear'.ucfirst($name);
+                            call_user_func(array($entity, $method));
 
-                        switch($name) {
-                            case 'profesores': $cadena = 'EtsiAppGuiasBundle:Profesor'; break;
-                            case 'datosEspecificos_4_1': 
-                            case 'datosEspecificos_4_2': $cadena = 'EtsiAppGuiasBundle:Competencia'; break;
-                            case 'datosEspecificos_10': $cadena = 'EtsiAppGuiasBundle:Semana'; break;
-                        }
+                            switch($name) {
+                                case 'profesores': $cadena = 'EtsiAppGuiasBundle:Profesor'; break;
+                                case 'datosEspecificos_4_1': 
+                                case 'datosEspecificos_4_2': $cadena = 'EtsiAppGuiasBundle:Competencia'; break;
+                                case 'datosEspecificos_10': $cadena = 'EtsiAppGuiasBundle:Semana'; break;
+                            }
 
-                        $method = 'add'.ucfirst($name);
-                        foreach($value as $id) {
-                            $entidad = $em->getRepository($cadena)->find($id);
-                            call_user_func(array($entity, $method), $entidad);
-                        }
-                        break;
+                            $method = 'add'.ucfirst($name);
+                            foreach($value as $id) {
+                                $entidad = $em->getRepository($cadena)->find($id);
+                                call_user_func(array($entity, $method), $entidad);
+                            }
+                            break;
+                    }
                 }
+
+                $response->setStatusCode('200');
+                $entity->setFechaDeModificacion(new DateTime());
+                $em->flush();
+            } else if(isset($data->estado)) {
+                $entity->setEstado($data->estado);
+
+                $response->setStatusCode('200');
+                $entity->setFechaDeModificacion(new DateTime());
+                $em->flush();
+            } else {
+                $response->setStatusCode('400');
+                $response->setContent('Cambios no guardados: la guía no puede modificarse pues su estado actual es '.($estado==1?'pendiente de aprobación':'publicada'));
             }
-            $entity->setFechaDeModificacion(new DateTime());
-
-            $em->flush();
-
-            $response->setStatusCode('200');
-            $response->headers->set('Content-Type', 'application/json');
-        } else
+        } else {
             $response->setStatusCode('400');
+            $response->setContent('Cambios no guardados: guía no encontrada');
+        }
 
         return $response;
     }

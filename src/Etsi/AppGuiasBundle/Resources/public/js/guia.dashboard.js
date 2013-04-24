@@ -1,6 +1,8 @@
 $(function(){
 	$('select').chosen({no_results_text: "No se han encontrado resultados"});
-	$('.tablesorter').dataTable();
+
+	$('#guias').dataTable({ "aaSorting": [[ 2, "asc" ]] });
+	$('#errores').dataTable();
 
 	var oTable = $('#tabla-todo').dataTable({ "aaSorting": [[ 3, "desc" ],[ 2, "desc" ]] });
 	oTable.fnFilter( '2:', 1 );

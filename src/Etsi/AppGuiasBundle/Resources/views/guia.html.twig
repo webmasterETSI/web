@@ -26,6 +26,7 @@
 
 	<script type="text/javascript">
 		GUIA.updateGuia = '{{ path("etsi_app_guias_guia_update", { "id": guia.id }) }}';
+		GUIA.dashboard = '{{ path("etsi_app_guia_guia") }}';
 	</script>
 {% endblock %}
 
@@ -52,10 +53,10 @@
 
 	<div id="menu-estados"> <!-- por terminar-->
 		<ul id="button">
-			<li><a id="hover" href="#">[ESTADO 1: Por enviar]</a></li>
-			<li><a href="#">[ESTADO 2: Pendiente aprobación]</a></li>
-			<li><a href="#">[ESTADO 3: Publicada]</a></li>
-			<li><a href="#">[ESTADO 4: Publicada con fallos]</a></li>
+			<li><a{% if guia.estado==0 %} id="hover"{% endif %} href="#">[ESTADO 1: Por enviar]</a></li>
+			<li><a{% if guia.estado==1 %} id="hover"{% endif %} href="#">[ESTADO 2: Pendiente aprobación]</a></li>
+			<li><a{% if guia.estado==2 %} id="hover"{% endif %} href="#">[ESTADO 3: Publicada]</a></li>
+			<li><a{% if guia.estado==3 %} id="hover"{% endif %} href="#">[ESTADO 4: Publicada con fallos]</a></li>
 		</ul>
 	</div>
 {% endblock %}
@@ -343,7 +344,28 @@
 			<fieldset class="step">
 				<legend>Paso#12: Validación</legend>
 				<div class="contenedor submit">
-					<button id="registerButton" type="submit">ENVIAR PARA VALIDACIÓN</button>
+					{# 1: Por enviar #}
+					{% if guia.estado==0 %}
+						<button id="button-enviar">ENVIAR PARA VALIDACIÓN</button>
+
+					{# 2: Pendiente aprobación #}
+					{% elseif guia.estado==1 %}
+						{% if is_granted('ROLE_REVISOR') %}
+						<button id="button-aprobar">APROBAR GUÍA</button>
+						<button id="button-rechazar" style="margin-top: 10px;">RECHAZAR GUÍA</button>
+						{% else %}
+						La guía ya ha sido enviada para su aprobación.
+						{% endif %}
+
+					{# 3: Publicada #}
+					{% elseif guia.estado==2 %}
+						<button id="button-fallos">MARCAR CON ERRORES</button>
+
+					{# 4: Publicada con fallos #}
+					{% elseif guia.estado==3 %}
+						<button id="button-corregida">MARCAR COMO CORREGIDA</button>
+
+					{% endif %}
 				</div>
 			</fieldset>
 		</form>

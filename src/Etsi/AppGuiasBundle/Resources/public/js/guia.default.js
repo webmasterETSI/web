@@ -1,3 +1,3 @@
 $(function(){
-	$('.temporal').delay(5000).fadeOut('slow');
+	$('.temporal').delay(5000).hide('slow');
 });

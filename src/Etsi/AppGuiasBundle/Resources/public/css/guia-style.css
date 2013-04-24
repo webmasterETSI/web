@@ -466,6 +466,7 @@ td, th {
 
 td .margenes {
 	margin: auto 25px;
+	text-align: right;
 }
 
 table .margin {
@@ -484,8 +485,8 @@ tbody th {
 }
 
 tbody tr { background: #FCFDFE; }
-
 tbody tr.odd { background: #F7F9FC; }
+
 
 table a:link {
 	color: #718ABE;
@@ -505,6 +506,15 @@ table a:hover {
 tfoot th, tfoot td {
 	font-size: 85%;
 }
+
+tfoot .total {
+	text-align: center;
+	font-size: 100%;
+	padding: 10px 0;
+	font-weight: bold;
+}
+
+tfoot .error { color: #AE1A30; }
 
 
 

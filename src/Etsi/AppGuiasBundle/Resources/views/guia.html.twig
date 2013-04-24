@@ -276,7 +276,7 @@
 			<fieldset class="step">
 				<legend>Paso#10: Organización docente semanal orientativa</legend>
 				<div class="contenedor">
-					<table> 
+					<table id="tabla-semanas"> 
 						<thead> 
 							<tr> 
 								<th rowspan="2">Semana</th> 
@@ -325,6 +325,17 @@
 							</tr>
 							{% endfor %}
 						</tbody> 
+						<tfoot>
+							<tr>
+								<td style="text-align: center;" class="numero-semana"></td>
+								<td id="total-clases" class="total"></td>
+								<td id="total-aula" class="total"></td>
+								<td id="total-informatica" class="total"></td>
+								<td id="total-laboratorio" class="total"></td>
+								<td id="total-campo" class="total"></td>
+								<td colspan="2"></td>
+							</tr>
+						</tfoot>
 					</table>
 				</div>
 			</fieldset>

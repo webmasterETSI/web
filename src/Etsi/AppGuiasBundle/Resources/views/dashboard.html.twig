@@ -1,6 +1,5 @@
 {% extends "EtsiAppGuiasBundle::baseLayout.html.twig" %}
 
-
 {% block css %}
 	{% stylesheets
 		'@EtsiAppGuiasBundle/Resources/public/css/dataTables/dashboard_table.css' 
@@ -59,7 +58,7 @@
 		</form>
 
 		<form>
-			<fieldset class="step">
+			<fieldset class="step" style="margin-bottom: 50px;">
 				<div class="contenedor">
 					<div class="in-titulo">Guias</div>
 
@@ -74,7 +73,6 @@
 							</tr> 
 						</thead> 
 						<tbody>
-							{% set estados = ['1: Por enviar', '2: Pendiente aprobación', '3: Publicada', '4: Publicada con fallos'] %}
 							{% for e in guias %}
 							<tr>
 								<td>
@@ -105,7 +103,7 @@
 
 		{% if entity.asignaturasCoordinadas|length > 0 %}
 		<form action="{{ path('etsi_app_guia_guia_new') }}" method="post">
-			<fieldset class="step">
+			<fieldset class="step" style="margin-bottom: 50px;">
 				<div class="contenedor">
 					<div class="in-titulo">Asignaturas coordinadas</div>
 

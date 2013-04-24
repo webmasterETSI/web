@@ -1,10 +1,34 @@
 $(function(){
+	var idioma = {
+		"sProcessing": "Procesando...",
+		"sLengthMenu": "Mostrar _MENU_ registros",
+		"sZeroRecords": "No se encontraron resultados",
+		"sInfo": "Mostrando desde _START_ hasta _END_ de _TOTAL_ registros",
+		"sInfoEmpty":	"Mostrando desde 0 hasta 0 de 0 registros",
+		"sInfoFiltered": "(filtrado de _MAX_ registros en total)",
+		"sInfoPostFix":  "",
+		"sSearch": "Buscar:",
+		"sUrl": "",
+		"oPaginate": {
+			"sFirst": "Primero",
+			"sPrevious": "Anterior",
+			"sNext": "Siguiente",
+			"sLast": "Último"
+		}
+	}
+
 	$('select').chosen({no_results_text: "No se han encontrado resultados"});
 
-	$('#guias').dataTable({ "aaSorting": [[ 2, "asc" ]] });
-	$('#errores').dataTable();
+	$('#errores').dataTable({ oLanguage: idioma });
+	$('#guias').dataTable({
+		aaSorting: [[ 2, "asc" ]],
+		oLanguage: idioma
+	});
 
-	var oTable = $('#tabla-todo').dataTable({ "aaSorting": [[ 3, "desc" ],[ 2, "desc" ]] });
+	var oTable = $('#tabla-todo').dataTable({
+		aaSorting: [[ 3, "desc" ],[ 2, "desc" ]],
+		oLanguage: idioma
+	});
 	oTable.fnFilter( '2:', 1 );
 
 	$('#filtro-enviar').click(    function() { oTable.fnFilter( '1:', 1 ); return false; });

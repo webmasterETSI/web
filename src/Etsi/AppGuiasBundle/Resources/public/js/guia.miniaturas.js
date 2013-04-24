@@ -52,10 +52,6 @@
 					hAnterior += hNew;
 				});
 
-				//ctx.font = 'bold 13pt Helvetica';
-				//ctx.fillStyle = '#a3a3a3';
-				//ctx.fillText('.'+(index+1), 2, 14);
-
 				contenedor.append(canvas);
 			});
 		},
@@ -92,10 +88,6 @@
 
 					hAnterior += hNew;
 				});
-
-				//ctx.font = 'bold 13pt Helvetica';
-				//ctx.fillStyle = '#a3a3a3';
-				//ctx.fillText('.'+(index+1), 2, 14);
 			});
 		}
 	};

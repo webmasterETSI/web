@@ -141,6 +141,14 @@ GUIA.testSelect = function(elemento) {
 	$('.navigation > ul').miniaturiza('refresh')
 };
 
+GUIA.testCheckbox = function(elemento) {
+	var contenedor = $(elemento).closest('.contenedor');
+	if(elemento.children('input[type=checkbox]:checked').length == 0) contenedor.addClass('empty');
+	else contenedor.removeClass('empty');
+
+	$('.navigation > ul').miniaturiza('refresh')
+};
+
 GUIA.testCreditos = function(elemento) {
 	$(elemento).val($(elemento).val().replace(',', '.'));
 	var total = parseFloat($(elemento).val());
@@ -201,6 +209,7 @@ $(function(){
 			var padre = $(this).parent();
 			padre.addClass('cambios-no-guardados').removeClass('cambios-guardados');
 			GUIA.cambios(padre);
+			GUIA.testCheckbox(padre);
 		})
 		.each(function(index) {
 			if(data&(1<<index))
@@ -217,6 +226,7 @@ $(function(){
 			var padre = $(this).parent();
 			padre.addClass('cambios-no-guardados').removeClass('cambios-guardados');
 			GUIA.cambios(padre);
+			GUIA.testCheckbox(padre);
 		})
 		.each(function(index) {
 			if(data&(1<<index))

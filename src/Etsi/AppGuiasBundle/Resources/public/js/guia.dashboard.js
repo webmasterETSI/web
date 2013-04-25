@@ -1,4 +1,15 @@
 $(function(){
+	var tutorial = introJs().setOptions({
+		'skipLabel': 'Salir del tutorial',
+		'nextLabel': 'Siguiente &raquo;',
+		'prevLabel': '&laquo; Anterior',
+		'doneLabel': 'Terminar'
+	});
+
+	$('#tutorial').click(function() {
+		tutorial.start();
+	});
+	
 	var idioma = {
 		"sProcessing": "Procesando...",
 		"sLengthMenu": "Mostrar _MENU_ registros",
@@ -17,7 +28,7 @@ $(function(){
 		}
 	}
 
-	$('select').chosen({no_results_text: "No se han encontrado resultados"});
+	$('select').chosen();
 
 	$('#errores').dataTable({ oLanguage: idioma });
 	$('#guias').dataTable({

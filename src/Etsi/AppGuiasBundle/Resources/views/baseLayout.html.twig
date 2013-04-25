@@ -8,20 +8,32 @@
 		<title>{% block title %}Guias Docentes{% endblock %}</title>
 
 
-		{% stylesheets '@EtsiAppGuiasBundle/Resources/public/css/guia-style.css' %}
+		{% stylesheets 
+			'@EtsiAppGuiasBundle/Resources/public/css/guia-style.css'
+			'@EtsiAppGuiasBundle/Resources/public/css/introJs/introjs.css' %}
+
 			<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen"/>
 		{% endstylesheets %}
 		{% block css %}{% endblock %}
 
 		<!--[if lt IE 9]>
-		<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
+		{% stylesheets '@EtsiAppGuiasBundle/Resources/public/css/ie.css' %}
+			<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen"/>
+		{% endstylesheets %}
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
+
+		<!--[if lte IE 8]>
+		{% stylesheets '@EtsiAppGuiasBundle/Resources/public/css/introJs/introjs-ie.css' %}
+			<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen"/>
+		{% endstylesheets %}
+		<!-- <![endif]-->
 
 		{% block js_preload %}{% endblock %}
 
 		{% javascripts 
 			'@EtsiAppGuiasBundle/Resources/public/js/jquery-1.9.1.min.js'
+			'@EtsiAppGuiasBundle/Resources/public/js/intro.js'
 			'@EtsiAppGuiasBundle/Resources/public/js/guia.default.js' %}
 			<script src="{{ asset_url }}" type="text/javascript"></script>
 		{% endjavascripts %}
@@ -34,12 +46,16 @@
 
 		{% if app.user %}
 		<div id="titulo_cabecera">
-			<ul>
+			<ul data-intro="Este es tu menú, en el encontrarás algunas opciones básicas para desplazarte por la app." data-step="2">
 				<li><a href="{{ path('logout') }}">logout</a></li>
-				<li><a href="{{ path('etsi_app_guia_guia') }}">dashboard</a></li>
+				<li><a href="{{ path('etsi_app_guia_guia') }}" data-intro="Aquí puedes ver las diferentes opciones de las que dispones, es tu pantalla inicial y medio de acceso a las distintas guías." data-step="3">dashboard</a></li>
 				{% if is_granted('ROLE_ADMIN') %}
-				<li><a href="{{ path('eaga_asignatura_index') }}">rawAdmin</a></li>
+				<li><a href="{{ path('eaga_asignatura_index') }}" data-intro="Un gran poder conlleva una gran responsabilidad. <b>Se te ha otorgado la capacidad de editar datos de la base de datos en bruto... ¡cuidado!</b>" data-step="97">rawAdmin</a></li>
 				{% endif %}
+
+				<li id="feedback" class="left"><a target="_blank" href="http://www.github.com/webmasterETSI/web" data-intro="Esta aplicación es un proyecto de código abierto realziado por la administración y alumnos colaboradores de la ETSI de la Rábida. Puedes seguir su evolución, reportar fallos o proponer tus propias soluciones en el repositorio git público." data-step="99"><img src="{{ asset( 'images/guias/github-logo.png' ) }}" width="24" height="24"/></a></li>
+				<li id="tutorial" class="left"><a href="#" data-intro="Bienvenido a la app de guías docentes de la ETSI, este proceso te ayudará a comprender el funcionamiento básico de la aplicación. Para moverte por este tutorial puedes usar tambien las flechas de tu teclado." data-step="1">tutorial</a></li>
+				<li id="feedback" class="left"><a href="#" data-intro="Actualmente estás utilizando una versión beta, por lo que todo feedback es bien recibido. En cualquier momento que veas un error o se te ocurra algo que pueda ayudar a mejorar la app, haznos saber mediante este botón." data-step="98">tuOpinión</a></li>
 			</ul>
 		</div>
 		{% endif %}

@@ -24,11 +24,10 @@
 
 {% block wrapper %}
 	<div id="steps">
-
 		{% if is_granted('ROLE_REVISOR') %}
 		<form action="{{ path('etsi_app_guia_guia_coordinador') }}" method="post">
 			<fieldset class="step">
-				<div class="contenedor">
+				<div class="contenedor" data-intro="Las guías docentes tienen que ser creadas en primera instancia por una persona en concreto. Esta persona es el coordinador de la asignatura, <b>al asignar coordinadores estás concediendo a dicho profesor el poder de crear guías de una determinada asignatura</b>." data-step="9">
 					<div class="in-titulo">Gestión de coordinadores</div>
 
 					<div class="clear"></div>
@@ -59,7 +58,7 @@
 
 		<form>
 			<fieldset class="step" style="margin-bottom: 50px;">
-				<div class="contenedor">
+				<div class="contenedor" data-intro="Parece ser que eres una persona con criterio, por ello se te ha concedido acceso a todas las guías y poder para modificar su estádo actual. Aquí tienes un resumen de todas las guías, por defecto <b>se encuentran filtradas y solo ves las guías pendientes de aprobación</b>." data-step="7">
 					<div class="in-titulo">Guias</div>
 
 					<div class="clear"></div>
@@ -90,11 +89,11 @@
 
 					<div style="margin-top: 50px; width: 100%"></div>
 					<label>Filtros según estado</label>
-					<button class="boton-chico" id="filtro-enviar">Pendientes de envío</button>
-					<button class="boton-chico" id="filtro-aprobar">Pendientes de aprobación</button>
-					<button class="boton-chico" id="filtro-publicada">Publicadas</button>
-					<button class="boton-chico" id="filtro-fallos">Publicadas con fallos</button>
-					<button class="boton-chico" id="filtro-todo">Todas las guías</button>
+					<button class="boton-chico" id="filtro-enviar" data-intro="Con ese filtro puedes visualizar las guías que están siendo creadas." data-step="8">Pendientes de envío</button>
+					<button class="boton-chico" id="filtro-aprobar" data-intro="Con ese filtro puedes visualizar las guías que <b>esperan tu aprobación para ser publicadas</b>." data-step="8">Pendientes de aprobación</button>
+					<button class="boton-chico" id="filtro-publicada" data-intro="Con ese filtro puedes visualizar las guías publicadas." data-step="8">Publicadas</button>
+					<button class="boton-chico" id="filtro-fallos" data-intro="Con ese filtro puedes visualizar las guías publicadas pero que, según se ha notificado, poseen algún tipo de error." data-step="8">Publicadas con fallos</button>
+					<button class="boton-chico" id="filtro-todo" data-intro="Con ese filtro puedes verás todas las guías juntas..." data-step="8">Todas las guías</button>
 					<div class="clear"></div>
 				</div>
 			</fieldset>
@@ -104,7 +103,7 @@
 		{% if entity.asignaturasCoordinadas|length > 0 %}
 		<form action="{{ path('etsi_app_guia_guia_new') }}" method="post">
 			<fieldset class="step" style="margin-bottom: 50px;">
-				<div class="contenedor">
+				<div class="contenedor" data-intro="Al parecer tienes asignada la coordinación de algunas asignaturas. Esto te permite crear guías de dichas asignaturas. Cuando crees una guía, <b>no olvides agregar en la misma los profesores con docencia</b>, de otro modo no podrán acceder a la guía para colaborar en al edición." data-step="6">
 					<div class="in-titulo">Asignaturas coordinadas</div>
 
 					<div class="clear"></div>
@@ -133,7 +132,7 @@
 
 		<form>
 			<fieldset class="step">
-				<div class="contenedor">
+				<div class="contenedor" data-intro="Estas son las guías en las que tienes participación y que han sido marcadas como erroneas. Estas guías también aparecen en la tabla anterior, pero se ponen aquí arriba solas para que se vean bien, pues <b>si una guía publicada contiene errores es importante que la corrijas lo antes posible</b>." data-step="5">
 					<div class="in-titulo">Guias con errores</div>
 
 					<div class="clear"></div>
@@ -170,7 +169,7 @@
 					</table>
 					{% endif %}
 				</div>
-				<div class="contenedor">
+				<div class="contenedor" data-intro="Aquí tienes un resumen de todas las guías en las que tienes participación. <b>Para editar una guía simplemente pincha en su código o nombre</b>. Pudes ordenar y filtrar esta tabla (y prácticamente cualquier tabla dentro de la app)." data-step="4" data-position="top">
 					<div class="in-titulo">Todas tus guías</div>
 
 					<div class="clear"></div>

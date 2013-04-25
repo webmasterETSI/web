@@ -31,11 +31,11 @@
 {% endblock %}
 
 {% block top_menu %}
-	<div id="miniaturas">   <!-- miniaturas de cada pantalla del forms-->
+	<div id="miniaturas" data-intro="Te encuentras en el modo edición de guía. La edición de una guía requiere varios pasos, estas miniaturas te ayudan a saber en todo momento en que paso te encuentras. <b>Puedes desplazarte de un paso a otro pinchando en la miniatura o con las flechas de tu teclado</b>." data-step="4">   <!-- miniaturas de cada pantalla del forms-->
 		<div id="center">
 			<div class="navigation" style="display:none;">
 				<ul>
-					<li class="selected"><a href="#"><div class="miniatura"></div></a></li>
+					<li class="selected" data-intro="Los recuadros rojos son información que falta por rellenar mientras que los grises indican los campos completados. Que un campo esté completado no implica necesariamente que su información sea correcta..." data-step="5"><a href="#"><div class="miniatura"></div></a></li>
 					<li><a href="#"><div class="miniatura"></div></a></li>
 					<li><a href="#"><div class="miniatura"></div></a></li>
 					<li><a href="#"><div class="miniatura"></div></a></li>  
@@ -51,7 +51,7 @@
 		</div>
 	</div>
 
-	<div id="menu-estados"> <!-- por terminar-->
+	<div id="menu-estados" data-intro="Aquí se indica el estado actual de esta guía. La edición de las guías solo se permite en el estado 1 y en el estado 4, por tanto <b>todos los cambios que intentes realizar si una guia se encuentra en estado 2 o 3 serán descartados.</b>" data-step="6"> <!-- por terminar-->
 		<ul id="button">
 			<li><a{% if guia.estado==0 %} id="hover"{% endif %} href="#">[ESTADO 1: Por enviar]</a></li>
 			<li><a{% if guia.estado==1 %} id="hover"{% endif %} href="#">[ESTADO 2: Pendiente aprobación]</a></li>
@@ -71,13 +71,13 @@
 				</legend>
 				<div class="contenedor{% if not guia.asignatura.nombreI %} empty{% endif %}">
 					<div class="in-titulo">
-						{{ guia.asignatura.nombre }} &lt;{{ guia.asignatura.codigo }}&gt; 
-						- Curso {{ guia.curso }}/{{ guia.curso+1 }}<br>
-						Última edición: {{ guia.fechaDeModificacion|date("d/m/Y H:i") }}
+						{{ guia.asignatura.nombre }} &lt;{{ guia.asignatura.codigo }}&gt;<br>
+						Última edición: {{ guia.fechaDeModificacion|date("d/m/Y H:i") }}<br>
+						Curso {{ guia.curso }}/{{ guia.curso+1 }}
 					</div>
 
 					<label for="nombreI">Nombre en ingles</label>
-					<input class="long editor-minimo" id="nombreI" name="nombreI" value="{{ guia.asignatura.nombreI }}"/>
+					<input class="long editor-minimo" id="nombreI" name="nombreI" value="{{ guia.asignatura.nombreI }}" data-intro="Al ir completando la información de la guía, los campos modificados se marcan en rojo, esto indica que están pendientes de ser guardados. <b>Una vez guardados los cambios, los campos se vuelven verdes durante un instante y se recibe un aviso. Dicho proceso es automático y se realiza periodicamente.</b>" data-step="7"/>
 				</div>
 
 				<div class="contenedor{% if guia.profesores|length == 0 %} empty{% endif %}">
@@ -91,7 +91,7 @@
 					</select>
 				</div>
 
-				<div id="contenedor-creditos" class="contenedor{% if guia.creditosTeoricos+guia.creditosPracticosAula+guia.creditosPracticosLaboratorio+guia.creditosPracticosCampo+guia.creditosPracticosInformatica != guia.asignatura.creditos %} empty{% endif %}">
+				<div id="contenedor-creditos" class="contenedor{% if guia.creditosTeoricos+guia.creditosPracticosAula+guia.creditosPracticosLaboratorio+guia.creditosPracticosCampo+guia.creditosPracticosInformatica != guia.asignatura.creditos %} empty{% endif %}" data-intro="La modificación de algunos campos influye en otros pasos del proceso de edición de la guía. Por ejemplo, si modificamos la distribución de créditos de una asignatura, esto influirá en la organización docente semanal..." data-step="8" data-position="top">
 					<div class="in-titulo">Datos de créditos:</div>
 
 					<div class="right-legend">
@@ -329,7 +329,7 @@
 						<tfoot>
 							<tr>
 								<td style="text-align: center;" class="numero-semana"></td>
-								<td id="total-clases" class="total"></td>
+								<td id="total-clases" class="total" data-intro="El proceso de generado de una guía depende directamente de los profesores implicados, sin embargo algunas comprobaciones han sido programadas para realizarse autáticamente." data-step="9" data-position="top"></td>
 								<td id="total-aula" class="total"></td>
 								<td id="total-informatica" class="total"></td>
 								<td id="total-laboratorio" class="total"></td>
@@ -343,7 +343,7 @@
 
 			<fieldset class="step">
 				<legend>Paso#12: Validación</legend>
-				<div class="contenedor submit">
+				<div id="contenedor-validacion" class="contenedor submit" data-intro="Una vez completado el estado actual, se puede modificar el estado de la guía mediante esta sección. Dependiendo de los privilegios de los que se disponga se podrá por ejemplo, enviar una guía para validación, o publicarla, rechazarla, etc. <b>Al pinchar en este botón no solo se modifica el estado de la guía, sino que también se realiza un último proceso de guardado de los cambios</b>." data-step="10">
 					{# 1: Por enviar #}
 					{% if guia.estado==0 %}
 						<button id="button-enviar">ENVIAR PARA VALIDACIÓN</button>

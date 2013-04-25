@@ -34,17 +34,6 @@ $(function() {
 		e.preventDefault();
 	});
 
-	$(document).keydown(function(event) {
-		var currentSelected = $('.navigation .selected');
-		if(event.keyCode == 37) {
-			currentSelected.prev('li').children('a').trigger('click');
-			return false;
-		} else if(event.keyCode == 39) {
-			currentSelected.next('li').children('a').trigger('click');
-			return false;
-		}
-	});
-
 	$('#formElem > fieldset').each(function(){
 		var $fieldset = $(this);
 		$fieldset.children(':last').find(':input').keydown(function(e){

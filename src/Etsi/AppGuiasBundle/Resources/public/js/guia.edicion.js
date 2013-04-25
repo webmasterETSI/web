@@ -193,6 +193,24 @@ GUIA.testCreditos = function(elemento) {
 	$('.navigation > ul').miniaturiza('refresh')
 };
 
+GUIA.slider = {
+	keysOn: function() {
+		$(document).keydown(function(event) {
+			var currentSelected = $('.navigation .selected');
+			if(event.keyCode == 37) {
+				currentSelected.prev('li').children('a').trigger('click');
+				return false;
+			} else if(event.keyCode == 39) {
+				currentSelected.next('li').children('a').trigger('click');
+				return false;
+			}
+		});
+	},
+	keysOff: function() {
+		$(document).unbind('keydown');
+	}
+};
+
 $(function(){
 	// Calculo de créditos correctos
 	$('#contenedor-creditos > input').bind('keyup', function() {
@@ -261,7 +279,9 @@ $(function(){
 		});
 
 
+	// Configuración de miniaturas
 	$('.navigation > ul').miniaturiza();
+	GUIA.slider.keysOn();
 
 	$('form').submit(function() { return false; });
 
@@ -270,6 +290,53 @@ $(function(){
 	$('#button-rechazar').click(  function() { GUIA.saveCambios(0); });
 	$('#button-fallos').click(    function() { GUIA.saveCambios(3); });
 	$('#button-corregida').click( function() { GUIA.saveCambios(2); });
+
+
+	// Configuración de tutorial
+	var timer;
+	var tutorial = introJs().setOptions({
+		'skipLabel': 'Salir del tutorial',
+		'nextLabel': 'Siguiente &raquo;',
+		'prevLabel': '&laquo; Anterior',
+		'doneLabel': 'Terminar'
+	});
+
+	tutorial.onexit(function() {
+		$('#tutorial').one('click', startTutorial);
+		$('.navigation').find('li').eq(0).children('a').trigger('click');
+		GUIA.slider.keysOn();
+	});
+
+	function startTutorial() {
+		$('.navigation').find('li').first().children('a').trigger('click');
+		GUIA.slider.keysOff();
+		tutorial.goToStep(4).start();
+	}
+	$('#tutorial').one('click', startTutorial);
+
+	tutorial.onchange(function(elemento) {
+		var e = $(elemento);
+
+		if(e.attr('id') === 'total-clases') {
+			if($('.navigation .selected').index() != 9) {
+				$('.navigation').find('li').eq(9).children('a').trigger('click');
+				if(timer) clearTimeout(timer);
+				timer = setTimeout(function() { tutorial.goToStep(9) }, 500);
+			}
+		} else if(e.attr('id') === 'contenedor-validacion') {
+			if($('.navigation .selected').index() != 10) {
+				$('.navigation').find('li').eq(10).children('a').trigger('click');
+				if(timer) clearTimeout(timer);
+				timer = setTimeout(function() { tutorial.goToStep(10) }, 500);
+			}
+		} else if(e.attr('id') === 'contenedor-creditos') {
+			if($('.navigation .selected').index() != 0) {
+				$('.navigation').find('li').eq(0).children('a').trigger('click');
+				if(timer) clearTimeout(timer);
+				timer = setTimeout(function() { tutorial.goToStep(8) }, 500);
+			}
+		}
+	});
 });
 
 CKEDITOR.on( 'instanceCreated', function( e ) {

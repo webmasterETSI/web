@@ -53,6 +53,12 @@ body{
 	height: 100%;
 }
 
+.left{
+	float:left!important;
+	margin-left: 0px!important;
+	margin-right: 1px;
+}
+
 #titulo_cabecera li a {
 	display: block;
 	text-decoration: none;

@@ -17,9 +17,12 @@
 		{% endstylesheets %}
 
 		<!--[if lt IE 9]>
-		<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
+		{% stylesheets '@EtsiAppGuiasBundle/Resources/public/css/ie.css' %}
+			<link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="screen"/>
+		{% endstylesheets %}
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
+		
 		{% javascripts
 			'@EtsiAppGuiasBundle/Resources/public/js/jquery-1.9.1.min.js'
 			'@EtsiAppGuiasBundle/Resources/public/js/chosen.jquery.min.js'

@@ -48,7 +48,7 @@
 		<div id="titulo_cabecera">
 			<ul data-intro="Este es tu menú, en el encontrarás algunas opciones básicas para desplazarte por la app." data-step="2">
 				<li><a href="{{ path('logout') }}">logout</a></li>
-				<li><a href="{{ path('etsi_app_guia_guia') }}" data-intro="Aquí puedes ver las diferentes opciones de las que dispones, es tu pantalla inicial y medio de acceso a las distintas guías." data-step="3">dashboard</a></li>
+				<li><a href="{{ path('etsi_app_guia_guia') }}" data-intro="Aquí puedes ver las diferentes opciones de las que dispones. Es tu pantalla inicial y medio de acceso a las distintas guías." data-step="3">dashboard</a></li>
 				{% if is_granted('ROLE_ADMIN') %}
 				<li><a href="{{ path('eaga_asignatura_index') }}" data-intro="Un gran poder conlleva una gran responsabilidad. <b>Se te ha otorgado la capacidad de editar datos de la base de datos en bruto... ¡cuidado!</b>" data-step="97">rawAdmin</a></li>
 				{% endif %}

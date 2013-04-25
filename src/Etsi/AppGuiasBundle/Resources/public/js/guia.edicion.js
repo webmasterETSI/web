@@ -304,13 +304,17 @@ $(function(){
 	tutorial.onexit(function() {
 		$('#tutorial').one('click', startTutorial);
 		$('.navigation').find('li').eq(0).children('a').trigger('click');
-		GUIA.slider.keysOn();
+		
+		if(timer) clearTimeout(timer);
+		timer = setTimeout(function() { GUIA.slider.keysOn(); }, 1500);
 	});
 
 	function startTutorial() {
 		$('.navigation').find('li').first().children('a').trigger('click');
 		GUIA.slider.keysOff();
 		tutorial.goToStep(4).start();
+
+		if(timer) clearTimeout(timer);
 	}
 	$('#tutorial').one('click', startTutorial);
 

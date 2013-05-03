@@ -45,7 +45,7 @@
 		<img id="imagen-cabecera" src="{{ asset( 'images/guias/header_background.jpg' ) }}">	<!-- cabecera-->
 
 		{% if app.user %}
-		<div id="titulo_cabecera">
+		<div id="titulo-cabecera">
 			<ul data-intro="Este es tu menú, en el encontrarás algunas opciones básicas para desplazarte por la app." data-step="2">
 				<li><a href="{{ path('logout') }}">logout</a></li>
 				<li><a href="{{ path('etsi_app_guia_guia') }}" data-intro="Aquí puedes ver las diferentes opciones de las que dispones. Es tu pantalla inicial y medio de acceso a las distintas guías." data-step="3">dashboard</a></li>
@@ -53,10 +53,19 @@
 				<li><a href="{{ path('eaga_asignatura_index') }}" data-intro="Un gran poder conlleva una gran responsabilidad. <b>Se te ha otorgado la capacidad de editar datos de la base de datos en bruto... ¡cuidado!</b>" data-step="97">rawAdmin</a></li>
 				{% endif %}
 
-				<li id="feedback" class="left"><a target="_blank" href="http://www.github.com/webmasterETSI/web" data-intro="Esta aplicación es un proyecto de código abierto realziado por la administración y alumnos colaboradores de la ETSI de la Rábida. Puedes seguir su evolución, reportar fallos o proponer tus propias soluciones en el repositorio git público." data-step="99"><img src="{{ asset( 'images/guias/github-logo.png' ) }}" width="24" height="24"/></a></li>
+				<li id="git" class="left"><a target="_blank" href="http://www.github.com/webmasterETSI/web" data-intro="Esta aplicación es un proyecto de código abierto realziado por la administración y alumnos colaboradores de la ETSI de la Rábida. Puedes seguir su evolución, reportar fallos o proponer tus propias soluciones en el repositorio git público." data-step="99"><img src="{{ asset( 'images/guias/github-logo.png' ) }}" width="24" height="24"/></a></li>
 				<li id="tutorial" class="left"><a href="#" data-intro="Bienvenido a la app de guías docentes de la ETSI, este proceso te ayudará a comprender el funcionamiento básico de la aplicación. Para moverte por este tutorial puedes usar tambien las flechas de tu teclado." data-step="1">tutorial</a></li>
 				<li id="feedback" class="left"><a href="#" data-intro="Actualmente estás utilizando una versión beta, por lo que todo feedback es bien recibido. En cualquier momento que veas un error o se te ocurra algo que pueda ayudar a mejorar la app, haznos saber mediante este botón." data-step="98">tuOpinión</a></li>
 			</ul>
+
+			<form id="opinion" name="opinion" action="#" method="post">
+				<input type="radio" name="tipo" value="bug" checked>Error / 
+				<input type="radio" name="tipo" value="feature">Sugerencia /
+				<input type="radio" name="tipo" value="other">Otro
+				<textarea name="contenido"></textarea>
+				<input type="submit" value="ENVIAR" />
+				<img src="{{ asset('images/guias/loading.gif') }}" />
+			</form>
 		</div>
 		{% endif %}
 

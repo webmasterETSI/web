@@ -14,30 +14,30 @@ body{
 
 #content{
 	margin:15px auto;
-    margin-top:0px;
-    text-align:center;
-    width:1000px;
-    position:relative;
-    height:100%;
+	margin-top:0px;
+	text-align:center;
+	width:1000px;
+	position:relative;
+	height:100%;
 }
 
 /*-----CABECERA*/
 
-#titulo_cabecera{
-    text-align:right;
-    background-color:#a3a3a3;
-    color:#FFFFFF;
-    font-size:20px;
-    width:1000px;
-    height:40px;
-    margin-top:-3px;
+#titulo-cabecera{
+	text-align:right;
+	background-color:#a3a3a3;
+	color:#FFFFFF;
+	font-size:20px;
+	width:1000px;
+	height:40px;
+	margin-top:-3px;
 }
 
 #center{
 	margin-left: 35px;
 }
 
-#titulo_cabecera ul {
+#titulo-cabecera ul {
 	display: block;
 	height: 100%;
 	margin: 0;
@@ -47,7 +47,7 @@ body{
 	list-style-type: none;
 }
 
-#titulo_cabecera li {
+#titulo-cabecera li {
 	float:right;
 	margin-left: 1px;
 	height: 100%;
@@ -59,7 +59,7 @@ body{
 	margin-right: 1px;
 }
 
-#titulo_cabecera li a {
+#titulo-cabecera li a {
 	display: block;
 	text-decoration: none;
 	padding: 8px;
@@ -71,10 +71,46 @@ body{
 }
 
 
-#titulo_cabecera li a:hover {
+#titulo-cabecera li a:hover {
 	background-color: #cbcbcb;
 	color: #666;
 }
+
+
+/* Opinion Form */
+
+#titulo-cabecera form {
+	position: absolute;
+	z-index: 99;
+	width: 500px;
+	margin: 0;
+	margin-left: 10px;
+	color:#666;
+	background-color: #ededed;
+	text-align: center;
+	padding: 15px;
+	border:1px solid #cbcbcb;
+	box-shadow: 0px 3px 8px #555;
+
+	display: none;
+}
+
+#titulo-cabecera form textarea {
+	display: inline-block;
+	height: 200px;
+	width: 470px;
+	margin: 20px 0;
+	padding: 10px;
+	background-color: #f9f9f9;
+}
+
+#titulo-cabecera form img {
+	position: absolute;
+	margin-top: 8px;
+	margin-left: 170px;
+	display: none;
+}
+
 
 /*>>>>>>>>>>>>>>>>*/
 
@@ -175,14 +211,14 @@ body{
 /*footer*/
 
 #footer{
-    text-align:right;
-    background-color:#cbcbcb;
-    color:#FFFFFF;
-    font-size:20px;
-    float:left;
-    width:1000px;
-    margin-top:-3px;
-    padding:10px 0px 10px 0px;
+	text-align:right;
+	background-color:#cbcbcb;
+	color:#FFFFFF;
+	font-size:20px;
+	float:left;
+	width:1000px;
+	margin-top:-3px;
+	padding:10px 0px 10px 0px;
 }
 
 /*>>>>>>>>>>>>>>>>*/
@@ -191,24 +227,24 @@ body{
 
 #wrapper{
 	background-color:#f9f9f9;
-    width:998px;
-    overflow:hidden;
-    border-left:1px solid #cbcbcb;
-    border-right:1px solid #cbcbcb;
-    border-bottom:1px solid #cbcbcb;
+	width:998px;
+	overflow:hidden;
+	border-left:1px solid #cbcbcb;
+	border-right:1px solid #cbcbcb;
+	border-bottom:1px solid #cbcbcb;
 }
 #steps{
 	width:1000px;
 	/*height:320px;*/
-    overflow:hidden;
-    background-color:#f0f0f0;
-    
+	overflow:hidden;
+	background-color:#f0f0f0;
+	
 	padding-bottom:20px;
 }
 .step{
 	float:left;
-    width:1000px;
-    background-color:#f0f0f0;
+	width:1000px;
+	background-color:#f0f0f0;
 	/*height:320px;*/
 }
 
@@ -236,31 +272,31 @@ span.error{
 
 #steps form legend{
 	text-align:center;
-    background-color:#f0f0f0;
-    color:#666;
-    font-size:17px;
-    text-shadow:1px 1px 1px #fff;
-    font-weight:bold;
-    float:left;
-    width:1000px;
-    padding:20px 0px 15px 0px;
+	background-color:#f0f0f0;
+	color:#666;
+	font-size:17px;
+	text-shadow:1px 1px 1px #fff;
+	font-weight:bold;
+	float:left;
+	width:1000px;
+	padding:20px 0px 15px 0px;
 }
 
 #steps form .contenedor{
 	float:left;
-    clear:both;
-    margin:5px 0px;
-    background-color:#f4f4f4;
-    border:1px solid #fff;
-    width:910px;
-    padding:10px;
-    margin-left:35px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    -moz-box-shadow:0px 0px 3px #aaa;
-    -webkit-box-shadow:0px 0px 3px #aaa;
-    box-shadow:0px 0px 3px #aaa;
+	clear:both;
+	margin:5px 0px;
+	background-color:#f4f4f4;
+	border:1px solid #fff;
+	width:910px;
+	padding:10px;
+	margin-left:35px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow:0px 0px 3px #aaa;
+	-webkit-box-shadow:0px 0px 3px #aaa;
+	box-shadow:0px 0px 3px #aaa;
 }
 
 #steps form .contenedor .in-titulo{
@@ -280,14 +316,14 @@ span.error{
 
 #steps form .contenedor label{
 	width:100px;
-    float:left;
-    text-align:right;
-    margin-left:30px;
-    margin-right:15px;
-    line-height:26px;
-    color:#666;
-    text-shadow:1px 1px 1px #fff;
-    font-weight:bold;
+	float:left;
+	text-align:right;
+	margin-left:30px;
+	margin-right:15px;
+	line-height:26px;
+	color:#666;
+	text-shadow:1px 1px 1px #fff;
+	font-weight:bold;
 }
 
 #steps form input:not([type=radio]),
@@ -350,7 +386,7 @@ span.error{
 	box-shadow:none;
 }
 
-
+#titulo-cabecera form input[type="submit"],
 #steps form button {
 	border:none;
 	outline:none;
@@ -373,6 +409,7 @@ span.error{
 	background:#cbcbcb;
 }
 
+#titulo-cabecera form input[type="submit"],
 #steps form .boton-chico {
 	clear:none;
 	display: inline-block;
@@ -382,6 +419,7 @@ span.error{
 	font-size:14px;
 }
 
+#titulo-cabecera form input[type="submit"]:hover,
 #steps form button:hover {
 	background:#b3b3b3;
 	color:#ffffff;

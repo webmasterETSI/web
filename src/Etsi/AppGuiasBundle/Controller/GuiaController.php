@@ -241,7 +241,6 @@ class GuiaController extends Controller
         return $this->indexAction( array('error' => array('No se ha podido cargar la guía')) );
     }
 
-
     public function coordinadorAction(Request $request)
     {
         $idAsignatura = $request->request->get('asignatura');
@@ -282,5 +281,31 @@ class GuiaController extends Controller
                 'messages' => $mensajes
             )
         );
+    }
+
+    public function feedbackAction(Request $request)
+    {
+        $response = new Response();
+        $to = 'webmaster@eps.uhu.es';
+        $subject = 'Feedback APP guías';
+
+        $data = json_decode($request->getContent());
+
+        $response->headers->set('Content-Type', 'application/json');
+
+        if(isset($data->tipo) && !empty($data->tipo) &&
+           isset($data->contenido) && !empty($data->contenido)) {
+            $securityContext = $this->get('security.context');
+            if($securityContext->isGranted('ROLE_PROFESOR') ){
+                $entity = $this->get('security.context')->getToken()->getUser();
+                if(mail($to, $subject , $data->contenido.'<br /><br /><b>'.$data->tipo.'</b>')) {
+                    $response->setStatusCode('200');
+                    return $response;
+                } else $response->setContent('{ "error": "No se ha podido enviar el correo" }');
+            } else $response->setContent('{ "error": "El usuario no se encuentra identificado" }');
+        } else $response->setContent('{ "error": "Faltan datos" }');
+
+        $response->setStatusCode('400');
+        return $response;
     }
 }

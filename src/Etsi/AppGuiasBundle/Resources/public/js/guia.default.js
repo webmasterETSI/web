@@ -17,7 +17,7 @@ $(function(){
 
 		var data = {};
 		data.tipo = form.children('input[type="radio"]:checked').val();
-		data.texto = form.children('textarea').val();
+		data.contenido = form.children('textarea').val();
 
 		$(this).children('img').show();
 		$.ajax({

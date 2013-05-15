@@ -7,7 +7,7 @@
 
 {% block wrapper %}
 	<div id="steps">
-		<form action="{{ path('login_check') }}" method="post">
+		<form action="{{ path('login') }}" method="post">
 			<fieldset class="step">
 				<div class="contenedor">
 					<div class="in-titulo">Datos de acceso</div>
@@ -20,36 +20,6 @@
 
 					<div class="contenedor submit">
 						<button id="registerButton" name="login" type="submit">LOGIN</button>
-					</div>
-				</div>
-			</fieldset>
-		</form>
-	</div>
-
-	<div id="steps">
-		<form action="{{ path('etsi_app_guia_usuario_new') }}" method="post">
-			<fieldset class="step">
-				<div class="contenedor">
-					<div class="in-titulo">Nuevo usuario</div>
-
-					<label for="nombre" class="natural">Nombre y apellidos:</label>
-					<input id="nombre" class="natural" type="text" name="nombre" />
-					<div class="clear"></div>
-
-					<label for="email" class="natural">eMail:</label>
-					<input id="email" class="natural" type="text" name="email" />
-					<div class="clear"></div>
-
-					<label for="tlf" class="natural">Teléfono:</label>
-					<input id="tlf" class="natural" type="text" name="tlf" />
-					<div class="clear"></div>
-
-					<label for="password" class="natural">Contraseña:</label>
-					<input id="password" class="natural" type="password" name="password" />
-					<div class="clear"></div>
-
-					<div class="contenedor submit">
-						<button id="registerButton" name="login" type="submit">CREAR CUENTA</button>
 					</div>
 				</div>
 			</fieldset>

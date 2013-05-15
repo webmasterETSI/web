@@ -1,6 +1,6 @@
 login:
     pattern: /login
-    defaults: { _controller: EtsiAppGuiasBundle:Security:login }
+    defaults: { _controller: EtsiAppGuiasBundle:UHUSecurity:login }
 
 login_check:
     pattern: /login_check
@@ -35,11 +35,6 @@ etsi_app_guia_guia_coordinador:
 etsi_app_guia_feedbackAction:
     pattern:  /feedbackAction
     defaults: { _controller: EtsiAppGuiasBundle:Guia:feedback }
-    requirements: { _method: post }
-
-etsi_app_guia_usuario_new:
-    pattern:  /usuario
-    defaults: { _controller: EtsiAppGuiasBundle:Security:new }
     requirements: { _method: post }
 
 

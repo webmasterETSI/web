@@ -18,7 +18,7 @@ class Profesor implements UserInterface, \Serializable
     protected $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $nombre;
 
@@ -28,7 +28,7 @@ class Profesor implements UserInterface, \Serializable
     protected $email;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $tlf;
 

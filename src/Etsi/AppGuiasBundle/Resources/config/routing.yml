@@ -1,3 +1,8 @@
+pdf_test:
+    pattern: /pdf
+    defaults: { _controller: EtsiAppGuiasBundle:Pdf:test }
+
+
 login:
     pattern: /login
     defaults: { _controller: EtsiAppGuiasBundle:UHUSecurity:login }

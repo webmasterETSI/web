@@ -21,7 +21,7 @@ security:
             security: false
 
         anonymous:
-            pattern:  ^/usuario$
+            pattern:  ^/pdf$
             security: false
 
         secured_area:

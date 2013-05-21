@@ -19,8 +19,10 @@
         "kriswallsmith/assetic": "1.1.*@dev",
         "leafo/lessphp": "dev-master",
         "friendsofsymfony/rest-bundle": "dev-master",
-        "jms/serializer-bundle": "dev-master"
+        "jms/serializer-bundle": "dev-master",
+        "psliwa/pdf-bundle": "dev-master"
     },
+    "minimum-stability": "dev",
     "scripts": {
         "post-install-cmd": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",

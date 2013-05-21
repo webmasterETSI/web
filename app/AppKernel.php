@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Ps\PdfBundle\PsPdfBundle(),
             new Etsi\SiteBundle\EtsiSiteBundle(),
             new Etsi\AppGuiasBundle\EtsiAppGuiasBundle(),
         );

@@ -24,42 +24,11 @@
 
 {% block wrapper %}
 	<div id="steps">
-		<form action="{{ path('etsi_app_guia_guia_coordinador') }}" method="post">
-			<fieldset class="step">
-				<div class="contenedor" data-intro="Las guías docentes tienen que ser creadas en primera instancia por una persona en concreto. Esta persona es el coordinador de la asignatura, <b>al asignar coordinadores estás concediendo a dicho profesor el poder de crear guías de una determinada asignatura</b>." data-step="9">
-					<div class="in-titulo">Gestión de coordinadores</div>
-
-					<div class="clear"></div>
-					<label for="asignatura" class="natural">Asignatura</label>
-					<select name="asignatura" data-placeholder="Seleccionar..." class="long" >
-						{% for a in asignaturas %}
-						<option value="{{ a.id }}">
-							{{- a.codigo }}: {{ a.nombre -}}
-							{% if a.coordinador %} &lt;{{ a.coordinador.nombre }}&gt;{% endif -%}
-						</option>
-						{% endfor %}
-					</select>
-
-					<div class="clear"></div>
-					<label for="profesor" class="natural">Profesor</label>
-					<select name="profesor" data-placeholder="Seleccionar..." class="long" >
-						{% for p in profesores %}
-						<option value="{{ p.id }}">{{ p.nombre }} &lt;{{ p.email }}&gt;</option>
-						{% endfor %}
-					</select>
-
-					<div class="contenedor submit">
-						<button id="registerButton" type="submit">ASIGNAR COORDINADOR</button>
-					</div>
-				</div>
-			</fieldset>
-		</form>
-
 		{% if is_granted('ROLE_REVISOR') %}
 		<form>
 			<fieldset class="step" style="margin-bottom: 50px;">
 				<div class="contenedor" data-intro="Parece ser que eres una persona con criterio, por ello se te ha concedido acceso a todas las guías y poder para modificar su estádo actual. Aquí tienes un resumen de todas las guías, por defecto <b>se encuentran filtradas y solo ves las guías pendientes de aprobación</b>." data-step="7">
-					<div class="in-titulo">Guias</div>
+					<div class="in-titulo">Todas las guías</div>
 
 					<div class="clear"></div>
 					<table id="tabla-todo"> 
@@ -100,16 +69,15 @@
 		</form>
 		{% endif %}
 
-		{% if entity.asignaturasCoordinadas|length > 0 %}
 		<form action="{{ path('etsi_app_guia_guia_new') }}" method="post">
 			<fieldset class="step" style="margin-bottom: 50px;">
-				<div class="contenedor" data-intro="Al parecer tienes asignada la coordinación de algunas asignaturas. Esto te permite crear guías de dichas asignaturas. Cuando crees una guía, <b>no olvides agregar en la misma los profesores con docencia</b>, de otro modo no podrán acceder a la guía para colaborar en al edición." data-step="6">
-					<div class="in-titulo">Asignaturas coordinadas</div>
+				<div class="contenedor" data-intro="Este módulo te permite crear guías de las asignaturas. Cuando crees una guía, <b>no olvides agregar en la misma los profesores con docencia</b>, de otro modo no podrán acceder a la guía para colaborar en al edición." data-step="6">
+					<div class="in-titulo">Creación de guías</div>
 
 					<div class="clear"></div>
 					<label for="asignatura" class="natural">Asignatura</label>
 					<select name="asignatura" data-placeholder="Seleccionar..." class="long" >
-						{% for a in entity.asignaturasCoordinadas %}
+						{% for a in asignaturas %}
 						<option value="{{ a.id }}">{{ a.codigo }}: {{ a.nombre }}</option>
 						{% endfor %}
 					</select>
@@ -128,7 +96,6 @@
 				</div>
 			</fieldset>
 		</form>
-		{% endif %}
 
 		<form>
 			<fieldset class="step">

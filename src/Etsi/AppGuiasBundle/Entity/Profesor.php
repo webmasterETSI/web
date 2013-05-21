@@ -43,12 +43,12 @@ class Profesor implements UserInterface, \Serializable
     private $asignaturasCoordinadas;
 
         /**
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(name="password", type="string", length=255, nullable=true)
      */
     protected $password;
 
     /**
-     * @ORM\Column(name="salt", type="string", length=255)
+     * @ORM\Column(name="salt", type="string", length=255, nullable=true)
      */
     protected $salt;
 

@@ -24,7 +24,6 @@
 
 {% block wrapper %}
 	<div id="steps">
-		{% if is_granted('ROLE_REVISOR') %}
 		<form action="{{ path('etsi_app_guia_guia_coordinador') }}" method="post">
 			<fieldset class="step">
 				<div class="contenedor" data-intro="Las guías docentes tienen que ser creadas en primera instancia por una persona en concreto. Esta persona es el coordinador de la asignatura, <b>al asignar coordinadores estás concediendo a dicho profesor el poder de crear guías de una determinada asignatura</b>." data-step="9">
@@ -56,6 +55,7 @@
 			</fieldset>
 		</form>
 
+		{% if is_granted('ROLE_REVISOR') %}
 		<form>
 			<fieldset class="step" style="margin-bottom: 50px;">
 				<div class="contenedor" data-intro="Parece ser que eres una persona con criterio, por ello se te ha concedido acceso a todas las guías y poder para modificar su estádo actual. Aquí tienes un resumen de todas las guías, por defecto <b>se encuentran filtradas y solo ves las guías pendientes de aprobación</b>." data-step="7">

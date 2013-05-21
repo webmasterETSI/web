@@ -54,9 +54,11 @@ class UHUSecurityController extends Controller
         if( isset($data['_username']) && !empty($data['_username']) && isset($data['_password']) && !empty($data['_password']) ) {
             if($this->validaUsuario($data['_username'], $data['_password']) == '1') {
                 $em = $this->getDoctrine()->getManager();
+                $encoder = new \Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder('sha512', true, 10);
                 $entity = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findOneByEmail($data['_username']);
 
                 if($entity) {
+                    /*
                     $passUsado = $encoder->encodePassword($data['_password'], $entity->getSalt());
                     if($passUsado != $entity->getPassword()) {
                         $entity->setSalt(md5(time()));
@@ -64,6 +66,7 @@ class UHUSecurityController extends Controller
                         $password = $encoder->encodePassword($data['password'], $entity->getSalt());
                         $entity->setPassword($password);
                     }
+                    */
                 }
                 else {
                     $rol = $em->getRepository('EtsiAppGuiasBundle:Rol')->findOneByName('ROLE_PROFESOR');
@@ -73,12 +76,11 @@ class UHUSecurityController extends Controller
                     $entity->setNombre('');
                     $entity->setEmail($data['_username']);
                     $entity->setTlf('');
-                    
+                    /*
                     $entity->setSalt(md5(time()));
-                    $encoder = new \Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder('sha512', true, 10);
                     $password = $encoder->encodePassword($data['_password'], $entity->getSalt());
                     $entity->setPassword($password);
-
+                    */
                     $em->persist($entity);
                     $em->flush();
                 }

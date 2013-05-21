@@ -1,0 +1,167 @@
+@font-face
+{
+	font-family: 'arial-black';
+	src: local('Arial Black');
+}
+
+*[contenteditable="true"]
+{
+	padding: 2px 10px;
+}
+
+#container
+{
+	width: 960px;
+	margin: 30px auto 0;
+}
+
+#header
+{
+	overflow: hidden;
+	padding: 0 0 30px;
+	border-bottom: 5px solid #05B2D2;
+	position: relative;
+}
+
+#headerLeft,
+#headerRight
+{
+	width: 49%;
+	overflow: hidden;
+}
+
+#headerLeft
+{
+	float: left;
+	padding: 10px 1px 1px;
+}
+
+#headerLeft h2,
+#headerLeft h3
+{
+	text-align: right;
+	margin: 0;
+	overflow: hidden;
+	font-weight: normal;
+}
+
+#headerLeft h2
+{
+	font-family: "Arial Black",arial-black;
+	font-size: 4.6em;
+	line-height: 1.1em;
+	text-transform: uppercase;
+}
+
+#headerLeft h3
+{
+	font-size: 2.3em;
+	line-height: 1.1em;
+	margin: .2em 0 0;
+	color: #666;
+}
+
+#headerRight
+{
+	float: right;
+	padding: 1px;
+}
+
+#headerRight p
+{
+	line-height: 1.8em;
+	text-align: justify;
+	margin: 0;
+}
+
+#headerRight p + p
+{
+	margin-top: 20px;
+}
+
+#headerRight > div
+{
+	padding: 20px;
+	margin: 0 0 0 30px;
+	font-size: 1.4em;
+	color: #666;
+}
+
+#columns
+{
+	color: #333;
+	overflow: hidden;
+	padding: 20px 0;
+}
+
+#columns > div
+{
+	float: left;
+	width: 33.3%;
+}
+
+#columns #column1 > div
+{
+	margin-left: 1px;
+}
+
+#columns #column3 > div
+{
+	margin-right: 1px;
+}
+
+#columns > div > div
+{
+	margin: 0px 10px;
+	padding: 10px 20px;
+}
+
+#columns blockquote
+{
+	margin-left: 15px;
+}
+
+#tagLine
+{
+	border-top: 5px solid #05B2D2;
+	padding-top: 20px;
+}
+
+#taglist {
+	display: inline-block;
+	margin-left: 20px;
+	font-weight: bold;
+	margin: 0 0 0 20px;
+}
+
+
+.cambios-no-guardados {
+	background-color: #FFEEEE!important;
+}
+
+.cambios-guardados {
+	background-color: #EEFFEE!important;
+}
+
+.editor-texto {
+	display: block!important;
+	min-height: 100px;
+
+	background-color:#f6f6f6;
+	border:1px solid #fff;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow:0px 0px 3px #aaa;
+	-webkit-box-shadow:0px 0px 3px #aaa;
+	box-shadow:0px 0px 3px #aaa;
+
+	-webkit-transition: background-color 1s ease-in;
+	-moz-transition: background-color 1s ease-in;
+	-o-transition: background-color 1s ease-in;
+	transition: background-color 1s ease-in;
+}
+
+.hidden {
+	display:none;
+}

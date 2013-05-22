@@ -342,20 +342,20 @@
 			</fieldset>
 
 			<fieldset class="step">
-				<legend>Paso#12: Validación</legend>
-				<div id="contenedor-validacion" class="contenedor submit" data-intro="Una vez completado el estado actual, se puede modificar el estado de la guía mediante esta sección. Dependiendo de los privilegios de los que se disponga se podrá por ejemplo, enviar una guía para validación, o publicarla, rechazarla, etc. <b>Al pinchar en este botón no solo se modifica el estado de la guía, sino que también se realiza un último proceso de guardado de los cambios</b>." data-step="10">
+				<legend>Paso#12</legend>
+				<div class="contenedor submit">
+					<button id="button-descargar-pdf" ref="{{ path('etsi_app_guia_guia_pdf', {'id': guia.id} ) }}">DESCARGAR PDF</button>
+				</div>
+
+				{% if is_granted('ROLE_REVISOR') %}
 					{# 1: Por enviar #}
 					{% if guia.estado==0 %}
-						<button id="button-enviar">ENVIAR PARA VALIDACIÓN</button>
+						<button id="button-enviar">EN REVISIÓN</button>
 
 					{# 2: Pendiente aprobación #}
 					{% elseif guia.estado==1 %}
-						{% if is_granted('ROLE_REVISOR') %}
 						<button id="button-aprobar">APROBAR GUÍA</button>
 						<button id="button-rechazar" style="margin-top: 10px;">RECHAZAR GUÍA</button>
-						{% else %}
-						La guía ya ha sido enviada para su aprobación.
-						{% endif %}
 
 					{# 3: Publicada #}
 					{% elseif guia.estado==2 %}
@@ -366,6 +366,7 @@
 						<button id="button-corregida">MARCAR COMO CORREGIDA</button>
 
 					{% endif %}
+				{% endif %}
 				</div>
 			</fieldset>
 		</form>

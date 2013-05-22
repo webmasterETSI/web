@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
 	Symfony\Component\HttpFoundation\Response,
     Symfony\Component\HttpFoundation\Request;
 
+use Ps\PdfBundle\Annotation\Pdf;
 use Common\Herramientas;
 use DateTime;
 
@@ -180,7 +181,8 @@ class GuiaController extends Controller
                 $guia->setCurso($curso);
                 $guia->setAsignatura($asignatura);
                 $guia->setFechaDeModificacion(new DateTime());
-                $guia->addProfesores($asignatura->getCoordinador());
+                if($asignatura->getCoordinador())
+                    $guia->addProfesores($asignatura->getCoordinador());
 
                 $em->persist($guia);
                 $em->flush();
@@ -236,6 +238,26 @@ class GuiaController extends Controller
                     'messages' => $mensajes
                 )
             );
+        }
+
+        return $this->indexAction( array('error' => array('No se ha podido cargar la guía')) );
+    }
+
+    public function getPdfAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $guia = $em->getRepository('EtsiAppGuiasBundle:Guia')->find($id);
+        if($guia) {
+            $facade = $this->get('ps_pdf.facade');
+            $response = new Response();
+            $this->render('EtsiAppGuiasBundle:PDF:guia.pdf.twig', array('guia' => $guia), $response);
+            $documentXml = $response->getContent();
+            $this->render('EtsiAppGuiasBundle:PDF:guia.style.twig', array(), $response);
+            $stylesheetXml = $response->getContent();
+
+            $content = $facade->render($documentXml, $stylesheetXml);
+
+            return new Response($content, 200, array('content-type' => 'application/pdf'));
         }
 
         return $this->indexAction( array('error' => array('No se ha podido cargar la guía')) );

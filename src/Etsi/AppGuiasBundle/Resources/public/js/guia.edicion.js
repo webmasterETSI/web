@@ -285,6 +285,8 @@ $(function(){
 
 	$('form').submit(function() { return false; });
 
+	$('#button-descargar-pdf').click(function() { window.open($(this).attr('ref'), '_blank'); });
+
 	$('#button-enviar').click(    function() { GUIA.saveCambios(1); });
 	$('#button-aprobar').click(   function() { GUIA.saveCambios(2); });
 	$('#button-rechazar').click(  function() { GUIA.saveCambios(0); });

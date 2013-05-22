@@ -3,29 +3,37 @@
 	<page page-size="a4">
 		<img src="images/pdf/cabecera_pdf.jpg" width="100%" height="112px" />
 		<table>
-			<tr><td class="center text-white color0">CURSO 2012 / 2013</td></tr>
-			<tr><td class="center limpio"><p class="size1 small bold">Grado en Ingeniería Agrícola</p></td></tr>
-			<tr><td class="center limpio"><p class="size1 small bold">Itinerario Común</p></td></tr>
+			<tr><td class="center text-white color0">CURSO {{ guia.curso }}/{{ guia.curso+1 }}</td></tr>
+			<tr>
+				<td class="center limpio">
+					<p class="size1 small bold">
+						{% for g in guia.asignatura.grados %}
+							{% if not loop.first %}, {% endif %}
+							{% if g.gradoPadre %}{{ g.gradoPadre.nombre }} itinerario {{ g.nombre }}
+							{% else %}{{ g.nombre }}
+							{% endif %}
+						{% endfor %}
+					</p>
+				</td>
+			</tr>
 		</table>
 
 		<table>
 			<tr><td class="center text-white color1" style="margin-top:20px;">DATOS DE LA ASIGNATURA</td></tr>
 			<tr><td class="color2 bold">Nombre:</td></tr>
-			<tr><td>Biología</td></tr>
+			<tr><td>{{ guia.asignatura.nombre }}</td></tr>
 			<tr><td class="color2 bold">Denominación en inglés:</td></tr>
-			<tr><td>Biology*</td></tr>
+			<tr><td>{{ guia.asignatura.nombreI }}</td></tr>
 		</table>
 
 		<table>
 			<tr>
-				<td class="bold color2" width="30%;">Código:</td>
-				<td class="bold color2" width="40%;">Año del Plan de Estudios:</td>
-				<td class="bold color2" width="30%;">Tipo: </td>
+				<td class="bold color2" width="50%;">Código:</td>
+				<td class="bold color2" width="50%;">Carácter:</td>
 			</tr>
 			<tr>
-				<td class="center bold" width="30%;">57004007</td>
-				<td class="center bold" width="40%;">Publicación BOE: 20-01-2004 </td>
-				<td class="center bold" width="30%;">Obligatoria </td>
+				<td class="center bold" width="50%;">{{ guia.asignatura.codigo }}</td>
+				<td class="center bold" width="50%;">{{ guia.asignatura.caracter }}</td>
 			</tr>
 		</table>
 
@@ -42,20 +50,20 @@
 			</tr>
 			<tr>
 				<td class="bold color3" width="25%">Créditos L.R.U.</td>
-				<td class="center bold" width="25%">6,00 </td>
-				<td class="center bold" width="25%">6,00 </td>
-				<td class="center bold" width="25%">6,00 </td>
+				<td class="center bold" width="25%">{{ guia.creditosTeoricos + guia.creditosPracticosAula + guia.creditosPracticosInformatica + guia.creditosPracticosLaboratorio + guia.creditosPracticosCampo }}</td>
+				<td class="center bold" width="25%">{{ guia.creditosTeoricos }}</td>
+				<td class="center bold" width="25%">{{ guia.creditosPracticosAula + guia.creditosPracticosInformatica + guia.creditosPracticosLaboratorio + guia.creditosPracticosCampo  }}</td>
 			</tr>
 		</table>
 
 		<table>
 			<tr><td	class="bold color2">Departamento:</td></tr>
-			<tr><td>Ingeniería Eléctrica y Térmica</td></tr>
+			<tr><td></td></tr>
 		</table>
 
 		<table>
 			<tr><td	class="bold color2">Área de Conocimiento:</td></tr>
-			<tr><td>Ingeniería Eléctrica</td></tr>
+			<tr><td></td></tr>
 		</table>
 
 		<table>
@@ -64,18 +72,9 @@
 				<td class="bold color2" width="50%">Cuatrimestre:</td>
 			</tr>
 			<tr>
-				<td class="center bold" width="50%">Cuarto</td>
-				<td class="center bold" width="50%">2º Cuatrimestre </td>
+				<td class="center bold" width="50%">{{ guia.asignatura.curso }}</td>
+				<td class="center bold" width="50%">{{ guia.asignatura.cuatrimestre }}</td>
 			</tr>
-		</table>
-
-		<table>
-			<tr><td	class="bold color2">Web de la asignatura:</td></tr>
-			<tr><td>Plataforma Moodle</td></tr>
-		</table>
-
-		<table>
-			<tr><td class="size4">*Para su inclusión en el Complemento Europeo al Título </td></tr>
 		</table>
 	</page>
 
@@ -87,17 +86,17 @@
 
 		<table>
 			<tr>
-				<td class="bold color2" width="25%">Nombre:</td>
-				<td class="bold color2" width="25%">E-Mail:</td>
-				<td class="bold color2" width="25%">Teléfono: </td>
-				<td class="bold color2" width="25%">Despacho: </td>
+				<td class="bold color2" width="33%">Nombre:</td>
+				<td class="bold color2" width="33%">E-Mail:</td>
+				<td class="bold color2" width="33%">Teléfono: </td>
 			</tr>
-			<tr>
-				<td class="center">José Macías Macías</td>
-				<td class="center">jose.macias@die.uhu.es</td>
-				<td class="center">959217591</td>
-				<td class="center">7591</td>
-			</tr>
+			{% for p in guia.profesores %}
+				<tr>
+					<td class="center">{{ p.nombre }}</td>
+					<td class="center">{{ p.email }}</td>
+					<td class="center">{{ p.tlf }}</td>
+				</tr>
+			{% endfor %}
 		</table>
 		
 
@@ -109,26 +108,26 @@
 		<table>
 			<tr><td class="bold color2" style="margin-top:25px;">1. Descripción de contenidos</td></tr>
 			<tr><td class="color4 contenido">1.1. Breve descripción de contenidos:</td></tr>
-			<tr><td></td></tr>
+			<tr><td>{{ guia.datosEspecificos_1_1|raw }}</td></tr>
 
 			<tr><td class="color4 contenido">1.2. Breve descripción de contenidos (en inglés):</td></tr>
-			<tr><td></td></tr>
+			<tr><td>{{ guia.datosEspecificos_1_2|raw }}</td></tr>
 		</table>
 
 		<!-- PUNTO 2 -->
 		<table>
 			<tr><td class="bold color2" style="margin-top:25px;">2. Situación de la asignatura</td></tr>
 			<tr><td class="color4 contenido">2.1. Contexto dentro de la titulación:</td></tr>
-			<tr><td></td></tr>
+			<tr><td>{{ guia.datosEspecificos_2_1|raw }}</td></tr>
 
 			<tr><td class="color4 contenido">2.2. Recomendaciones:</td></tr>
-			<tr><td></td></tr>
+			<tr><td>{{ guia.datosEspecificos_2_2|raw }}</td></tr>
 		</table>
 
 		<!-- PUNTO 3 -->
 		<table>
 			<tr><td class="bold color2" style="margin-top:25px;">3. Objetivos:</td></tr>
-			<tr><td></td></tr>
+			<tr><td>{{ guia.datosEspecificos_3|raw }}</td></tr>
 		</table>
 
 		<!-- PUNTO 4 -->
@@ -156,13 +155,13 @@
 			<tr><td></td></tr>
 
 			<tr><td class="color4 contenido">6.2. Desarrollo y justificación:</td></tr>
-			<tr><td></td></tr>
+			<tr><td>{{ guia.datosEspecificos_6_2|raw }}</td></tr>
 		</table>
 
 		<!-- PUNTO 7 -->
 		<table>
 			<tr><td class="bold color2" style="margin-top:25px;">7. Temario desarrollado:</td></tr>
-			<tr><td></td></tr>
+			<tr><td>{{ guia.datosEspecificos_7|raw }}</td></tr>
 		</table>
 
 		<!-- PUNTO 8 -->
@@ -170,10 +169,10 @@
 			<tr><td class="bold color2" style="margin-top:25px;">8. Bibliografía</td></tr>
 
 			<tr><td class="color4 contenido">8.1. Bibliografía básica:</td></tr>
-			<tr><td></td></tr>
+			<tr><td>{{ guia.datosEspecificos_8_1|raw }}</td></tr>
 
 			<tr><td class="color4 contenido">8.2. Bibliografía complementaria:</td></tr>
-			<tr><td></td></tr>
+			<tr><td>{{ guia.datosEspecificos_8_2|raw }}</td></tr>
 		</table>
 
 		<!-- PUNTO 9 -->
@@ -184,7 +183,7 @@
 			<tr><td></td></tr>
 
 			<tr><td class="color4 contenido">9.2. Desarrollo y justificación:</td></tr>
-			<tr><td></td></tr>
+			<tr><td>{{ guia.datosEspecificos_9_2|raw }}</td></tr>
 		</table>
 
 		<!-- PUNTO 10 -->

@@ -37,12 +37,12 @@
 
 		<table>
 			<tr>
-				<td class="bold color2" width="50%;">Código:</td>
-				<td class="bold color2" width="50%;">Carácter:</td>
+				<td class="bold color2" width="50%">Código:</td>
+				<td class="bold color2" width="50%">Carácter:</td>
 			</tr>
 			<tr>
-				<td class="center" width="50%;">{{ guia.asignatura.codigo }}</td>
-				<td class="center" width="50%;">{{ guia.asignatura.caracter }}</td>
+				<td class="center" width="50%">{{ guia.asignatura.codigo }}</td>
+				<td class="center" width="50%">{{ guia.asignatura.caracter }}</td>
 			</tr>
 		</table>
 
@@ -68,13 +68,13 @@
 
 		<table>
 			<tr>
-				<td class="bold color2" width="50%;">Departamentos:</td>
-				<td class="bold color2" width="50%;">Áreas de Conocimiento:</td>
+				<td class="bold color2" width="50%">Departamentos:</td>
+				<td class="bold color2" width="50%">Áreas de Conocimiento:</td>
 			</tr>
 			{% for a in guia.asignatura.areas %}
 				<tr>
-					<td class="center" width="50%;">{{ a.departamento }}</td>
-					<td class="center" width="50%;">{{ a.nombre }}</td>
+					<td class="center" width="50%">{{ a.departamento }}</td>
+					<td class="center" width="50%">{{ a.nombre }}</td>
 				</tr>
 			{% endfor %}
 		</table>
@@ -247,7 +247,46 @@
 		<!-- PUNTO 10 -->
 		<table>
 			<tr><td class="bold color2" style="margin-top:25px;">10. Organización docente semanal orientativa:</td></tr>
-			<tr><td></td></tr>
+		</table>
+		<img src="images/pdf/tabla_head.jpg" width="100%"/>
+		<table>
+			{% set totalA = 0 %}
+			{% set totalB = 0 %}
+			{% set totalC = 0 %}
+			{% set totalD = 0 %}
+			{% set totalE = 0 %}
+			{% for e in guia.datosEspecificos_10 %}
+				{% if e.numeroSemana == 16 %}
+				</table><table><tr><td class="color4 contenido"></td></tr></table><table>
+				{% endif %}
+				<tr>
+					<td class="center bold">#{{ e.numeroSemana }}</td>
+					<td class="center">{{ e.horasGruposGrandes }}</td>
+					<td class="center">{{ e.horasGruposReducidosAula }}</td>
+					<td class="center">{{ e.horasGruposReducidosInformatica }}</td>
+					<td class="center">{{ e.horasGruposReducidosLaboratorio }}</td>
+					<td class="center">{{ e.horasGruposReducidosCampo }}</td>
+					<td width="150">{{ e.examen }}</td>
+					<td width="150">{{ e.observaciones }}</td>
+				</tr>
+
+				{% set totalA = totalA+e.horasGruposGrandes %}
+				{% set totalB = totalB+e.horasGruposReducidosAula %}
+				{% set totalC = totalC+e.horasGruposReducidosInformatica %}
+				{% set totalD = totalD+e.horasGruposReducidosLaboratorio %}
+				{% set totalE = totalE+e.horasGruposReducidosCampo %}
+			{% endfor %}
+
+			<tr>
+				<td class="color4 contenido"></td>
+				<td class="center color4 contenido">{{ totalA }}</td>
+				<td class="center color4 contenido">{{ totalB }}</td>
+				<td class="center color4 contenido">{{ totalC }}</td>
+				<td class="center color4 contenido">{{ totalD }}</td>
+				<td class="center color4 contenido">{{ totalE }}</td>
+				<td class="color4 contenido"></td>
+				<td class="color4 contenido"></td>
+			</tr>
 		</table>
 	</dynamic-page>
 </pdf>

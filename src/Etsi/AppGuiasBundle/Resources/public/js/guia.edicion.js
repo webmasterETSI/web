@@ -79,20 +79,18 @@ GUIA.updateData = function(data, callback) {
 		cache: false,
 
 		error: function(data) {
-			var error = $('<h4></h4>')
+			$('<h4></h4>')
 			.addClass('alert_error')
 			.text(data.responseText)
+			.appendTo('#alert-block')
 			.delay(5000).hide('slow');
-
-			$('#wrapper').prepend(error);
 		},
 		success: function(data) {
-			var error = $('<h4></h4>')
+			$('<h4></h4>')
 			.addClass('alert_success')
 			.text('Cambios guardados correctamente')
+			.appendTo('#alert-block')
 			.delay(5000).hide('slow');
-
-			$('#wrapper').prepend(error);
 		},
 		complete: callback
 	})
@@ -193,24 +191,6 @@ GUIA.testCreditos = function(elemento) {
 	$('.navigation > ul').miniaturiza('refresh')
 };
 
-GUIA.slider = {
-	keysOn: function() {
-		$(document).keydown(function(event) {
-			var currentSelected = $('.navigation .selected');
-			if(event.keyCode == 37) {
-				currentSelected.prev('li').children('a').trigger('click');
-				return false;
-			} else if(event.keyCode == 39) {
-				currentSelected.next('li').children('a').trigger('click');
-				return false;
-			}
-		});
-	},
-	keysOff: function() {
-		$(document).unbind('keydown');
-	}
-};
-
 $(function(){
 	// Calculo de créditos correctos
 	$('#contenedor-creditos > input').bind('keyup', function() {
@@ -281,7 +261,6 @@ $(function(){
 
 	// Configuración de miniaturas
 	$('.navigation > ul').miniaturiza();
-	GUIA.slider.keysOn();
 
 	$('form').submit(function() { return false; });
 
@@ -292,6 +271,18 @@ $(function(){
 	$('#button-rechazar').click(  function() { GUIA.saveCambios(0); });
 	$('#button-fallos').click(    function() { GUIA.saveCambios(3); });
 	$('#button-corregida').click( function() { GUIA.saveCambios(2); });
+
+	$('#siguiente').click(function() {
+		var currentSelected = $('.navigation .selected');
+		currentSelected.next('li').children('a').trigger('click');
+		GUIA.saveCambios();
+	});
+
+	$('#anterior').click(function() {
+		var currentSelected = $('.navigation .selected');
+		currentSelected.prev('li').children('a').trigger('click');
+		GUIA.saveCambios();
+	});
 
 
 	// Configuración de tutorial
@@ -306,14 +297,10 @@ $(function(){
 	tutorial.onexit(function() {
 		$('#tutorial').one('click', startTutorial);
 		$('.navigation').find('li').eq(0).children('a').trigger('click');
-		
-		if(timer) clearTimeout(timer);
-		timer = setTimeout(function() { GUIA.slider.keysOn(); }, 1500);
 	});
 
 	function startTutorial() {
 		$('.navigation').find('li').first().children('a').trigger('click');
-		GUIA.slider.keysOff();
 		tutorial.goToStep(4).start();
 
 		if(timer) clearTimeout(timer);

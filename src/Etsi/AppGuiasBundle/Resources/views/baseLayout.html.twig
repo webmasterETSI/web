@@ -72,6 +72,7 @@
 		{% block top_menu %}{% endblock %}
 
 		<div id="wrapper">  <!-- div contenedor pantallas -->
+			<div id="alert-block">
 			{% block messages %}
 				{% if messages is defined %}
 					{% if messages.error is defined %}
@@ -99,6 +100,7 @@
 					{% endif %}
 				{% endif %}
 			{% endblock %}
+			</div>
 
 			{% block section %}
 			{% endblock %}

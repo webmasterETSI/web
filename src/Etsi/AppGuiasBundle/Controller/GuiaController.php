@@ -257,7 +257,14 @@ class GuiaController extends Controller
 
             $content = $facade->render($documentXml, $stylesheetXml);
 
-            return new Response($content, 200, array('content-type' => 'application/pdf'));
+            $curso = $guia->getCurso();
+            $codigo = $guia->getAsignatura()->getCodigo();
+            $header = array(
+                'content-type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="guia-'.$codigo.'-'.$curso.'.'.($curso+1).'.pdf"',
+            );
+
+            return new Response($content, 200, $header);
         }
 
         return $this->indexAction( array('error' => array('No se ha podido cargar la guía')) );

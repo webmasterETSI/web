@@ -1,6 +1,15 @@
+{% set cuatrimestres = ['', 'Primer cuatrimestre', 'Segundo cuatrimestre', 'Anual'] %}
+{% set cursos = ['', '1º - Primero', '2º - Segundo', '3º - Tercero', '4º - Cuarto', '5º - Quinto'] %}
+
+{% set tecnicasDocentes = ['Sesiones académicas de teoría', 'Sesiones académicas de problemas', 'Sesiones prácticas en laboratorio', 'Seminarios, exposiciones y debates', 'Trabajo en grupos reducidos', 'Resolución y entrega de problemas/prácticas', 'Realización de pruebas parciales evaluables'] %}
+
+{% set tecnicasEvaluacion = ['Examen de teoría/problemas', 'Trabajos desarrollados durante el curso', 'Participación activa en las sesiones académicas', 'Controles periódicos de adquisición de conocimientos/competencias', 'Examen de prácticas'] %}
+
+{% set binario = [0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024] %}
+
 <pdf>
 	<!-- PÁGINA 1 -->
-	<page page-size="a4">
+	<page>
 		<img src="images/pdf/cabecera_pdf.jpg" width="100%" height="112px" />
 		<table>
 			<tr><td class="center text-white color0">CURSO {{ guia.curso }}/{{ guia.curso+1 }}</td></tr>
@@ -32,8 +41,8 @@
 				<td class="bold color2" width="50%;">Carácter:</td>
 			</tr>
 			<tr>
-				<td class="center bold" width="50%;">{{ guia.asignatura.codigo }}</td>
-				<td class="center bold" width="50%;">{{ guia.asignatura.caracter }}</td>
+				<td class="center" width="50%;">{{ guia.asignatura.codigo }}</td>
+				<td class="center" width="50%;">{{ guia.asignatura.caracter }}</td>
 			</tr>
 		</table>
 
@@ -50,20 +59,24 @@
 			</tr>
 			<tr>
 				<td class="bold color3" width="25%">Créditos L.R.U.</td>
-				<td class="center bold" width="25%">{{ guia.creditosTeoricos + guia.creditosPracticosAula + guia.creditosPracticosInformatica + guia.creditosPracticosLaboratorio + guia.creditosPracticosCampo }}</td>
-				<td class="center bold" width="25%">{{ guia.creditosTeoricos }}</td>
-				<td class="center bold" width="25%">{{ guia.creditosPracticosAula + guia.creditosPracticosInformatica + guia.creditosPracticosLaboratorio + guia.creditosPracticosCampo  }}</td>
+				<td class="center" width="25%">{{ guia.creditosTeoricos + guia.creditosPracticosAula + guia.creditosPracticosInformatica + guia.creditosPracticosLaboratorio + guia.creditosPracticosCampo }}</td>
+				<td class="center" width="25%">{{ guia.creditosTeoricos }}</td>
+				<td class="center" width="25%">{{ guia.creditosPracticosAula + guia.creditosPracticosInformatica + guia.creditosPracticosLaboratorio + guia.creditosPracticosCampo  }}</td>
 			</tr>
 		</table>
 
-		<table>
-			<tr><td	class="bold color2">Departamento:</td></tr>
-			<tr><td></td></tr>
-		</table>
 
 		<table>
-			<tr><td	class="bold color2">Área de Conocimiento:</td></tr>
-			<tr><td></td></tr>
+			<tr>
+				<td class="bold color2" width="50%;">Departamentos:</td>
+				<td class="bold color2" width="50%;">Áreas de Conocimiento:</td>
+			</tr>
+			{% for a in guia.asignatura.areas %}
+				<tr>
+					<td class="center" width="50%;">{{ a.departamento }}</td>
+					<td class="center" width="50%;">{{ a.nombre }}</td>
+				</tr>
+			{% endfor %}
 		</table>
 
 		<table>
@@ -72,16 +85,13 @@
 				<td class="bold color2" width="50%">Cuatrimestre:</td>
 			</tr>
 			<tr>
-				<td class="center bold" width="50%">{{ guia.asignatura.curso }}</td>
-				<td class="center bold" width="50%">{{ guia.asignatura.cuatrimestre }}</td>
+				<td class="center" width="50%">{{ cursos[guia.asignatura.curso] }}</td>
+				<td class="center" width="50%">{{ cuatrimestres[guia.asignatura.cuatrimestre] }}</td>
 			</tr>
 		</table>
-	</page>
 
-	<!-- PÁGINA 2 EN ADELANTE -->
-	<dynamic-page page-size="a4">
 		<table>
-			<tr><td class="center text-white color1">DATOS DE LOS PROFESORES</td></tr>
+			<tr><td class="center text-white color1" style="margin-top:25px;">DATOS DE LOS PROFESORES</td></tr>
 		</table>
 
 		<table>
@@ -98,8 +108,10 @@
 				</tr>
 			{% endfor %}
 		</table>
-		
+	</page>
 
+	<!-- PÁGINA 2 EN ADELANTE -->
+	<dynamic-page page-size="a4">
 		<table>
 			<tr><td class="center text-white color1" style="margin-top:25px;">DATOS ESPECÍFICOS DE LA ASIGNATURA</td></tr>
 		</table>
@@ -135,10 +147,26 @@
 			<tr><td class="bold color2" style="margin-top:25px;">4. Competencias a adquirir por los estudiantes</td></tr>
 
 			<tr><td class="color4 contenido">4.1. Competencias específicas:</td></tr>
-			<tr><td></td></tr>
+			<tr>
+				<td>
+					<ul>
+					{% for c in guia.datosEspecificos_4_1 %}
+						<li><b>{{ c.codigo }}:</b> {{ c.nombre }}</li>
+					{% endfor %}
+					</ul>
+				</td>
+			</tr>
 
 			<tr><td class="color4 contenido">4.2. Competencias transversales o genéricas:</td></tr>
-			<tr><td></td></tr>
+			<tr>
+				<td>
+					<ul>
+					{% for c in guia.datosEspecificos_4_2 %}
+						<li><b>{{ c.codigo }}:</b> {{ c.nombre }}</li>
+					{% endfor %}
+					</ul>
+				</td>
+			</tr>
 		</table>
 
 		<!-- PUNTO 5 -->
@@ -152,7 +180,21 @@
 			<tr><td class="bold color2" style="margin-top:25px;">6. Técnicas docentes</td></tr>
 
 			<tr><td class="color4 contenido">6.1. Técnicas docentes utilizadas:</td></tr>
-			<tr><td></td></tr>
+			<tr>
+				<td>
+					<ul>
+					{% for t in tecnicasDocentes %}
+						{% if guia.datosEspecificos_6_1_1 b-and binario[loop.index] %}
+						<li>{{ t }}</li>
+						{% endif %}
+					{% endfor %}
+
+					{% if guia.datosEspecificos_6_1_2 %}
+					<li>{{ guia.datosEspecificos_6_1_2 }}</li>
+					{%endif%}
+					</ul>
+				</td>
+			</tr>
 
 			<tr><td class="color4 contenido">6.2. Desarrollo y justificación:</td></tr>
 			<tr><td>{{ guia.datosEspecificos_6_2|raw }}</td></tr>
@@ -180,12 +222,28 @@
 			<tr><td class="bold color2" style="margin-top:25px;">9. Sistemas de evaluación e la adquisición de competencias</td></tr>
 
 			<tr><td class="color4 contenido">9.1. Técnicas de evaluación utilizadas:</td></tr>
-			<tr><td></td></tr>
+			<tr>
+				<td>
+					<ul>
+					{% for t in tecnicasEvaluacion %}
+						{% if guia.datosEspecificos_9_1_1 b-and binario[loop.index] %}
+						<li>{{ t }}</li>
+						{% endif %}
+					{% endfor %}
+
+					{% if guia.datosEspecificos_9_1_2 %}
+					<li>{{ guia.datosEspecificos_9_1_2 }}</li>
+					{%endif%}
+					</ul>
+				</td>
+			</tr>
 
 			<tr><td class="color4 contenido">9.2. Desarrollo y justificación:</td></tr>
 			<tr><td>{{ guia.datosEspecificos_9_2|raw }}</td></tr>
 		</table>
+	</dynamic-page>
 
+	<dynamic-page page-size="a4">
 		<!-- PUNTO 10 -->
 		<table>
 			<tr><td class="bold color2" style="margin-top:25px;">10. Organización docente semanal orientativa:</td></tr>

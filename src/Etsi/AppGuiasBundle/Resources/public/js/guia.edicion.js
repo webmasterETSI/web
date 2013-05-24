@@ -1,7 +1,6 @@
 GUIA = {};
 GUIA.saveTimeout;
 
-
 GUIA.cambios = function(elemento) {
 	if(GUIA.saveTimeout)
 		window.clearTimeout(GUIA.saveTimeout);
@@ -272,16 +271,31 @@ $(function(){
 	$('#button-fallos').click(    function() { GUIA.saveCambios(3); });
 	$('#button-corregida').click( function() { GUIA.saveCambios(2); });
 
+
+	var guardarPaso = function(i) {
+		var thisStep = $('#steps').find('.step').eq(i);
+
+		thisStep.find('select').addClass('cambios-no-guardados').removeClass('cambios-guardados');
+		thisStep.find('.editor-minimo').addClass('cambios-no-guardados').removeClass('cambios-guardados');
+		thisStep.find('.editor-semana').addClass('cambios-no-guardados').removeClass('cambios-guardados');
+		thisStep.find('.editor-texto').addClass('cambios-no-guardados').removeClass('cambios-guardados');
+		thisStep.find('#datosEspecificos_6_1_1').addClass('cambios-no-guardados').removeClass('cambios-guardados');
+		thisStep.find('#datosEspecificos_9_1_1').addClass('cambios-no-guardados').removeClass('cambios-guardados');
+
+		GUIA.saveCambios();
+	};
+
+
 	$('#siguiente').click(function() {
 		var currentSelected = $('.navigation .selected');
+		guardarPaso(currentSelected.index());
 		currentSelected.next('li').children('a').trigger('click');
-		GUIA.saveCambios();
 	});
 
 	$('#anterior').click(function() {
 		var currentSelected = $('.navigation .selected');
+		guardarPaso(currentSelected.index());
 		currentSelected.prev('li').children('a').trigger('click');
-		GUIA.saveCambios();
 	});
 
 
@@ -299,7 +313,7 @@ $(function(){
 		$('.navigation').find('li').eq(0).children('a').trigger('click');
 	});
 
-	function startTutorial() {
+	function startTutorial() {$("input").blur();
 		$('.navigation').find('li').first().children('a').trigger('click');
 		tutorial.goToStep(4).start();
 

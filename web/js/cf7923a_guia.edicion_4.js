@@ -1,7 +1,6 @@
 GUIA = {};
 GUIA.saveTimeout;
 
-
 GUIA.cambios = function(elemento) {
 	if(GUIA.saveTimeout)
 		window.clearTimeout(GUIA.saveTimeout);
@@ -79,20 +78,18 @@ GUIA.updateData = function(data, callback) {
 		cache: false,
 
 		error: function(data) {
-			var error = $('<h4></h4>')
+			$('<h4></h4>')
 			.addClass('alert_error')
 			.text(data.responseText)
+			.appendTo('#alert-block')
 			.delay(5000).hide('slow');
-
-			$('#wrapper').prepend(error);
 		},
 		success: function(data) {
-			var error = $('<h4></h4>')
+			$('<h4></h4>')
 			.addClass('alert_success')
 			.text('Cambios guardados correctamente')
+			.appendTo('#alert-block')
 			.delay(5000).hide('slow');
-
-			$('#wrapper').prepend(error);
 		},
 		complete: callback
 	})
@@ -193,24 +190,6 @@ GUIA.testCreditos = function(elemento) {
 	$('.navigation > ul').miniaturiza('refresh')
 };
 
-GUIA.slider = {
-	keysOn: function() {
-		$(document).keydown(function(event) {
-			var currentSelected = $('.navigation .selected');
-			if(event.keyCode == 37) {
-				currentSelected.prev('li').children('a').trigger('click');
-				return false;
-			} else if(event.keyCode == 39) {
-				currentSelected.next('li').children('a').trigger('click');
-				return false;
-			}
-		});
-	},
-	keysOff: function() {
-		$(document).unbind('keydown');
-	}
-};
-
 $(function(){
 	// Calculo de créditos correctos
 	$('#contenedor-creditos > input').bind('keyup', function() {
@@ -281,7 +260,6 @@ $(function(){
 
 	// Configuración de miniaturas
 	$('.navigation > ul').miniaturiza();
-	GUIA.slider.keysOn();
 
 	$('form').submit(function() { return false; });
 
@@ -292,6 +270,33 @@ $(function(){
 	$('#button-rechazar').click(  function() { GUIA.saveCambios(0); });
 	$('#button-fallos').click(    function() { GUIA.saveCambios(3); });
 	$('#button-corregida').click( function() { GUIA.saveCambios(2); });
+
+
+	var guardarPaso = function(i) {
+		var thisStep = $('#steps').find('.step').eq(i);
+
+		thisStep.find('select').addClass('cambios-no-guardados').removeClass('cambios-guardados');
+		thisStep.find('.editor-minimo').addClass('cambios-no-guardados').removeClass('cambios-guardados');
+		thisStep.find('.editor-semana').addClass('cambios-no-guardados').removeClass('cambios-guardados');
+		thisStep.find('.editor-texto').addClass('cambios-no-guardados').removeClass('cambios-guardados');
+		thisStep.find('#datosEspecificos_6_1_1').addClass('cambios-no-guardados').removeClass('cambios-guardados');
+		thisStep.find('#datosEspecificos_9_1_1').addClass('cambios-no-guardados').removeClass('cambios-guardados');
+
+		GUIA.saveCambios();
+	};
+
+
+	$('#siguiente').click(function() {
+		var currentSelected = $('.navigation .selected');
+		guardarPaso(currentSelected.index());
+		currentSelected.next('li').children('a').trigger('click');
+	});
+
+	$('#anterior').click(function() {
+		var currentSelected = $('.navigation .selected');
+		guardarPaso(currentSelected.index());
+		currentSelected.prev('li').children('a').trigger('click');
+	});
 
 
 	// Configuración de tutorial
@@ -306,14 +311,10 @@ $(function(){
 	tutorial.onexit(function() {
 		$('#tutorial').one('click', startTutorial);
 		$('.navigation').find('li').eq(0).children('a').trigger('click');
-		
-		if(timer) clearTimeout(timer);
-		timer = setTimeout(function() { GUIA.slider.keysOn(); }, 1500);
 	});
 
-	function startTutorial() {
+	function startTutorial() {$("input").blur();
 		$('.navigation').find('li').first().children('a').trigger('click');
-		GUIA.slider.keysOff();
 		tutorial.goToStep(4).start();
 
 		if(timer) clearTimeout(timer);
@@ -343,6 +344,23 @@ $(function(){
 			}
 		}
 	});
+
+
+	if (history && history.pushState) {
+		history.pushState({module:"leave"}, document.title, this.href);
+	}
+
+/*
+	$(window).bind("popstate", function(evt) {
+		var state = evt.originalEvent.state;
+		console.log(state);
+		if (state && state.module === "leave") {
+			console.log('asd1');
+			$.getScript(location.href);
+		}
+		return false;
+	});
+*/
 });
 
 CKEDITOR.on( 'instanceCreated', function( e ) {
@@ -357,3 +375,30 @@ CKEDITOR.on( 'instanceCreated', function( e ) {
 		GUIA.testText($(this));
 	});
 });
+
+/*
+if(window.history && history.pushState){
+	window.addEventListener('load', function(){
+		history.pushState(-1, null);
+		history.pushState(0, null);
+		history.pushState(1, null);
+		history.go(-1);
+
+		this.addEventListener('popstate', function(event, state){
+			if(state = event.state){
+				var elem = state>0?$('#siguiente'):$('#anterior');
+				elem.trigger('click');
+				history.pushState(1, null);
+/*
+				event = document.createEvent('Event');
+				event.initEvent(state > 0 ? 'next' : 'previous', true, true);
+				this.dispatchEvent(event);
+				
+				// reset state
+				history.go(-state);
+*//*
+			}
+		}, false);
+	}, false);
+}
+*/

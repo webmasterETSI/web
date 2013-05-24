@@ -21,6 +21,8 @@ $(function() {
 		$this.parent().addClass('selected');
 
 		current = $this.parent().index() + 1;
+		var newHeight = $('#steps').find('.step').eq(current-1).height();
+		$('#steps').css('height', newHeight);
 
 		$('#steps').stop().animate({
 			marginLeft: '-' + widths[current-1] + 'px'
@@ -90,4 +92,6 @@ $(function() {
 			return false;
 		}	
 	});
+
+	$('#steps').css('height', $('#steps').find('.step').first().height());
 });

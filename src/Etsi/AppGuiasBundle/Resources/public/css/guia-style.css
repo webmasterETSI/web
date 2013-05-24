@@ -582,8 +582,9 @@ tfoot .error { color: #AE1A30; }
 
 /* Alerts */
 #alert-block {
-	min-height: 24px;
+	height: 24px;
 	background-color: #F0F0F0;
+	overflow: hidden;
 }
 
 #alert-block h4 {

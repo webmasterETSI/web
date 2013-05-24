@@ -299,6 +299,20 @@ $(function(){
 	});
 
 
+	// Configuración de eventos de teclado
+	$('.editor-semana').keydown(function(e) {
+		var elem = $(this);
+		var td = elem.parent();
+		var tr = td.parent();
+		switch(event.which) {
+			case 37: td.prev().children('.editor-semana').focus(); break; //iz
+			case 38: tr.prev().find('.editor-semana').eq(td.index()-1).focus(); break; //ar
+			case 39: td.next().children('.editor-semana').focus(); break; //de
+			case 13: e.preventDefault();
+			case 40: tr.next().find('.editor-semana').eq(td.index()-1).focus(); break; //ab
+		}
+	});
+
 	// Configuración de tutorial
 	var timer;
 	var tutorial = introJs().setOptions({

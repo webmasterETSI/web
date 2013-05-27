@@ -47,8 +47,8 @@ class GuiaController extends Controller
         );
 
         $especial = array(
-            //'asignatura',
             'nombreI',
+            'coordinador',
             'semanas'
         );
 
@@ -56,7 +56,6 @@ class GuiaController extends Controller
             'profesores',
             'datosEspecificos_4_1',
             'datosEspecificos_4_2',
-            //'datosEspecificos_10',
         );
 
         if(in_array($nombre, $campos)) return 1;
@@ -95,6 +94,12 @@ class GuiaController extends Controller
                                 case 'nombreI':
                                     $entity->getAsignatura()
                                         ->setNombreI($value);
+                                    break;
+
+                                case 'coordinador':
+                                    $entidad = $em->getRepository('EtsiAppGuiasBundle:Profesor')->find($value);
+                                    $entity->getAsignatura()
+                                        ->setCoordinador($entidad);
                                     break;
 
                                 case 'semanas':

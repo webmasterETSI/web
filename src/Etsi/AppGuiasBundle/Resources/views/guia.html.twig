@@ -80,13 +80,21 @@
 					<input class="long editor-minimo" id="nombreI" name="nombreI" value="{{ guia.asignatura.nombreI }}" data-intro="Al ir completando la información de la guía, los campos modificados se marcan en rojo, esto indica que están pendientes de ser guardados. <b>Una vez guardados los cambios, los campos se vuelven verdes durante un instante y se recibe un aviso. Dicho proceso es automático y se realiza periodicamente.</b>" data-step="7"/>
 				</div>
 
-				<div class="contenedor{% if guia.profesores|length == 0 %} empty{% endif %}">
-					<label for="profesores">Datos de profesores</label>
+				<div class="contenedor{% if guia.profesores|length == 0 or not guia.asignatura.coordinador %} empty{% endif %}">
+					<div class="in-titulo">Profesores de la asignatura:</div>
+
+					<label for="profesores">Profesores</label>
 					<select name="profesores" data-placeholder="Seleccionar..." multiple class="long" >
 						{% for p in profesores %}
-						<option value="{{ p.id }}" {% if p in guia.profesores %}selected{% endif %}>
-							{{- p.nombre }} &lt;{{ p.email }}&gt;
-						</option>
+						<option value="{{ p.id }}" {% if p in guia.profesores %}selected{% endif %}>{{ p.nombre }} &lt;{{ p.email }}&gt;</option>
+						{% endfor %}
+					</select>
+					<div class="clear"></div>
+					<label for="coordinador">Coordinador</label>
+					<select name="coordinador" data-placeholder="Seleccionar..." class="long" >
+						<option value="-1">Ninguno por ahora</option>
+						{% for p in guia.profesores %}
+						<option value="{{ p.id }}" {% if p==guia.asignatura.coordinador %}selected{% endif %}>{{ p.nombre }} &lt;{{ p.email }}&gt;</option>
 						{% endfor %}
 					</select>
 				</div>

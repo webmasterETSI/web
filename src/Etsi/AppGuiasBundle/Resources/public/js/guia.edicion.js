@@ -22,6 +22,8 @@ GUIA.saveCambios = function(estado) {
 				result.push($(this).val());
 			});
 			data[e.attr('name')] = result;
+		} else if(e.is('select')) {
+			data[e.attr('name')] = e.children(':selected').val();
 		} else if(e.hasClass('editor-check-mask')) {
 			var result = 0;
 
@@ -205,6 +207,25 @@ $(function(){
 			$(this).addClass('cambios-no-guardados').removeClass('cambios-guardados');
 			GUIA.cambios($(this));
 			GUIA.testSelect($(this));
+
+			if($(this).attr('name') == 'profesores') {
+				var coordinadores = $('select[name="coordinador"]');
+				var selectedId = coordinadores.children('option:selected').val();
+
+				coordinadores.children('option[value!="-1"]').remove();
+
+				$(this).children('option:selected').each(function() {
+					var prof = $(this);
+					var opc = $('<option></option>')
+						.val(prof.val())
+						.text(prof.text())
+						.appendTo(coordinadores);
+
+					if(selectedId==prof.val())
+						opc.attr('selected','true');
+				});
+				coordinadores.trigger("liszt:updated");
+			}
 		});
 
 	$('.editor-minimo').bind('keyup', function() {

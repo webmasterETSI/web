@@ -2,13 +2,18 @@
 
 {% macro tupla(guia, estados, error) %}
 	<tr>
+		{% if guia.estado==0 or guia.estado==3 %}
+			{% set vinculo = path('etsi_app_guia_guia_pasos', {'id': guia.id}) %}
+		{% else %}
+			{% set vinculo = path('etsi_app_guia_guia_pdf', {'id': guia.id}) %}
+		{% endif %}
 		<td>
-			<a href="{{ path('etsi_app_guia_guia_pasos', {'id': guia.id}) }}">
+			<a href="{{ vinculo }}">
 				{{ guia.asignatura.codigo }}
 			</a>
 		</td>
 		<td>
-			<a href="{{ path('etsi_app_guia_guia_pasos', {'id': guia.id}) }}">
+			<a href="{{ vinculo }}">
 				{{ guia.asignatura.nombre }}
 			</a>
 		</td>

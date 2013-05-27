@@ -118,7 +118,7 @@
 
 		<form>
 			<fieldset class="step">
-				<div class="contenedor" data-intro="Aquí tienes un resumen de todas las guías en las que tienes participación. <b>Para editar una guía simplemente pincha en su código o nombre</b>. Puedes ordenar y filtrar esta tabla (y prácticamente cualquier tabla dentro de la app)." data-step="5" data-position="top">
+				<div class="contenedor" data-intro="Aquí tienes un resumen de todas las guías en las que tienes participación. <b>Para editar una guía simplemente pincha en su código o nombre</b>. Puedes ordenar y filtrar esta tabla (y prácticamente cualquier tabla dentro de la app)." data-step="5">
 					<div class="in-titulo">Todas tus guías</div>
 
 					<div class="clear"></div>
@@ -150,7 +150,7 @@
 				</div>
 
 				{% if errores %}
-				<div class="contenedor" data-intro="Estas son las guías en las que tienes participación y que han sido marcadas como erroneas. Estas guías también aparecen en la tabla anterior, pero se ponen aquí arriba solas para que se vean bien, pues <b>si una guía publicada contiene errores es importante que la corrijas lo antes posible</b>." data-step="4">
+				<div class="contenedor" data-intro="Estas son las guías en las que tienes participación y que han sido marcadas como erroneas. Estas guías también aparecen en la tabla anterior, pero se ponen aquí solas para que se vean bien, pues <b>si una guía publicada contiene errores es importante que la corrijas lo antes posible</b>." data-step="4" data-position="top">
 					<div class="in-titulo">Guias con errores</div>
 
 					<div class="clear"></div>
@@ -177,23 +177,6 @@
 								{% endif %}
 							{% endfor %}
 							{% endif %}
-
-							{# for e in errores %}
-							<tr>
-								<td>
-									<a href="{{ path('etsi_app_guia_guia_pasos', {'id': e.id}) }}">
-										{{ e.asignatura.codigo }}
-									</a>
-								</td>
-								<td>
-									<a href="{{ path('etsi_app_guia_guia_pasos', {'id': e.id}) }}">
-										{{ e.asignatura.nombre }}
-									</a>
-								</td>
-								<td>{{ e.fechaDeModificacion|date("d/m/Y H:i") }} </td>
-								<td>{{ e.curso }} - {{ e.curso+1 }}</td>
-							</tr>
-							{% endfor #}
 						</tbody> 
 					</table>
 					{% endif %}

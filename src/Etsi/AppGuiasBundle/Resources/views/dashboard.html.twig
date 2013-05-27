@@ -1,5 +1,24 @@
 {% extends "EtsiAppGuiasBundle::baseLayout.html.twig" %}
 
+{% macro tupla(guia, estados, error) %}
+	<tr>
+		<td>
+			<a href="{{ path('etsi_app_guia_guia_pasos', {'id': guia.id}) }}">
+				{{ guia.asignatura.codigo }}
+			</a>
+		</td>
+		<td>
+			<a href="{{ path('etsi_app_guia_guia_pasos', {'id': guia.id}) }}">
+				{{ guia.asignatura.nombre }}
+			</a>
+		</td>
+		{% if not error|default(false) %}<td>{{ estados[guia.estado] }}</td>
+		{% else %}<td>{{ guia.fechaDeModificacion|date("d/m/Y H:i") }}</td>{% endif %}
+		<td>{{ guia.curso }} - {{ guia.curso+1 }}</td>
+	</tr>
+{% endmacro %}
+{% import _self as macros %}
+
 {% block css %}
 	{% stylesheets
 		'@EtsiAppGuiasBundle/Resources/public/css/dataTables/dashboard_table.css' 
@@ -99,44 +118,7 @@
 
 		<form>
 			<fieldset class="step">
-				<div class="contenedor" data-intro="Estas son las guías en las que tienes participación y que han sido marcadas como erroneas. Estas guías también aparecen en la tabla anterior, pero se ponen aquí arriba solas para que se vean bien, pues <b>si una guía publicada contiene errores es importante que la corrijas lo antes posible</b>." data-step="5">
-					<div class="in-titulo">Guias con errores</div>
-
-					<div class="clear"></div>
-					{% if entity %}
-					<table id="errores"> 
-						<thead> 
-							<tr> 
-								<th>Código de la asignatura</th>
-								<th>Nombre de la asignatura</th>
-								<th>Última modificación</th>
-								<th>Curso</th> 
-							</tr> 
-						</thead> 
-						<tbody>
-							{% for e in entity.guias %}
-							{% if e.estado==3 %}
-							<tr>
-								<td>
-									<a href="{{ path('etsi_app_guia_guia_pasos', {'id': e.id}) }}">
-										{{ e.asignatura.codigo }}
-									</a>
-								</td>
-								<td>
-									<a href="{{ path('etsi_app_guia_guia_pasos', {'id': e.id}) }}">
-										{{ e.asignatura.nombre }}
-									</a>
-								</td>
-								<td>{{ e.fechaDeModificacion|date("d/m/Y H:i") }} </td>
-								<td>{{ e.curso }} - {{ e.curso+1 }}</td>
-							</tr>
-							{% endif %}
-							{% endfor %}
-						</tbody> 
-					</table>
-					{% endif %}
-				</div>
-				<div class="contenedor" data-intro="Aquí tienes un resumen de todas las guías en las que tienes participación. <b>Para editar una guía simplemente pincha en su código o nombre</b>. Puedes ordenar y filtrar esta tabla (y prácticamente cualquier tabla dentro de la app)." data-step="4" data-position="top">
+				<div class="contenedor" data-intro="Aquí tienes un resumen de todas las guías en las que tienes participación. <b>Para editar una guía simplemente pincha en su código o nombre</b>. Puedes ordenar y filtrar esta tabla (y prácticamente cualquier tabla dentro de la app)." data-step="5" data-position="top">
 					<div class="in-titulo">Todas tus guías</div>
 
 					<div class="clear"></div>
@@ -151,7 +133,52 @@
 							</tr> 
 						</thead> 
 						<tbody>
-							{% for e in entity.guias %}
+							{% set errores = false %}
+							{% for g in entity.guias %}
+								{{ macros.tupla(g, estados) }}
+								{% if g.estado == 3 %}{% set errores = true %}{% endif %}
+							{% endfor %}
+							{% for g in entity.guiasCreadas %}
+								{% if g not in entity.guias %}
+								{{ macros.tupla(g, estados) }}
+								{% if g.estado == 3 %}{% set errores = true %}{% endif %}
+								{% endif %}
+							{% endfor %}
+						</tbody> 
+					</table>
+					{% endif %}
+				</div>
+
+				{% if errores %}
+				<div class="contenedor" data-intro="Estas son las guías en las que tienes participación y que han sido marcadas como erroneas. Estas guías también aparecen en la tabla anterior, pero se ponen aquí arriba solas para que se vean bien, pues <b>si una guía publicada contiene errores es importante que la corrijas lo antes posible</b>." data-step="4">
+					<div class="in-titulo">Guias con errores</div>
+
+					<div class="clear"></div>
+					{% if entity %}
+					<table id="errores"> 
+						<thead> 
+							<tr> 
+								<th>Código de la asignatura</th>
+								<th>Nombre de la asignatura</th>
+								<th>Última modificación</th>
+								<th>Curso</th> 
+							</tr> 
+						</thead> 
+						<tbody>
+							{% if errores %}
+							{% for g in entity.guias %}
+								{% if g.estado == 3 %}
+								{{ macros.tupla(g, estados, true) }}
+								{% endif %}
+							{% endfor %}
+							{% for g in entity.guiasCreadas %}
+								{% if g.estado == 3 and g not in entity.guias %}
+									{{ macros.tupla(g, estados, true) }}
+								{% endif %}
+							{% endfor %}
+							{% endif %}
+
+							{# for e in errores %}
 							<tr>
 								<td>
 									<a href="{{ path('etsi_app_guia_guia_pasos', {'id': e.id}) }}">
@@ -163,14 +190,15 @@
 										{{ e.asignatura.nombre }}
 									</a>
 								</td>
-								<td>{{ estados[e.estado] }} </td>
+								<td>{{ e.fechaDeModificacion|date("d/m/Y H:i") }} </td>
 								<td>{{ e.curso }} - {{ e.curso+1 }}</td>
 							</tr>
-							{% endfor %}
+							{% endfor #}
 						</tbody> 
 					</table>
 					{% endif %}
 				</div>
+				{% endif %}
 			</fieldset>
 		</form>
 	</div>

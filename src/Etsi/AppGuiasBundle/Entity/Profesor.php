@@ -38,16 +38,16 @@ class Profesor implements UserInterface, \Serializable
     protected $guias;
 
     /**
+     * @ORM\OneToMany(targetEntity="Guia", mappedBy="creador")
+     */
+    private $guiasCreadas;
+
+    /**
      * @ORM\OneToMany(targetEntity="Asignatura", mappedBy="coordinador")
      */
     private $asignaturasCoordinadas;
 
     /**
-     * @ORM\OneToMany(targetEntity="Guia", mappedBy="creador")
-     */
-    private $guiasCreadas;
-
-        /**
      * @ORM\Column(name="password", type="string", length=255, nullable=true)
      */
     protected $password;

@@ -33,6 +33,11 @@ class Profesor implements UserInterface, \Serializable
     protected $tlf;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $despacho;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Guia", mappedBy="profesores")
      */
     protected $guias;

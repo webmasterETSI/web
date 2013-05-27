@@ -226,6 +226,18 @@ $(function(){
 				});
 				coordinadores.trigger("liszt:updated");
 			}
+		}).each(function () {
+			var resize = function () {
+				var currentSelected = $('.navigation .selected').index();
+				var shortHeight = $('#steps').find('.step').eq(currentSelected).height();
+				var fullHeight = shortHeight+240;
+				var newHeight = $('#steps').height()<fullHeight?fullHeight:shortHeight;
+
+				$('#steps').css('height', newHeight);
+			};
+
+			$(this).on('liszt:showing_dropdown', resize);
+			$(this).on('liszt:hiding_dropdown', resize);
 		});
 
 	$('.editor-minimo').bind('keyup', function() {

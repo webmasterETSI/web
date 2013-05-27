@@ -42,6 +42,11 @@ class Profesor implements UserInterface, \Serializable
      */
     private $asignaturasCoordinadas;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Guia", mappedBy="creador")
+     */
+    private $guiasCreadas;
+
         /**
      * @ORM\Column(name="password", type="string", length=255, nullable=true)
      */
@@ -69,6 +74,7 @@ class Profesor implements UserInterface, \Serializable
     {
         $this->guias = new \Doctrine\Common\Collections\ArrayCollection();
         $this->asignaturasCoordinadas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->guiasCreadas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -335,6 +341,52 @@ class Profesor implements UserInterface, \Serializable
     }
 
     /**
+     * Add guiasCreadas
+     *
+     * @param Etsi\AppGuiasBundle\Entity\Guia $guia
+     * @return Profesor
+     */
+    public function addGuiasCreadas(\Etsi\AppGuiasBundle\Entity\Guia $guia)
+    {
+        $this->guiasCreadas[] = $guia;
+    
+        return $this;
+    }
+
+    /**
+     * Remove guiasCreadas
+     *
+     * @param Etsi\AppGuiasBundle\Entity\Guia $guia
+     */
+    public function removeGuiasCreadas(\Etsi\AppGuiasBundle\Entity\Guia $guia)
+    {
+        $this->guiasCreadas->removeElement($guia);
+    }
+
+    /**
+     * Clear guiasCreadas
+     *
+     * @return Profesor
+     */
+    public function clearGuiasCreadas()
+    {
+        $this->guiasCreadas->clear();
+        
+        return $this;
+    }
+
+    /**
+     * Get guiasCreadas
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getGuiasCreadas()
+    {
+        return $this->guiasCreadas;
+    }
+
+
+    /**
      * Add asignaturasCoordinadas
      *
      * @param Etsi\AppGuiasBundle\Entity\Asignatura $asignatura
@@ -358,7 +410,7 @@ class Profesor implements UserInterface, \Serializable
     }
 
     /**
-     * Clear guia
+     * Clear asignaturasCoordinadas
      *
      * @return Profesor
      */

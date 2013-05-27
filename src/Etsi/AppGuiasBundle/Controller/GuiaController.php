@@ -176,11 +176,14 @@ class GuiaController extends Controller
             $guia = $query->getOneOrNullResult();
 
             if(!$guia) {
+                $profesor = $this->get('security.context')->getToken()->getUser();
+
                 $guia = new Guia();
 
                 $guia->setCurso($curso);
                 $guia->setAsignatura($asignatura);
                 $guia->setFechaDeModificacion(new DateTime());
+                $guia->setCreador($profesor);
                 if($asignatura->getCoordinador())
                     $guia->addProfesores($asignatura->getCoordinador());
 

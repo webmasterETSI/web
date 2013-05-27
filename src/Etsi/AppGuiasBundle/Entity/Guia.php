@@ -23,6 +23,11 @@ class Guia
     protected $asignatura;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Profesor", inversedBy="guiasCreadas")
+     */
+    protected $creador;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Profesor", inversedBy="guias")
      * @ORM\JoinTable(name="guias_profesores")
      */
@@ -704,6 +709,29 @@ class Guia
     public function getAsignatura()
     {
         return $this->asignatura;
+    }
+
+    /**
+     * Set creador
+     *
+     * @param Etsi\AppGuiasBundle\Entity\Profesor $creador
+     * @return Guia
+     */
+    public function setCreador(\Etsi\AppGuiasBundle\Entity\Profesor $creador = null)
+    {
+        $this->creador = $creador;
+    
+        return $this;
+    }
+
+    /**
+     * Get creador
+     *
+     * @return Etsi\AppGuiasBundle\Entity\Profesor 
+     */
+    public function getCreador()
+    {
+        return $this->creador;
     }
 
     /**

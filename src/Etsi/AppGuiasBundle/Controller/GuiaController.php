@@ -165,7 +165,7 @@ class GuiaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $idAsignatura = $request->request->get('asignatura');
-        $curso = $request->request->get('curso');
+        $curso = date('Y');
 
         $asignatura = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->find($idAsignatura);
         if($asignatura) {

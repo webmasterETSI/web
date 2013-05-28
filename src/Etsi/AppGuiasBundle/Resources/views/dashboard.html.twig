@@ -105,15 +105,6 @@
 						<option value="{{ a.id }}">{{ a.codigo }}: {{ a.nombre }}</option>
 						{% endfor %}
 					</select>
-
-					<div class="clear"></div>
-					<label for="curso" class="natural">Curso</label>
-					<select name="curso" data-placeholder="Seleccionar..." class="peque" >
-						{% for curso in range(("now"|date("Y"))-1,("now"|date("Y"))+1) %}
-						<option value="{{ curso }}">{{ curso }} - {{ curso+1 }}</option>
-						{% endfor %}
-					</select>
-
 					<div class="contenedor submit">
 						<button id="registerButton" type="submit">CREAR NUEVA GUÍA</button>
 					</div>

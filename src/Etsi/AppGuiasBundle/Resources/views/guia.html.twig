@@ -74,7 +74,7 @@
 						{{ guia.asignatura.nombre }}
 						&lt;
 						{%- for enGrados in guia.asignatura.enGrados%}
-						{% if loop.index>1 %}, {% endif %}{{ enGrados.codigo }}
+						{% if not loop.first %}, {% endif %}{{ enGrados.codigo }}
 						{% endfor %}
 						&gt;<br>
 						Última edición: {{ guia.fechaDeModificacion|date("d/m/Y H:i") }}<br>

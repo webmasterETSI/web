@@ -10,7 +10,7 @@
 		<td>
 			<a href="{{ vinculo }}">
 				{% for enGrados in guia.asignatura.enGrados%}
-				{% if loop.index>1 %}, {% endif %}{{ enGrados.codigo }}
+				{% if not loop.first %}, {% endif %}{{ enGrados.codigo }}
 				{% endfor %}
 			</a>
 		</td>
@@ -74,7 +74,7 @@
 										{{ e.asignatura.nombre }} 
 										&lt;
 										{% for enGrados in guia.asignatura.enGrados%}
-										{% if loop.index>1 %}, {% endif %}{{ enGrados.codigo }}
+										{% if not loop.first %}, {% endif %}{{ enGrados.codigo }}
 										{% endfor %}
 										&gt;
 									</a>
@@ -111,7 +111,7 @@
 						{% for a in asignaturas %}
 						<option value="{{ a.id }}">
 							{%- for enGrados in a.enGrados%}
-							{% if loop.index>1 %}, {% endif %}{{ enGrados.codigo }}
+							{% if not loop.first %}, {% endif %}{{ enGrados.codigo }}
 							{% endfor %}: {{ a.nombre -}}
 						</option>
 						{% endfor %}

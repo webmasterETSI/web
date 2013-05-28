@@ -16,10 +16,11 @@
 			<tr>
 				<td class="center limpio">
 					<p class="size1 small bold">
-						{% for g in guia.asignatura.grados %}
+						{% for enG in guia.asignatura.enGrados %}
 							{% if not loop.first %}, {% endif %}
-							{% if g.gradoPadre %}{{ g.gradoPadre.nombre }} itinerario {{ g.nombre }}
-							{% else %}{{ g.nombre }}
+							{% if enG.grado.gradoPadre %}
+								{{ enG.grado.gradoPadre.nombre }} itinerario {{ enG.grado.nombre }}
+							{% else %}{{ enG.grado.nombre }}
 							{% endif %}
 						{% endfor %}
 					</p>
@@ -41,7 +42,11 @@
 				<td class="bold color2" width="50%">Carácter:</td>
 			</tr>
 			<tr>
-				<td class="center" width="50%">{{ guia.asignatura.codigo }}</td>
+				<td class="center" width="50%">
+					{%- for enGrados in guia.asignatura.enGrados%}
+					{% if not loop.first %}, {% endif %}{{ enGrados.codigo }}
+					{% endfor %}
+				</td>
 				<td class="center" width="50%">{{ guia.asignatura.caracter }}</td>
 			</tr>
 		</table>

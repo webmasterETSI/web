@@ -226,10 +226,11 @@ class GuiaController extends Controller
             $semanas = $guia->getDatosEspecificos_10();
             $profesores = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findAll();
 
-            $gradosAsignatura = $guia->getAsignatura()->getGrados();
-            $competencias = new \Doctrine\Common\Collections\ArrayCollection();
+            $enGrados = $guia->getAsignatura()->getEnGrados();
 
-            foreach($gradosAsignatura as $grado) {
+            $competencias = new \Doctrine\Common\Collections\ArrayCollection();
+            foreach($enGrados as $asignaturaGrado) {
+                $grado = $asignaturaGrado->getGrado();
                 $competenciasDeGrado = $grado->getCompetenciasDeGrado();
                 foreach($competenciasDeGrado as $competencia)
                     $competencias[] = $competencia;

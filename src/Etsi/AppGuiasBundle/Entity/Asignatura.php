@@ -17,12 +17,15 @@ class Asignatura
      */
     protected $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AsignaturaGrado", mappedBy="asignatura")
+     */
+    private $enGrados;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Grado", inversedBy="asignaturas")
-     * @ORM\JoinTable(name="asignaturas_grados")
+     * @ORM\Column(type="string", nullable=true)
      */
-    protected $grados;
+    protected $comentario;
 
     /**
      * @ORM\OneToMany(targetEntity="Guia", mappedBy="asignatura")
@@ -38,11 +41,6 @@ class Asignatura
      * @ORM\Column(type="string")
      */
     protected $nombreI;
-
-    /**
-     * @ORM\Column(type="integer", unique=true)
-     */
-    protected $codigo;
 
     /**
      * @ORM\Column(type="string")
@@ -80,7 +78,7 @@ class Asignatura
      */
     public function __construct()
     {
-        $this->grados = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->enGrados = new \Doctrine\Common\Collections\ArrayCollection();
         $this->guias = new \Doctrine\Common\Collections\ArrayCollection();
         $this->areas = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -162,6 +160,29 @@ class Asignatura
     public function getCodigo()
     {
         return $this->codigo;
+    }
+
+    /**
+     * Set comentario
+     *
+     * @param string $comentario
+     * @return Asignatura
+     */
+    public function setComentario($comentario)
+    {
+        $this->comentario = $comentario;
+    
+        return $this;
+    }
+
+    /**
+     * Get comentario
+     *
+     * @return string 
+     */
+    public function getComentario()
+    {
+        return $this->comentario;
     }
 
     /**
@@ -257,51 +278,6 @@ class Asignatura
     }
 
     /**
-     * Add grados
-     *
-     * @param Etsi\AppGuiasBundle\Entity\Grado $grados
-     * @return Asignatura
-     */
-    public function addGrado(\Etsi\AppGuiasBundle\Entity\Grado $grados)
-    {
-        $this->grados[] = $grados;
-    
-        return $this;
-    }
-
-    /**
-     * Remove grados
-     *
-     * @param Etsi\AppGuiasBundle\Entity\Grado $grados
-     */
-    public function removeGrado(\Etsi\AppGuiasBundle\Entity\Grado $grados)
-    {
-        $this->grados->removeElement($grados);
-    }
-
-    /**
-     * Clear grado
-     *
-     * @return Asignatura
-     */
-    public function clearGrados()
-    {
-        $this->grados->clear();
-
-        return $this;
-    }
-
-    /**
-     * Get grados
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getGrados()
-    {
-        return $this->grados;
-    }
-
-    /**
      * Add guias
      *
      * @param Etsi\AppGuiasBundle\Entity\Guia $guias
@@ -344,6 +320,51 @@ class Asignatura
     public function getGuias()
     {
         return $this->guias;
+    }
+
+    /**
+     * Add enGrados
+     *
+     * @param Etsi\AppGuiasBundle\Entity\AsignaturaGrado $enGrados
+     * @return Asignatura
+     */
+    public function addEnGrados(\Etsi\AppGuiasBundle\Entity\AsignaturaGrado $enGrados)
+    {
+        $this->enGrados[] = $enGrados;
+    
+        return $this;
+    }
+
+    /**
+     * Remove enGrados
+     *
+     * @param Etsi\AppGuiasBundle\Entity\AsignaturaGrado $enGrados
+     */
+    public function removeEnGrados(\Etsi\AppGuiasBundle\Entity\AsignaturaGrado $enGrados)
+    {
+        $this->enGrados->removeElement($enGrados);
+    }
+
+    /**
+     * Clear enGrados
+     *
+     * @return Asignatura
+     */
+    public function clearEnGrados()
+    {
+        $this->enGrados->clear();
+        
+        return $this;
+    }
+
+    /**
+     * Get enGrados
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getEnGrados()
+    {
+        return $this->enGrados;
     }
 
     /**

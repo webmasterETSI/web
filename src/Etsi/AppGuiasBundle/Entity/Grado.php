@@ -22,9 +22,9 @@ class Grado
     protected $nombre;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Asignatura", mappedBy="grados")
+     * @ORM\ManyToMany(targetEntity="AsignaturaGrado", mappedBy="grados")
      */
-    private $asignaturas;
+    private $asignaturasGrado;
 
     /**
      * @ORM\OneToMany(targetEntity="Grado", mappedBy="gradoPadre")
@@ -47,7 +47,7 @@ class Grado
      */
     public function __construct()
     {
-        $this->asignaturas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->asignaturasGrado = new \Doctrine\Common\Collections\ArrayCollection();
         $this->itinerarios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->competenciasDeGrado = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -86,60 +86,60 @@ class Grado
     }
 
     /**
-     * Add asignaturas
+     * Add asignaturasGrado
      *
-     * @param Etsi\AppGuiasBundle\Entity\Asignatura $asignaturas
+     * @param Etsi\AppGuiasBundle\Entity\AsignaturaGrado $asignaturasGrado
      * @return Grado
      */
-    public function addAsignatura(\Etsi\AppGuiasBundle\Entity\Asignatura $asignaturas)
+    public function addAsignaturasGrado(\Etsi\AppGuiasBundle\Entity\AsignaturaGrado $asignaturasGrado)
     {
-        $this->asignaturas[] = $asignaturas;
+        $this->asignaturasGrado[] = $asignaturasGrado;
     
         return $this;
     }
 
     /**
-     * Remove asignaturas
+     * Remove asignaturasGrado
      *
-     * @param Etsi\AppGuiasBundle\Entity\Asignatura $asignaturas
+     * @param Etsi\AppGuiasBundle\Entity\AsignaturaGrado $asignaturasGrado
      */
-    public function removeAsignatura(\Etsi\AppGuiasBundle\Entity\Asignatura $asignaturas)
+    public function removeAsignaturasGrado(\Etsi\AppGuiasBundle\Entity\AsignaturaGrado $asignaturasGrado)
     {
-        $this->asignaturas->removeElement($asignaturas);
+        $this->asignaturasGrado->removeElement($asignaturasGrado);
     }
 
     /**
-     * Clear asignatura
+     * Clear asignaturaGrado
      *
      * @return Grado
      */
-    public function clearAsignatura()
+    public function clearAsignaturasGrado()
     {
-        $this->asignatura->clear();
+        $this->asignaturasGrado->clear();
         
         return $this;
     }
 
     /**
-     * Get asignaturas
+     * Get asignaturasGrado
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getAsignaturas()
+    public function getAsignaturasGrado()
     {
-        $asignaturas = new \Doctrine\Common\Collections\ArrayCollection();
+        $asignaturasGrado = new \Doctrine\Common\Collections\ArrayCollection();
 
         if(!empty($this->gradoPadre)) {
-            $asignaturasPadre = $this->gradoPadre->getAsignaturas();
+            $asignaturasPadre = $this->gradoPadre->getAsignaturasGrado();
 
             foreach($asignaturasPadre as $asignatura)
-                $asignaturas[] = $asignatura;
+                $asignaturasGrado[] = $asignatura;
         }
         
-        foreach($this->asignaturas as $asignatura)
-            $asignaturas[] = $asignatura;
+        foreach($this->asignaturasGrado as $asignatura)
+            $asignaturasGrado[] = $asignatura;
 
-        return $asignaturas;
+        return $asignaturasGrado;
     }
 
     /**

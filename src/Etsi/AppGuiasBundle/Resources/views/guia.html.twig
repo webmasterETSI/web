@@ -71,7 +71,12 @@
 				</legend>
 				<div class="contenedor{% if not guia.asignatura.nombreI %} empty{% endif %}">
 					<div class="in-titulo">
-						{{ guia.asignatura.nombre }} &lt;{{ guia.asignatura.codigo }}&gt;<br>
+						{{ guia.asignatura.nombre }}
+						&lt;
+						{%- for enGrados in guia.asignatura.enGrados%}
+						{% if loop.index>1 %}, {% endif %}{{ enGrados.codigo }}
+						{% endfor %}
+						&gt;<br>
 						Última edición: {{ guia.fechaDeModificacion|date("d/m/Y H:i") }}<br>
 						Curso {{ guia.curso }}/{{ guia.curso+1 }}
 					</div>

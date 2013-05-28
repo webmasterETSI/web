@@ -9,7 +9,9 @@
 		{% endif %}
 		<td>
 			<a href="{{ vinculo }}">
-				{{ guia.asignatura.codigo }}
+				{% for enGrados in guia.asignatura.enGrados%}
+				{% if loop.index>1 %}, {% endif %}{{ enGrados.codigo }}
+				{% endfor %}
 			</a>
 		</td>
 		<td>
@@ -69,7 +71,12 @@
 							<tr>
 								<td>
 									<a href="{{ path('etsi_app_guia_guia_pasos', {'id': e.id}) }}">
-										{{ e.asignatura.nombre }} &lt;{{ e.asignatura.codigo }}&gt;
+										{{ e.asignatura.nombre }} 
+										&lt;
+										{% for enGrados in guia.asignatura.enGrados%}
+										{% if loop.index>1 %}, {% endif %}{{ enGrados.codigo }}
+										{% endfor %}
+										&gt;
 									</a>
 								</td>
 								<td>{{ estados[e.estado] }} </td>
@@ -102,7 +109,11 @@
 					<label for="asignatura" class="natural">Asignatura</label>
 					<select name="asignatura" data-placeholder="Seleccionar..." class="long" >
 						{% for a in asignaturas %}
-						<option value="{{ a.id }}">{{ a.codigo }}: {{ a.nombre }}</option>
+						<option value="{{ a.id }}">
+							{%- for enGrados in a.enGrados%}
+							{% if loop.index>1 %}, {% endif %}{{ enGrados.codigo }}
+							{% endfor %}: {{ a.nombre -}}
+						</option>
 						{% endfor %}
 					</select>
 					<div class="contenedor submit">

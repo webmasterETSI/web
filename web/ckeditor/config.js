@@ -7,7 +7,7 @@ CKEDITOR.editorConfig = function( config ) {
 	
 	// %REMOVE_START%
 	// The configuration options below are needed when running CKEditor from source files.
-	config.plugins = 'dialogui,dialog,about,a11yhelp,dialogadvtab,basicstyles,bidi,blockquote,clipboard,button,panelbutton,panel,floatpanel,colorbutton,colordialog,templates,menu,contextmenu,resize,toolbar,elementspath,list,indent,enterkey,entities,popup,filebrowser,find,fakeobjects,floatingspace,listblock,richcombo,format,htmlwriter,horizontalrule,wysiwygarea,image,justify,link,liststyle,magicline,maximize,pastetext,preview,print,removeformat,save,selectall,showblocks,showborders,sourcearea,menubutton,scayt,tab,table,tabletools,undo,wsc';
+	config.plugins = 'dialogui,dialog,about,a11yhelp,dialogadvtab,basicstyles,bidi,blockquote,clipboard,button,panelbutton,panel,floatpanel,colorbutton,colordialog,templates,menu,contextmenu,resize,toolbar,elementspath,list,indent,enterkey,entities,popup,filebrowser,find,fakeobjects,floatingspace,listblock,richcombo,format,htmlwriter,horizontalrule,wysiwygarea,image,justify,link,liststyle,magicline,maximize,pastetext,preview,print,removeformat,save,selectall,showblocks,sourcearea,menubutton,scayt,tab,table,tabletools,undo,wsc';
 	config.skin = 'moono';
 	// %REMOVE_END%
 

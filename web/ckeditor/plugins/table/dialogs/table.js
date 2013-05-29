@@ -286,7 +286,7 @@
 							{
 							type: 'html',
 							html: '&nbsp;'
-						},
+						}/*,
 							{
 							type: 'select',
 							id: 'selHeaders',
@@ -362,7 +362,7 @@
 								else
 									selectedTable.removeAttribute( 'align' );
 							}
-						}
+						}*/
 						]
 					},
 						{
@@ -426,7 +426,7 @@
 							{
 							type: 'html',
 							html: '&nbsp;'
-						},
+						}/*,
 							{
 							type: 'text',
 							id: 'txtCellSpace',
@@ -462,7 +462,7 @@
 								else
 									selectedTable.removeAttribute( 'cellPadding' );
 							}
-						}
+						}*/
 						]
 					}
 					]

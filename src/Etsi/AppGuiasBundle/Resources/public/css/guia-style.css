@@ -582,34 +582,35 @@ tfoot .error { color: #AE1A30; }
 
 /* Alerts */
 #alert-block {
-	height: 24px;
+	height: 30px;
 	background-color: #F0F0F0;
 	overflow: hidden;
 }
 
 #alert-block h4 {
 	display: block;
+	text-align: center;
 	color: #AAA;
 	padding: 5px 0 5px 25px;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 #alert-block h4.alert_info {
 	background: rgba(181, 229, 239, .3) url(../../images/icn_alert_info.png) no-repeat;
-	background-position: 5px 2px;
+	background-position: 10px 3px;
 }
 
 #alert-block h4.alert_warning {
 	background: rgba(245, 243, 186, .3) url(../../images/icn_alert_warning.png) no-repeat;
-	background-position: 5px 2px;
+	background-position: 10px 3px;
 }
 
 #alert-block h4.alert_error {
 	background: rgba(243, 217, 217, .3) url(../../images/icn_alert_error.png) no-repeat;
-	background-position: 5px 2px;
+	background-position: 10px 3px;
 }
 
 #alert-block h4.alert_success {
 	background: rgba(226, 246, 197, .3) url(../../images/icn_alert_success.png) no-repeat;
-	background-position: 5px 2px;
+	background-position: 10px 3px;
 }

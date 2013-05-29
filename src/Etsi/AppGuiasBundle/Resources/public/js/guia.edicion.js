@@ -113,31 +113,33 @@ GUIA.testSemanas = function() {
 	$('#total-laboratorio').text(totales.pl);
 
 	var registrados = [0, 0, 0, 0, 0];
+	
+	var ultimaFila = $('#tabla-semanas tbody tr:last-child');
+
+	//De la ultima fila, cada elemento final por columnas
+	var ultimasFilas= new Array(5);
+	for (var i=0; i<5; i++)
+		ultimasFilas[i]=ultimaFila.children('td:eq('+(i+1)+')').children('.mini');
+
 	$('#tabla-semanas tbody tr').each(function() {
 		$(this).children('td').children('.mini').each(function(index) {
-			registrados[index] += parseFloat($(this).val().replace(',', '.'));
+			if(isNaN($(this).val().replace(',', '.'))) $(this).val(0);
+			registrados[index] += parseFloat($(this).val().replace(',', '.')) || 0;
 		});
 	});
 
-	var errores = false;
-	function setError(index, er) {
-		if(er) {
-			errores = true;
-			$('#tabla-semanas tfoot tr td').eq(index).addClass('error');
-		} else 
-			$('#tabla-semanas tfoot tr td').eq(index).removeClass('error');
-	}
+	//Resta valor de la última fila para que no afecte en la suma
+	for (var i=0; i<5; i++)
+		registrados[i] -= parseFloat(ultimasFilas[i].val()) || 0;
 
-	setError(1, registrados[0]!=totales.t);
-	setError(2, registrados[1]!=totales.pa);
-	setError(3, registrados[2]!=totales.pi);
-	setError(4, registrados[3]!=totales.pl);
-	setError(5, registrados[4]!=totales.pc);
+	//Por cada elemento final de cada fila, cálculo del total de
+	// lo que deberia de dar menos suma de todas las filas
+	ultimasFilas[0].val(parseFloat((totales.t)-(registrados[0])));
+	ultimasFilas[1].val(parseFloat((totales.pa)-(registrados[1])));
+	ultimasFilas[2].val(parseFloat((totales.pi)-(registrados[2])));
+	ultimasFilas[3].val(parseFloat((totales.pl)-(registrados[3])));
+	ultimasFilas[4].val(parseFloat((totales.pc)-(registrados[4])));
 
-	var contenedor = $('#tabla-semanas').closest('.contenedor');
-	if(errores) contenedor.addClass('empty');
-	else contenedor.removeClass('empty');
-	
 	$('.navigation > ul').miniaturiza('refresh');
 };
 

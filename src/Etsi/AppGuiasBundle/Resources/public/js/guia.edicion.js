@@ -15,7 +15,7 @@ GUIA.saveCambios = function(estado) {
 		if(e.hasClass('editor-minimo')) {
 			data[e.attr('id')] = $(this).val();
 		} else if(e.hasClass('editor-texto')) {
-			data[e.attr('id')] = $(this).html();
+			data[e.attr('id')] = CKEDITOR.instances[e.attr('id')].getData();
 		} else if(e.is('select[multiple]')) {
 			var result = [];
 			e.children(':selected').each(function() {

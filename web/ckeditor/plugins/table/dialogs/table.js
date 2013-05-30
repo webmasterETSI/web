@@ -139,12 +139,11 @@
 
 					// Generate the rows and cols.
 					if ( !this._.selectedElement ) {
-						var tbody = table.append( makeElement( 'tbody' ) ),
-							rows = parseInt( info.txtRows, 10 ) || 0,
+						var rows = parseInt( info.txtRows, 10 ) || 0,
 							cols = parseInt( info.txtCols, 10 ) || 0;
 
 						for ( var i = 0; i < rows; i++ ) {
-							var row = tbody.append( makeElement( 'tr' ) );
+							var row = table.append( makeElement( 'tr' ) );
 							for ( var j = 0; j < cols; j++ ) {
 								var cell = row.append( makeElement( 'td' ) );
 								if ( !CKEDITOR.env.ie )
@@ -160,8 +159,7 @@
 					var headers = info.selHeaders;
 					if ( !table.$.tHead && ( headers == 'row' || headers == 'both' ) ) {
 						var thead = new CKEDITOR.dom.element( table.$.createTHead() );
-						tbody = table.getElementsByTag( 'tbody' ).getItem( 0 );
-						var theRow = tbody.getElementsByTag( 'tr' ).getItem( 0 );
+						var theRow = table.getElementsByTag( 'tr' ).getItem( 0 );
 
 						// Change TD to TH:
 						for ( i = 0; i < theRow.getChildCount(); i++ ) {
@@ -178,9 +176,8 @@
 					if ( table.$.tHead !== null && !( headers == 'row' || headers == 'both' ) ) {
 						// Move the row out of the THead and put it in the TBody:
 						thead = new CKEDITOR.dom.element( table.$.tHead );
-						tbody = table.getElementsByTag( 'tbody' ).getItem( 0 );
 
-						var previousFirstRow = tbody.getFirst();
+						var previousFirstRow = table.getFirst();
 						while ( thead.getChildCount() > 0 ) {
 							theRow = thead.getFirst();
 							for ( i = 0; i < theRow.getChildCount(); i++ ) {
@@ -381,7 +378,7 @@
 								label: editor.lang.common.width,
 								title: editor.lang.common.cssLengthTooltip,
 								// Smarter default table width. (#9600)
-								'default': editor.filter.check( 'table{width}' ) ? ( editable.getSize( 'width' ) < 500 ? '100%' : 500 ) : 0,
+								'default': editor.filter.check( 'table{width}' ) ? '100%' : 0,
 								getValue: defaultToPixel,
 								validate: CKEDITOR.dialog.validate.cssLength( editor.lang.common.invalidCssLength.replace( '%1', editor.lang.common.width ) ),
 								onChange: function() {

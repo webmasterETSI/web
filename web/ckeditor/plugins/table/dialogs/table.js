@@ -139,11 +139,12 @@
 
 					// Generate the rows and cols.
 					if ( !this._.selectedElement ) {
-						var rows = parseInt( info.txtRows, 10 ) || 0,
+						var tbody = table.append( makeElement( 'tbody' ) ),
+							rows = parseInt( info.txtRows, 10 ) || 0,
 							cols = parseInt( info.txtCols, 10 ) || 0;
 
 						for ( var i = 0; i < rows; i++ ) {
-							var row = table.append( makeElement( 'tr' ) );
+							var row = tbody.append( makeElement( 'tr' ) );
 							for ( var j = 0; j < cols; j++ ) {
 								var cell = row.append( makeElement( 'td' ) );
 								if ( !CKEDITOR.env.ie )
@@ -159,7 +160,8 @@
 					var headers = info.selHeaders;
 					if ( !table.$.tHead && ( headers == 'row' || headers == 'both' ) ) {
 						var thead = new CKEDITOR.dom.element( table.$.createTHead() );
-						var theRow = table.getElementsByTag( 'tr' ).getItem( 0 );
+						tbody = table.getElementsByTag( 'tbody' ).getItem( 0 );
+						var theRow = tbody.getElementsByTag( 'tr' ).getItem( 0 );
 
 						// Change TD to TH:
 						for ( i = 0; i < theRow.getChildCount(); i++ ) {
@@ -176,8 +178,9 @@
 					if ( table.$.tHead !== null && !( headers == 'row' || headers == 'both' ) ) {
 						// Move the row out of the THead and put it in the TBody:
 						thead = new CKEDITOR.dom.element( table.$.tHead );
-
-						var previousFirstRow = table.getFirst();
+						tbody = table.getElementsByTag( 'tbody' ).getItem( 0 );
+						
+						var previousFirstRow = tbody.getFirst();
 						while ( thead.getChildCount() > 0 ) {
 							theRow = thead.getFirst();
 							for ( i = 0; i < theRow.getChildCount(); i++ ) {

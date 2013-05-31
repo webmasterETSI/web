@@ -55,7 +55,7 @@ class UHUSecurityController extends Controller
             if($this->validaUsuario($data['_username'], $data['_password']) == '1') {
                 $em = $this->getDoctrine()->getManager();
                 $encoder = new \Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder('sha512', true, 10);
-                $entity = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findOneByEmail($data['_username']);
+                $entity = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findOneByUser($data['_username']);
 
                 if($entity) {
                     /*
@@ -74,7 +74,7 @@ class UHUSecurityController extends Controller
                     $entity  = new Profesor();
                     $entity->addRole($rol);                    
                     $entity->setNombre('');
-                    $entity->setEmail($data['_username']);
+                    $entity->setUser($data['_username']);
                     $entity->setTlf('');
                     /*
                     $entity->setSalt(md5(time()));

@@ -9,7 +9,7 @@ security:
 
     providers:
         user_db:
-            entity: { class: Etsi\AppGuiasBundle\Entity\Profesor, property: email }
+            entity: { class: Etsi\AppGuiasBundle\Entity\Profesor, property: user }
 
     firewalls:
         dev:

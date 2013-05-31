@@ -91,7 +91,7 @@
 					<label for="profesores">Profesores</label>
 					<select name="profesores" data-placeholder="Seleccionar..." multiple class="long" >
 						{% for p in profesores %}
-						<option value="{{ p.id }}" {% if p in guia.profesores %}selected{% endif %}>{{ p.nombre }}{% if p.email %} &lt;{{ p.email }}&gt;{% endif %}</option>
+						<option value="{{ p.id }}" {% if p in guia.profesores %}selected{% endif %}>{{ p.nombre }}{% if p.user %} &lt;{{ p.user }}&gt;{% endif %}</option>
 						{% endfor %}
 					</select>
 					<div class="clear"></div>
@@ -99,7 +99,7 @@
 					<select name="coordinador" data-placeholder="Seleccionar..." class="long" >
 						<option value="-1">Ninguno por ahora</option>
 						{% for p in guia.profesores %}
-						<option value="{{ p.id }}" {% if p==guia.asignatura.coordinador %}selected{% endif %}>{{ p.nombre }}{% if p.email %} &lt;{{ p.email }}&gt;{% endif %}</option>
+						<option value="{{ p.id }}" {% if p==guia.asignatura.coordinador %}selected{% endif %}>{{ p.nombre }}{% if p.user %} &lt;{{ p.user }}&gt;{% endif %}</option>
 						{% endfor %}
 					</select>
 				</div>

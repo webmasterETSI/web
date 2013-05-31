@@ -25,6 +25,11 @@ class Profesor implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", unique=true)
      */
+    protected $user;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
     protected $email;
 
     /**
@@ -90,6 +95,7 @@ class Profesor implements UserInterface, \Serializable
     {
         return \serialize(array(
             $this->id,
+            $this->user,
             $this->nombre,
             $this->email,
             $this->tlf,
@@ -105,6 +111,7 @@ class Profesor implements UserInterface, \Serializable
     {
         list (
             $this->id,
+            $this->user,
             $this->nombre,
             $this->email,
             $this->tlf,
@@ -120,7 +127,7 @@ class Profesor implements UserInterface, \Serializable
      */
     public function getUsername()
     {
-        return $this->email;
+        return $this->user;
     }
 
     /**
@@ -252,6 +259,29 @@ class Profesor implements UserInterface, \Serializable
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+    /**
+     * Set user
+     *
+     * @param string $user
+     * @return Profesor
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return string 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**

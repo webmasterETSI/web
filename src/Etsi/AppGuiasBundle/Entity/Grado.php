@@ -148,7 +148,7 @@ class Grado
      * @param Etsi\AppGuiasBundle\Entity\Grado $itinerarios
      * @return Grado
      */
-    public function addChildren(\Etsi\AppGuiasBundle\Entity\Grado $itinerarios)
+    public function addItinerarios(\Etsi\AppGuiasBundle\Entity\Grado $itinerarios)
     {
         $this->itinerarios[] = $itinerarios;
     
@@ -160,7 +160,7 @@ class Grado
      *
      * @param Etsi\AppGuiasBundle\Entity\Grado $itinerarios
      */
-    public function removeChildren(\Etsi\AppGuiasBundle\Entity\Grado $itinerarios)
+    public function removeItinerarios(\Etsi\AppGuiasBundle\Entity\Grado $itinerarios)
     {
         $this->itinerarios->removeElement($itinerarios);
     }
@@ -171,7 +171,7 @@ class Grado
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getChildren()
+    public function getItinerarios()
     {
         return $this->itinerarios;
     }

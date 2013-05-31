@@ -70,18 +70,75 @@
 					Paso#1: Asignatura
 				</legend>
 				<div class="contenedor{% if not guia.asignatura.nombreI %} empty{% endif %}">
-					<div class="in-titulo">
-						{{ guia.asignatura.nombre }}
-						&lt;
-						{%- for enGrados in guia.asignatura.enGrados%}
-						{% if not loop.first %}, {% endif %}{{ enGrados.codigo }}
-						{% endfor %}
-						&gt;<br>
-						Última edición: {{ guia.fechaDeModificacion|date("d/m/Y H:i") }}<br>
-						Curso {{ guia.curso }}/{{ guia.curso+1 }}
+					<div class="in-titulo">Datos de la asignatura {{ guia.asignatura.nombre }} ({{ guia.curso }}/{{ guia.curso+1 }})</div>
+
+					<div class="columna">
+						<label>Códigos</label>
+						<span class="ancho">
+							{%- for enGrados in guia.asignatura.enGrados%}
+								{%- if not loop.first %}, {% endif %}{{ enGrados.codigo -}}
+							{% endfor %}
+						</span>
+						<div class="clear"></div>
+
+						<label>Última edición</label>
+						<span class="ancho">{{ guia.fechaDeModificacion|date("d/m/y H:i") }}</span>
+						<div class="clear"></div>
 					</div>
 
-					<label for="nombreI">Nombre en ingles</label>
+					<div class="columna">
+						<label>Curso</label>
+						<span class="ancho">{{ cursos[guia.asignatura.curso] }}</span>
+						<div class="clear"></div>
+
+						<label>Cuatrimestre</label>
+						<span class="ancho">{{ cuatrimestres[guia.asignatura.cuatrimestre] }}</span>
+						<div class="clear"></div>
+					</div>
+
+					<div class="columna">
+						<label>Créditos</label>
+						<span class="ancho">{{ guia.asignatura.creditos }}</span>
+						<div class="clear"></div>
+
+						<label>Carácter</label>
+						<span class="ancho">{{ guia.asignatura.caracter }}</span>
+						<div class="clear"></div>
+					</div>
+
+					<label>Grados</label>
+					<span class="ancho">
+						{%- for enGrados in guia.asignatura.enGrados%}
+							{%- if not loop.first %}, {% endif %}
+							{% if enGrados.grado.gradoPadre %}
+							{{ enGrados.grado.gradoPadre.nombre }}: itinerario de 
+							{% endif %}
+							{{ enGrados.grado.nombre -}}
+							{%- if enGrados.grado.itinerarios is not empty -%}
+							: itinerario común
+							{%- endif -%}
+						{% endfor %}
+					</span>
+					<div class="clear"></div>
+
+					<label>Areas</label>
+					<span class="ancho">
+						{%- for area in guia.asignatura.areas %}
+							{%- if not loop.first %}, {% endif %}{{ area.nombre -}}
+						{% endfor %}
+					</span>
+					<div class="clear"></div>
+
+					<label>Departamentos</label>
+					<span class="ancho">
+						{%- for area in guia.asignatura.areas%}
+							{%- if not loop.first %}, {% endif %}{{ area.departamento -}}
+						{% endfor %}
+					</span>
+					<div class="clear" style="margin-bottom: 10px;"></div>
+
+					<div class="clear"></div>
+					<label for="nombreI" class="peque">Nombre en ingles</label>
 					<input class="long editor-minimo" id="nombreI" name="nombreI" value="{{ guia.asignatura.nombreI }}" data-intro="Al ir completando la información de la guía, los campos modificados se marcan en rojo, esto indica que están pendientes de ser guardados. <b>Una vez guardados los cambios, los campos se vuelven verdes durante un instante y se recibe un aviso. Dicho proceso es automático y se realiza periodicamente.</b>" data-step="7"/>
 				</div>
 

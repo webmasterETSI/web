@@ -327,6 +327,16 @@ span.error{
 	font-weight:bold;
 }
 
+#steps form .contenedor .columna {
+	display: inline-block;
+	width: 295px;
+	margin-bottom: 10px;
+}
+
+#steps form .contenedor .ancho {
+	line-height: 26px;
+}
+
 #steps form input:not([type=radio]),
 #steps form textarea,
 #steps form select{

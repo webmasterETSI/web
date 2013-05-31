@@ -10,7 +10,7 @@
 		<td>
 			<a href="{{ vinculo }}">
 				{% for enGrados in guia.asignatura.enGrados%}
-				{% if not loop.first %}, {% endif %}{{ enGrados.codigo }}
+				{%- if not loop.first %}, {% endif %}{{ enGrados.codigo -}}
 				{% endfor %}
 			</a>
 		</td>
@@ -71,12 +71,10 @@
 							<tr>
 								<td>
 									<a href="{{ path('etsi_app_guia_guia_pasos', {'id': e.id}) }}">
-										{{ e.asignatura.nombre }} 
-										&lt;
-										{% for enGrados in e.asignatura.enGrados%}
-										{% if not loop.first %}, {% endif %}{{ enGrados.codigo }}
-										{% endfor %}
-										&gt;
+										{{- e.asignatura.nombre }} &lt;
+										{%- for enGrados in e.asignatura.enGrados%}
+										{%- if not loop.first %}, {% endif %}{{ enGrados.codigo -}}
+										{% endfor %}&gt;
 									</a>
 								</td>
 								<td>{{ estados[e.estado] }} </td>
@@ -110,9 +108,15 @@
 					<select name="asignatura" data-placeholder="Seleccionar..." class="long" >
 						{% for a in asignaturas %}
 						<option value="{{ a.id }}">
+							{{- a.nombre }} &lt;
 							{%- for enGrados in a.enGrados%}
-							{% if not loop.first %}, {% endif %}{{ enGrados.codigo }}
-							{% endfor %}: {{ a.nombre -}}
+								{%- if not loop.first %}; {% endif -%}
+								{{- enGrados.codigo }}: 
+								{% if enGrados.grado.gradoPadre -%}
+								{{ enGrados.grado.gradoPadre.nombre }}: itinerario de 
+								{% endif -%}
+								{{ enGrados.grado.nombre -}}
+							{% endfor %}&gt;
 						</option>
 						{% endfor %}
 					</select>

@@ -153,6 +153,35 @@ class GuiaController extends Controller
                 $response->setStatusCode('400');
                 $response->setContent('Cambios no guardados: la guía no puede modificarse pues su estado actual es '.($estado==1?'pendiente de aprobación':'publicada'));
             }
+
+            if(isset($data->estado)) {
+                $tmpResponse = new Response();
+                $this->render(
+                    'EtsiAppGuiasBundle:Mail:cambioEstado.html.twig',
+                    array('guia' => $entity),
+                    $tmpResponse
+                );
+                $mensaje = $tmpResponse->getContent();
+
+                $to = '';
+                $profesor = $entity->getCreador();
+                if($profesor) {
+                    $email = $profesor->getEmail();
+                    if(!empty($email)) $to .= $email;
+                }
+                foreach($entity->getProfesores() as $profesor) {
+                    $email = $profesor->getEmail();
+                    if(!empty($email)) {
+                        if($to!='') $to .= ',';
+                        $to .= $email;
+                    }
+                }
+
+                $subject = 'App GuíaMe: estado de guía modificado';
+                $head  = 'Content-type: text/html; charset=iso-8859-1';
+
+                mail($to, $subject, $mensaje, $head);
+            }
         } else {
             $response->setStatusCode('400');
             $response->setContent('Cambios no guardados: guía no encontrada');
@@ -325,6 +354,7 @@ class GuiaController extends Controller
         $response = new Response();
         $to = 'webmaster@eps.uhu.es';
         $subject = 'Feedback APP guías';
+        $head  = 'Content-type: text/html; charset=iso-8859-1';
 
         $data = json_decode($request->getContent());
 
@@ -335,8 +365,9 @@ class GuiaController extends Controller
             $securityContext = $this->get('security.context');
             if($securityContext->isGranted('ROLE_PROFESOR') ){
                 $entity = $this->get('security.context')->getToken()->getUser();
-                if(mail($to, $subject , $data->contenido.'<br /><br /><b>'.$data->tipo.'</b>')) {
+                if(mail($to, $subject , $data->contenido.'<br /><br /><b>'.$data->tipo.'</b>', $head)) {
                     $response->setStatusCode('200');
+                    $response->setContent('{ "error": "Mensaje enviado correctamente" }');
                     return $response;
                 } else $response->setContent('{ "error": "No se ha podido enviar el correo" }');
             } else $response->setContent('{ "error": "El usuario no se encuentra identificado" }');

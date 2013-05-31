@@ -40,7 +40,7 @@ $(function(){
 		aaSorting: [[ 3, "desc" ],[ 2, "desc" ]],
 		oLanguage: idioma
 	});
-	oTable.fnFilter( '2:', 1 );
+	oTable.fnFilter( '1:', 1 );
 
 	$('#filtro-enviar').click(    function() { oTable.fnFilter( '1:', 1 ); return false; });
 	$('#filtro-fallos').click(    function() { oTable.fnFilter( '4:', 1 ); return false; });

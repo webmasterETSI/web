@@ -1,0 +1,14 @@
+{% set estados = ['1: Por enviar', '2: Pendiente aprobación', '3: Publicada', '4: Publicada con fallos'] %}
+<html>
+	<head>
+		<title>GuíaMe</title>
+	</head>
+
+	<body>
+		{% block mensaje %}{% endblock %}
+		{% block pie %}
+		<p>&nbsp;</p>
+		<p>Estas recibiendo este correo por estar registrado en la aplicación de guías docentes "GuíaMe", de la universidad de Huelva. Para cualquier duda, ponte en contacto con <a href="mailto:webmaster@eps.uhu.es">webmaster@eps.uhu.es</a>
+		{% endblock %}
+	</body>
+</html>

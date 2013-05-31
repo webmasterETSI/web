@@ -53,7 +53,7 @@
 		{% if is_granted('ROLE_REVISOR') %}
 		<form>
 			<fieldset class="step" style="margin-bottom: 50px;">
-				<div class="contenedor" data-intro="Parece ser que eres una persona con criterio, por ello se te ha concedido acceso a todas las guías y poder para modificar su estádo actual. Aquí tienes un resumen de todas las guías, por defecto <b>se encuentran filtradas y solo ves las guías pendientes de aprobación</b>." data-step="7">
+				<div class="contenedor" data-intro="Parece ser que eres una persona con criterio, por ello se te ha concedido acceso a todas las guías y poder para modificar su estádo actual. Aquí tienes un resumen de todas las guías, por defecto <b>se encuentran filtradas y solo ves las guías pendientes de envío</b>." data-step="7">
 					<div class="in-titulo">Todas las guías</div>
 
 					<div class="clear"></div>
@@ -73,7 +73,7 @@
 									<a href="{{ path('etsi_app_guia_guia_pasos', {'id': e.id}) }}">
 										{{ e.asignatura.nombre }} 
 										&lt;
-										{% for enGrados in guia.asignatura.enGrados%}
+										{% for enGrados in e.asignatura.enGrados%}
 										{% if not loop.first %}, {% endif %}{{ enGrados.codigo }}
 										{% endfor %}
 										&gt;

@@ -1,0 +1,16 @@
+{% extends "EtsiAppGuiasBundle:Mail:baseLayout.html.twig" %}
+
+{% block mensaje %}
+	<p>¡La guía de la asignatura <b>{{ guia.asignatura.nombre }}</b> ({{ guia.curso }}/{{ guia.curso+1 }}) en la que tienes participación a sufrido un cambio de estado!</p>
+	<p>El nuevo estado de la guía es <b>{{ estados[guia.estado] }}</b></p>
+	<p>&nbsp;</p>
+	<p>
+		¿Quieres descargar la guía en su estado actual?: <a href="{{ url('etsi_app_guia_guia_pdf', {'id': guia.id} ) }}">descargar .pdf</a><br/>
+
+		{% if guia.estado==0 or guia.estado==3 %}
+		¿Quieres editar esta guía?: <a href="{{ url('etsi_app_guia_guia_pasos', {'id': guia.id} ) }}">acceder a la guía</a><br/>
+		{% endif %}
+
+		¿Quieres acceder al panel de control?: <a href="{{ url('etsi_app_guia_guia_pasos', {'id': guia.id} ) }}">acceder a GuíaMe</a><br/>
+	</p>
+{% endblock %}

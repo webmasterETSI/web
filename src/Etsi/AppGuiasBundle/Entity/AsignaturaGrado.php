@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class AsignaturaGrado
 {
     /**
-     * @ORM\Column(type="integer", unique=true)
+     * @ORM\Column(type="integer")
      */
     protected $codigo;
 

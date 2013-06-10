@@ -5,3 +5,7 @@ services:
 #    etsi_app_guias.example:
 #        class: %etsi_app_guias.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+    etsi.twig.pdf_extension:
+        class: Etsi\AppGuiasBundle\Twig\PdfExtension
+        tags:
+            - { name: twig.extension }

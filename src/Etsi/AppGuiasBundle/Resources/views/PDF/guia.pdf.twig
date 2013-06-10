@@ -125,26 +125,26 @@
 		<table>
 			<tr><td class="bold color2" style="margin-top:25px;">1. Descripción de contenidos</td></tr>
 			<tr><td class="color4 contenido">1.1. Breve descripción de contenidos:</td></tr>
-			<tr><td>{{ guia.datosEspecificos_1_1|replace({'&nbsp;': ' ', '<tbody>': '',  '</tbody>': '', })|raw }}</td></tr>
+			<tr><td>{{ guia.datosEspecificos_1_1|pdf|raw }}</td></tr>
 
 			<tr><td class="color4 contenido">1.2. Breve descripción de contenidos (en inglés):</td></tr>
-			<tr><td>{{ guia.datosEspecificos_1_2|replace({'&nbsp;': ' ', '<tbody>': '',  '</tbody>': '', })|raw }}</td></tr>
+			<tr><td>{{ guia.datosEspecificos_1_2|pdf|raw }}</td></tr>
 		</table>
 
 		<!-- PUNTO 2 -->
 		<table>
 			<tr><td class="bold color2" style="margin-top:25px;">2. Situación de la asignatura</td></tr>
 			<tr><td class="color4 contenido">2.1. Contexto dentro de la titulación:</td></tr>
-			<tr><td>{{ guia.datosEspecificos_2_1|replace({'&nbsp;': ' ', '<tbody>': '',  '</tbody>': '', })|raw }}</td></tr>
+			<tr><td>{{ guia.datosEspecificos_2_1|pdf|raw }}</td></tr>
 
 			<tr><td class="color4 contenido">2.2. Recomendaciones:</td></tr>
-			<tr><td>{{ guia.datosEspecificos_2_2|replace({'&nbsp;': ' ', '<tbody>': '',  '</tbody>': '', })|raw }}</td></tr>
+			<tr><td>{{ guia.datosEspecificos_2_2|pdf|raw }}</td></tr>
 		</table>
 
 		<!-- PUNTO 3 -->
 		<table>
 			<tr><td class="bold color2" style="margin-top:25px;">3. Objetivos:</td></tr>
-			<tr><td>{{ guia.datosEspecificos_3|replace({'&nbsp;': ' ', '<tbody>': '',  '</tbody>': '', })|raw }}</td></tr>
+			<tr><td>{{ guia.datosEspecificos_3|pdf|raw }}</td></tr>
 		</table>
 
 		<!-- PUNTO 4 -->
@@ -202,13 +202,13 @@
 			</tr>
 
 			<tr><td class="color4 contenido">6.2. Desarrollo y justificación:</td></tr>
-			<tr><td>{{ guia.datosEspecificos_6_2|replace({'&nbsp;': ' ', '<tbody>': '',  '</tbody>': '', })|raw }}</td></tr>
+			<tr><td>{{ guia.datosEspecificos_6_2|pdf|raw }}</td></tr>
 		</table>
 
 		<!-- PUNTO 7 -->
 		<table>
 			<tr><td class="bold color2" style="margin-top:25px;">7. Temario desarrollado:</td></tr>
-			<tr><td>{{ guia.datosEspecificos_7|replace({'&nbsp;': ' ', '<tbody>': '',  '</tbody>': '', })|raw }}</td></tr>
+			<tr><td>{{ guia.datosEspecificos_7|pdf|raw }}</td></tr>
 		</table>
 
 		<!-- PUNTO 8 -->
@@ -216,10 +216,10 @@
 			<tr><td class="bold color2" style="margin-top:25px;">8. Bibliografía</td></tr>
 
 			<tr><td class="color4 contenido">8.1. Bibliografía básica:</td></tr>
-			<tr><td>{{ guia.datosEspecificos_8_1|replace({'&nbsp;': ' ', '<tbody>': '',  '</tbody>': '', })|raw }}</td></tr>
+			<tr><td>{{ guia.datosEspecificos_8_1|pdf|raw }}</td></tr>
 
 			<tr><td class="color4 contenido">8.2. Bibliografía complementaria:</td></tr>
-			<tr><td>{{ guia.datosEspecificos_8_2|replace({'&nbsp;': ' ', '<tbody>': '',  '</tbody>': '', })|raw }}</td></tr>
+			<tr><td>{{ guia.datosEspecificos_8_2|pdf|raw }}</td></tr>
 		</table>
 
 		<!-- PUNTO 9 -->
@@ -244,7 +244,7 @@
 			</tr>
 
 			<tr><td class="color4 contenido">9.2. Desarrollo y justificación:</td></tr>
-			<tr><td>{{ guia.datosEspecificos_9_2|replace({'&nbsp;': ' ', '<tbody>': '',  '</tbody>': '', })|raw }}</td></tr>
+			<tr><td>{{ guia.datosEspecificos_9_2|pdf|raw }}</td></tr>
 		</table>
 	</dynamic-page>
 

@@ -171,6 +171,26 @@ class Profesor implements UserInterface, \Serializable
     }
 
     /**
+     * Set despacho
+     *
+     * @param string $despacho
+     */
+    public function setDespacho($despacho)
+    {
+        $this->despacho = $despacho;
+    }
+
+    /**
+     * Get despacho
+     *
+     * @return string
+     */
+    public function getDespacho()
+    {
+        return $this->despacho;
+    }
+
+    /**
      * Add user_roles
      *
      * @param Maycol\BlogBundle\Entity\Rol $userRols

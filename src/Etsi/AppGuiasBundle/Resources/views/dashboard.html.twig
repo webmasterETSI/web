@@ -53,7 +53,7 @@
 		{% if is_granted('ROLE_REVISOR') %}
 		<form>
 			<fieldset class="step" style="margin-bottom: 50px;">
-				<div class="contenedor" data-intro="Parece ser que eres una persona con criterio, por ello se te ha concedido acceso a todas las guías y poder para modificar su estádo actual. Aquí tienes un resumen de todas las guías, por defecto <b>se encuentran filtradas y solo ves las guías pendientes de envío</b>." data-step="7">
+				<div class="contenedor" data-intro="Parece ser que eres una persona con criterio, por ello se te ha concedido acceso a todas las guías y poder para modificar su estádo actual. Aquí tienes un resumen de todas las guías, por defecto <b>se encuentran filtradas y solo ves las guías pendientes de envío</b>." data-step="8">
 					<div class="in-titulo">Todas las guías</div>
 
 					<div class="clear"></div>
@@ -87,16 +87,41 @@
 
 					<div style="margin-top: 50px; width: 100%"></div>
 					<label>Filtros según estado</label>
-					<button class="boton-chico" id="filtro-enviar" data-intro="Con ese filtro puedes visualizar las guías que están siendo creadas." data-step="8">Pendientes de envío</button>
-					<button class="boton-chico" id="filtro-aprobar" data-intro="Con ese filtro puedes visualizar las guías que <b>esperan tu aprobación para ser publicadas</b>." data-step="8">Pendientes de aprobación</button>
-					<button class="boton-chico" id="filtro-publicada" data-intro="Con ese filtro puedes visualizar las guías publicadas." data-step="8">Publicadas</button>
-					<button class="boton-chico" id="filtro-fallos" data-intro="Con ese filtro puedes visualizar las guías publicadas pero que, según se ha notificado, poseen algún tipo de error." data-step="8">Publicadas con fallos</button>
-					<button class="boton-chico" id="filtro-todo" data-intro="Con ese filtro puedes verás todas las guías juntas..." data-step="8">Todas las guías</button>
+					<button class="boton-chico" id="filtro-enviar" data-intro="Con ese filtro puedes visualizar las guías que están siendo creadas." data-step="9">Pendientes de envío</button>
+					<button class="boton-chico" id="filtro-aprobar" data-intro="Con ese filtro puedes visualizar las guías que <b>esperan tu aprobación para ser publicadas</b>." data-step="9">Pendientes de aprobación</button>
+					<button class="boton-chico" id="filtro-publicada" data-intro="Con ese filtro puedes visualizar las guías publicadas." data-step="9">Publicadas</button>
+					<button class="boton-chico" id="filtro-fallos" data-intro="Con ese filtro puedes visualizar las guías publicadas pero que, según se ha notificado, poseen algún tipo de error." data-step="9">Publicadas con fallos</button>
+					<button class="boton-chico" id="filtro-todo" data-intro="Con ese filtro puedes verás todas las guías juntas..." data-step="9">Todas las guías</button>
 					<div class="clear"></div>
 				</div>
 			</fieldset>
 		</form>
 		{% endif %}
+
+		<form action="{{ path('etsi_app_guia_personalData') }}" method="post">
+			<fieldset class="step" style="margin-bottom: 50px;">
+				<div class="contenedor" data-intro="Este módulo te permite gestionar tus datos privados. Estos datos son los que apareceran en las guías en las que seas profesor." data-step="7">
+					<div class="in-titulo">Datos de usuario: {{ entity.user }}</div>
+
+					<div class="clear"></div>
+					<label for="nombre" class="natural">Nombre</label>
+					<input class="natural" name="nombre" value="{{ entity.nombre|default('') }}" />
+					<div class="clear"></div>
+					<label for="telefono" class="natural">Telefono</label>
+					<input class="natural" name="telefono" value="{{ entity.tlf|default('') }}" />
+					<div class="clear"></div>
+					<label for="email" class="natural">eMail</label>
+					<input class="natural" name="email" value="{{ entity.email|default('') }}" />
+					<div class="clear"></div>
+					<label for="email" class="natural">Despacho</label>
+					<input class="natural" name="despacho" value="{{ entity.despacho|default('') }}" />
+
+					<div class="contenedor submit">
+						<button id="registerButton" type="submit">MODIFICAR DATOS</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
 
 		<form action="{{ path('etsi_app_guia_guia_new') }}" method="post">
 			<fieldset class="step" style="margin-bottom: 50px;">

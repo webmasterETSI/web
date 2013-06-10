@@ -101,15 +101,17 @@
 
 		<table>
 			<tr>
-				<td class="bold color2" width="33%">Nombre:</td>
-				<td class="bold color2" width="33%">E-Mail:</td>
-				<td class="bold color2" width="33%">Teléfono: </td>
+				<td class="bold color2" width="25%">Nombre:</td>
+				<td class="bold color2" width="25%">E-Mail:</td>
+				<td class="bold color2" width="25%">Teléfono: </td>
+				<td class="bold color2" width="25%">Despacho: </td>
 			</tr>
 			{% for p in guia.profesores %}
 				<tr>
-					<td class="center">{{ p.nombre }}</td>
-					<td class="center">{{ p.email }}</td>
-					<td class="center">{{ p.tlf }}</td>
+					<td class="center" width="25%">{{ p.nombre|default('') }}</td>
+					<td class="center" width="25%">{{ p.email|default('') }}</td>
+					<td class="center" width="25%">{{ p.tlf|default('') }}</td>
+					<td class="center" width="25%">{{ p.despacho|default('') }}</td>
 				</tr>
 			{% endfor %}
 		</table>

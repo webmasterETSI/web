@@ -331,11 +331,35 @@ class GuiaController extends Controller
     public function indexAction($mensajes = array())
     {
         $em = $this->getDoctrine()->getManager();
-        $guias = $em->getRepository('EtsiAppGuiasBundle:Guia')->findAll();
         $profesores = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findAll();
+        $guias = $em->getRepository('EtsiAppGuiasBundle:Guia')->findAll();
+/*
+        $qbGuias  = $em->createQueryBuilder();
+        $qbAsignaturas  = $em->createQueryBuilder();
+
+        $query = $qbAsignaturas
+            ->select('a')
+            ->from('EtsiAppGuiasBundle:Asignatura', 'a')
+            ->where(
+                $qbAsignaturas->expr()->notIn(
+                    'a.id',
+                    $qbGuias->select('g.asignatura_id')
+                        ->from('EtsiAppGuiasBundle:Guia', 'g')
+                        ->where('g.curso='.date('Y'))
+                        ->getDQL()
+                )
+            )
+            ->orderBy('a.nombre', 'ASC')
+            ->getQuery();
+
+        $asignaturas = $query->getResult();
+*/
+
         $asignaturas = $this->getDoctrine()
             ->getRepository('EtsiAppGuiasBundle:Asignatura')
             ->findBy(array(), array('nombre' => 'asc'));
+
+
 
         $entity = $this->get('security.context')->getToken()->getUser();
 
@@ -354,7 +378,7 @@ class GuiaController extends Controller
     public function feedbackAction(Request $request)
     {
         $response = new Response();
-        $to = 'webmaster@eps.uhu.es';
+        $to = 'webmaster.etsi@gmail.com';
         $subject = 'Feedback APP guías';
         $head  = 'Content-type: text/html; charset=iso-8859-1';
 
@@ -377,5 +401,19 @@ class GuiaController extends Controller
 
         $response->setStatusCode('400');
         return $response;
+    }
+
+    public function personalDataAction(Request $request)
+    {
+        $profesor = $this->get('security.context')->getToken()->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $profesor->setDespacho($request->request->get('despacho'));
+        $profesor->setNombre($request->request->get('nombre'));
+        $profesor->setTlf($request->request->get('telefono'));
+        $profesor->setEmail($request->request->get('email'));
+        $em->flush();
+
+        return $this->indexAction( array('success' => array('Datos modificados')) );
     }
 }

@@ -42,8 +42,13 @@ etsi_app_guia_guia_coordinador:
     requirements: { _method: post }
 
 etsi_app_guia_feedbackAction:
-    pattern:  /feedbackAction
+    pattern:  /feedback
     defaults: { _controller: EtsiAppGuiasBundle:Guia:feedback }
+    requirements: { _method: post }
+
+etsi_app_guia_personalData:
+    pattern:  /personal-data
+    defaults: { _controller: EtsiAppGuiasBundle:Guia:personalData }
     requirements: { _method: post }
 
 

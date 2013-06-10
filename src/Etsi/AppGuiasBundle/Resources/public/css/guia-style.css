@@ -527,10 +527,12 @@ table, th, td {
 	border-collapse: collapse;
 	font-family: "Trebuchet MS", Arial, sans-serif;
 	color: #555;
+
 }
 
 table {
 	width: 100%;
+	display:inline-block;
 }
 
 caption {
@@ -541,6 +543,7 @@ caption {
 
 td, th {
 	padding: 4px;
+	text-align: center;
 }
 
 td .margenes {
@@ -557,6 +560,8 @@ thead th {
 	background: rgb(238, 238, 238);
 	color: #666666;
 	font-size: 100% !important;
+	width:25%;
+
 }
 
 tbody th {

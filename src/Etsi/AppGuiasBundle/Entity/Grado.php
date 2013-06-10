@@ -206,8 +206,6 @@ class Grado
      */
     public function getcompetenciasDeGrado()
     {
-        return $this->competenciasDeGrado;
-
         $competenciasDeGrado = new \Doctrine\Common\Collections\ArrayCollection();
 
         if(!empty($this->gradoPadre)) {

@@ -320,6 +320,17 @@ $(function(){
 		GUIA.saveCambios();
 	};
 
+	$('.navigation').click(function() {
+		var currentSelected = $('.navigation .selected').index();
+		if(currentSelected==10){
+			$('#siguiente').text('ENVIAR');
+			$('#guardar').hide();
+		}
+		else {
+			$('#siguiente').html('SIGUIENTE &raquo;');
+			$('#guardar').show();
+		}
+	});
 
 	$('#siguiente').click(function() {
 		var currentSelected = $('.navigation .selected');
@@ -336,6 +347,11 @@ $(function(){
 	$('#guardar').click(function() {
 		var currentSelected = $('.navigation .selected');
 		guardarPaso(currentSelected.index());
+
+		if(currentSelected.index()==10) {
+			alert('Guía enviada.\nSi quieres realizar algún cambio en la guía, puedes hacerlo hasta finales de junio.');
+			document.location.href = GUIA.dashboard;
+		}
 	});
 
 	// Configuración de eventos de teclado

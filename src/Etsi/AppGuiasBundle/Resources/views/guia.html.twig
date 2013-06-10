@@ -53,7 +53,7 @@
 
 	<div id="menu-estados" data-intro="Aquí se indica el estado actual de esta guía. La edición de las guías solo se permite en el estado 1 y en el estado 4, por tanto <b>todos los cambios que intentes realizar si una guía se encuentra en estado 2 o 3 serán descartados.</b>" data-step="6"> <!-- por terminar-->
 		<ul id="button">
-			<li><a{% if guia.estado==0 %} id="hover"{% endif %} href="#">[ESTADO 1: Por enviar]</a></li>
+			<li><a{% if guia.estado==0 %} id="hover"{% endif %} href="#">[ESTADO 1: Edición]</a></li>
 			<li><a{% if guia.estado==1 %} id="hover"{% endif %} href="#">[ESTADO 2: Pendiente aprobación]</a></li>
 			<li><a{% if guia.estado==2 %} id="hover"{% endif %} href="#">[ESTADO 3: Publicada]</a></li>
 			<li><a{% if guia.estado==3 %} id="hover"{% endif %} href="#">[ESTADO 4: Publicada con fallos]</a></li>

@@ -333,6 +333,10 @@ $(function(){
 		currentSelected.prev('li').children('a').trigger('click');
 	});
 
+	$('#guardar').click(function() {
+		var currentSelected = $('.navigation .selected');
+		guardarPaso(currentSelected.index());
+	});
 
 	// Configuración de eventos de teclado
 	$('.editor-semana').keydown(function(e) {

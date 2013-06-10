@@ -411,17 +411,9 @@ span.error{
 	margin-right: 20px!important;
 }
 
-#guardar {
-	float: left;
-	clear: none!important;
-	margin-left: 220px!important;
-	margin-bottom: 20px!important;
-}
-
 #titulo-cabecera form input[type="submit"],
 #siguiente,
 #anterior,
-#guardar,
 #steps form button {
 	border:none;
 	outline:none;

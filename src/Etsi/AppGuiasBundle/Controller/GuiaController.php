@@ -333,7 +333,9 @@ class GuiaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $guias = $em->getRepository('EtsiAppGuiasBundle:Guia')->findAll();
         $profesores = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findAll();
-        $asignaturas = $em->getRepository('EtsiAppGuiasBundle:Asignatura')->findAll();
+        $asignaturas = $this->getDoctrine()
+            ->getRepository('EtsiAppGuiasBundle:Asignatura')
+            ->findBy(array(), array('nombre' => 'asc'));
 
         $entity = $this->get('security.context')->getToken()->getUser();
 

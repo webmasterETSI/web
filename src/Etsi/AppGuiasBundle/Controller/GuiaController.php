@@ -332,8 +332,10 @@ class GuiaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $profesores = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findAll();
+
         $guias = $em->getRepository('EtsiAppGuiasBundle:Guia')->findAll();
-/*
+
+
         $qbGuias  = $em->createQueryBuilder();
         $qbAsignaturas  = $em->createQueryBuilder();
 
@@ -343,8 +345,9 @@ class GuiaController extends Controller
             ->where(
                 $qbAsignaturas->expr()->notIn(
                     'a.id',
-                    $qbGuias->select('g.asignatura_id')
+                    $qbGuias->select('asig.id')
                         ->from('EtsiAppGuiasBundle:Guia', 'g')
+                        ->leftJoin('g.asignatura', 'asig')
                         ->where('g.curso='.date('Y'))
                         ->getDQL()
                 )
@@ -353,12 +356,6 @@ class GuiaController extends Controller
             ->getQuery();
 
         $asignaturas = $query->getResult();
-*/
-
-        $asignaturas = $this->getDoctrine()
-            ->getRepository('EtsiAppGuiasBundle:Asignatura')
-            ->findBy(array(), array('nombre' => 'asc'));
-
 
 
         $entity = $this->get('security.context')->getToken()->getUser();

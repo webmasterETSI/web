@@ -373,7 +373,7 @@
 									<b>#{{ e.numeroSemana }}</b>
 								</td>
 								<td>
-									<input class="editor-semana margenes mini" name="horasGruposGrandes" value="{{ e.horasGruposGrandes }}" />
+									<input {% if loop.first %}id="tabla-primero" {% endif %}class="editor-semana margenes mini" name="horasGruposGrandes" value="{{ e.horasGruposGrandes }}" />
 								</td>
 								<td>
 									<input class="editor-semana margenes mini" name="horasGruposReducidosAula" value="{{ e.horasGruposReducidosAula }}" />
@@ -391,7 +391,7 @@
 									<input class="editor-semana peque" name="examen" value="{{ e.examen }}" />
 								</td>
 								<td>
-									<input class="editor-semana peque" name="observaciones" value="{{ e.observaciones }}" />
+									<input {% if loop.last %}id="tabla-ultimo" {% endif %}class="editor-semana peque" name="observaciones" value="{{ e.observaciones }}" />
 								</td>
 							</tr>
 							{% endfor %}

@@ -371,8 +371,32 @@ $(function(){
 	});
 
 	$(document).keydown(function(e) {
-		if(event.which == 13)
+		var focusSecuence = {
+			'creditosPracticosInformatica': '#nombreI',
+			'datosEspecificos_1_2': '#datosEspecificos_1_1',
+			'datosEspecificos_2_2': '#datosEspecificos_2_1',
+			'datosEspecificos_3':   '#datosEspecificos_3',
+			'datosEspecificos_4_2': '#datosEspecificos_4_1',
+			'datosEspecificos_6_2': '#datosEspecificos_6_1_2',
+			'datosEspecificos_7':   '#datosEspecificos_7',
+			'datosEspecificos_8_2': '#datosEspecificos_8_1',
+			'datosEspecificos_9_2': '#datosEspecificos_9_1_2',
+			'datosEspecificos_7':   '#datosEspecificos_7',
+			'datosEspecificos_7':   '#datosEspecificos_7',
+			'datosEspecificos_7':   '#datosEspecificos_7',
+			'datosEspecificos_7':   '#datosEspecificos_7',
+			'tabla-ultimo':         '#tabla-primero',
+		}
+
+		var id = $('*:focus').attr('id')||$('*:focus').closest('.chzn-container').prev().attr('name');
+
+		if(event.which == 13 || (event.which == 9 && focusSecuence[id]) )
 			e.preventDefault();
+		
+		if(event.which == 9 && focusSecuence[id]) 
+			$(focusSecuence[id]).focus();
+
+		console.log(id);
 	});
 
 	// Configuración de tutorial

@@ -317,6 +317,14 @@ $(function(){
 		thisStep.find('#datosEspecificos_6_1_1').addClass('cambios-no-guardados').removeClass('cambios-guardados');
 		thisStep.find('#datosEspecificos_9_1_1').addClass('cambios-no-guardados').removeClass('cambios-guardados');
 
+
+		if(i==0 && $('#creditos-totales').hasClass('error')) {
+			$('<h4></h4>')
+			.addClass('alert_warning')
+			.text('Los créditos de la asignatura no coincide con la suma total de los créditos indicados')
+			.appendTo('#alert-block')
+			.delay(4000).hide('slow');
+		}
 		GUIA.saveCambios();
 	};
 

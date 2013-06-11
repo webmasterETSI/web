@@ -184,7 +184,11 @@
 								{% endif %}
 							{% endfor %}
 							{% for g in entity.guiasCreadas %}
-								{{ macros.tupla(g, estados, false, 2) }}
+								{% if guia.estado==0 %}
+									{{ macros.tupla(g, estados, false, 2) }}
+								{% else %}
+									{{ macros.tupla(g, estados, false, 1) }}
+								{% endif %}
 								{% if g.estado == 3 %}{% set errores = true %}{% endif %}
 							{% endfor %}
 						</tbody> 

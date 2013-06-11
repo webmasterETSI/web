@@ -335,7 +335,14 @@ $(function(){
 	$('#siguiente').click(function() {
 		var currentSelected = $('.navigation .selected');
 		guardarPaso(currentSelected.index());
-		currentSelected.next('li').children('a').trigger('click');
+
+		if(currentSelected.index()==10) {
+			alert('Guía guardada correctamente.\nPodrá realizar modificaciones y enviarlas hasta la fecha indicada por la Subdirección de Ordenación Académica.');
+			document.location.href = GUIA.dashboard;
+		}
+		else {
+			currentSelected.next('li').children('a').trigger('click');
+		}
 	});
 
 	$('#anterior').click(function() {
@@ -347,11 +354,6 @@ $(function(){
 	$('#guardar').click(function() {
 		var currentSelected = $('.navigation .selected');
 		guardarPaso(currentSelected.index());
-
-		if(currentSelected.index()==10) {
-			alert('Guía enviada.\nSi quieres realizar algún cambio en la guía, puedes hacerlo hasta finales de junio.');
-			document.location.href = GUIA.dashboard;
-		}
 	});
 
 	// Configuración de eventos de teclado

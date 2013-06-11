@@ -887,7 +887,7 @@ class Guia
      *
      * @param Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos_10
      */
-    public function removeDdatosEspecificos_10(\Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos_10)
+    public function removeDatosEspecificos_10(\Etsi\AppGuiasBundle\Entity\Semana $datosEspecificos_10)
     {
         $this->datosEspecificos_10->removeElement($datosEspecificos_10);
     }

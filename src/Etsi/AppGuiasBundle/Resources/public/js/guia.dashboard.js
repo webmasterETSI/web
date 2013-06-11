@@ -1,4 +1,25 @@
 $(function(){
+	$('#filtro-enviar').click(    function() { oTable.fnFilter( '1:', 1 ); return false; });
+	$('#filtro-fallos').click(    function() { oTable.fnFilter( '4:', 1 ); return false; });
+	$('#filtro-aprobar').click(   function() { oTable.fnFilter( '2:', 1 ); return false; });
+	$('#filtro-publicada').click( function() { oTable.fnFilter( '3:', 1 ); return false; });
+
+	$('#filtro-todo').click( function() {
+		var oSettings = oTable.fnSettings();
+		for(iCol = 0; iCol < oSettings.aoPreSearchCols.length; iCol++)
+			oSettings.aoPreSearchCols[ iCol ].sSearch = '';
+
+		oTable.fnDraw();
+
+		return false; 
+	});
+
+	$('.eliminar-guia').click(function() {
+		if(confirm('Estas a punto de eliminar una guía. Esta acción no es reversible.\n¿Estas seguro?')) {
+			document.location.href = $(this).attr('rel');
+		}
+	});
+
 	var tutorial = introJs().setOptions({
 		'skipLabel': 'Salir del tutorial',
 		'nextLabel': 'Siguiente &raquo;',
@@ -41,19 +62,4 @@ $(function(){
 		oLanguage: idioma
 	});
 	oTable.fnFilter( '1:', 1 );
-
-	$('#filtro-enviar').click(    function() { oTable.fnFilter( '1:', 1 ); return false; });
-	$('#filtro-fallos').click(    function() { oTable.fnFilter( '4:', 1 ); return false; });
-	$('#filtro-aprobar').click(   function() { oTable.fnFilter( '2:', 1 ); return false; });
-	$('#filtro-publicada').click( function() { oTable.fnFilter( '3:', 1 ); return false; });
-
-	$('#filtro-todo').click( function() {
-		var oSettings = oTable.fnSettings();
-		for(iCol = 0; iCol < oSettings.aoPreSearchCols.length; iCol++)
-			oSettings.aoPreSearchCols[ iCol ].sSearch = '';
-
-		oTable.fnDraw();
-
-		return false; 
-	});
 });

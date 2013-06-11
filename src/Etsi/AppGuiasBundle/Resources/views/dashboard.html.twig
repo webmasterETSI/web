@@ -1,6 +1,6 @@
 {% extends "EtsiAppGuiasBundle::baseLayout.html.twig" %}
 
-{% macro tupla(guia, estados, error) %}
+{% macro tupla(guia, estados, error, eliminar) %}
 	<tr>
 		{% if guia.estado==0 or guia.estado==3 %}
 			{% set vinculo = path('etsi_app_guia_guia_pasos', {'id': guia.id}) %}
@@ -22,6 +22,12 @@
 		{% if not error|default(false) %}<td>{{ estados[guia.estado] }}</td>
 		{% else %}<td>{{ guia.fechaDeModificacion|date("d/m/Y H:i") }}</td>{% endif %}
 		<td>{{ guia.curso }} - {{ guia.curso+1 }}</td>
+
+		{% if eliminar|default(0)==1 %}
+			<td></td>
+		{% elseif eliminar|default(0)==2 %}
+			<td class="eliminar-guia" rel="{{path('etsi_app_guia_guia_delete', {'id': guia.id}) }}">ELIMINAR</td>
+		{% endif %}
 	</tr>
 {% endmacro %}
 {% import _self as macros %}
@@ -165,20 +171,21 @@
 								<th>Código de la asignatura</th>
 								<th>Nombre de la asignatura</th>
 								<th>Estado</th>
-								<th>Curso</th> 
+								<th>Curso</th>
+								<th>Opciones</th>
 							</tr> 
 						</thead> 
 						<tbody>
 							{% set errores = false %}
 							{% for g in entity.guias %}
-								{{ macros.tupla(g, estados) }}
-								{% if g.estado == 3 %}{% set errores = true %}{% endif %}
+								{% if g not in entity.guiasCreadas %}
+									{{ macros.tupla(g, estados, false, 1) }}
+									{% if g.estado == 3 %}{% set errores = true %}{% endif %}
+								{% endif %}
 							{% endfor %}
 							{% for g in entity.guiasCreadas %}
-								{% if g not in entity.guias %}
-								{{ macros.tupla(g, estados) }}
+								{{ macros.tupla(g, estados, false, 2) }}
 								{% if g.estado == 3 %}{% set errores = true %}{% endif %}
-								{% endif %}
 							{% endfor %}
 						</tbody> 
 					</table>
@@ -197,7 +204,7 @@
 								<th>Código de la asignatura</th>
 								<th>Nombre de la asignatura</th>
 								<th>Última modificación</th>
-								<th>Curso</th> 
+								<th>Curso</th>
 							</tr> 
 						</thead> 
 						<tbody>

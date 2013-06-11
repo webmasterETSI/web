@@ -190,6 +190,35 @@ class GuiaController extends Controller
         return $response;
     }
 
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $profesor = $this->get('security.context')->getToken()->getUser();
+        $guia = $em->getRepository('EtsiAppGuiasBundle:Guia')->find($id);
+
+        if($guia) {
+            $creador = $guia->getCreador();
+            if($creador && $profesor->getId() == $creador->getId()) {
+                $guia->clearProfesores();
+                $guia->clearDatosEspecificos_4_1();
+                $guia->clearDatosEspecificos_4_2();
+
+                foreach($guia->getDatosEspecificos_10() as $semana) {
+                    $guia->removeDatosEspecificos_10($semana);
+                    $em->remove($semana);
+                }
+
+                $em->remove($guia);
+                $em->flush();
+                return $this->indexAction( array('success' => array('Guía eliminada correctamente')) );
+            }
+            else {
+                return $this->indexAction( array('error' => array('No se ha podido eliminar la guía: no eres el creador de la guía.')) );
+            }
+        }
+        return $this->indexAction( array('error' => array('No se ha podido eliminar la guía: la guía no existe.')) );
+    }
+
     public function newAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();

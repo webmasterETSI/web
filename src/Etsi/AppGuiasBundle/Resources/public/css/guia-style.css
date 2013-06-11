@@ -418,6 +418,12 @@ span.error{
 	margin-bottom: 20px!important;
 }
 
+#eliminar-guia {
+	float: right;
+	font-size: 18px!important;
+	padding: 4px 15px!important;
+}
+
 #titulo-cabecera form input[type="submit"],
 #siguiente,
 #anterior,
@@ -455,6 +461,9 @@ span.error{
 }
 
 #titulo-cabecera form input[type="submit"]:hover,
+#siguiente:hover,
+#anterior:hover,
+#guardar:hover,
 #steps form button:hover {
 	background:#b3b3b3;
 	color:#ffffff;
@@ -549,6 +558,25 @@ td, th {
 td .margenes {
 	margin: auto 25px;
 	text-align: right;
+}
+
+.eliminar-guia {
+	color: #ffffff;
+	display: block;
+	cursor:pointer;
+	margin: 0px auto;
+	padding: 7px 15px;
+	text-shadow: 0 1px 1px #777;
+	font-weight:bold;
+	font-family:"Century Gothic", Helvetica, sans-serif;
+	box-shadow:0px 0px 3px #aaa;
+	background:#cbcbcb;
+}
+
+.eliminar-guia:hover {
+	background:#b3b3b3;
+	color:#ffffff;
+	text-shadow: 0 1px 1px #777;
 }
 
 table .margin {

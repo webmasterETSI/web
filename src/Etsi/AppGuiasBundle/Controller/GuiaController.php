@@ -262,7 +262,7 @@ class GuiaController extends Controller
                 $grado = $asignaturaGrado->getGrado();
                 $competenciasDeGrado = $grado->getCompetenciasDeGrado();
                 foreach($competenciasDeGrado as $competencia)
-                    $competencias[] = $competencia;
+                    $competencias[$competencia->getCodigo()] = $competencia;
             }
 
             return $this->render(

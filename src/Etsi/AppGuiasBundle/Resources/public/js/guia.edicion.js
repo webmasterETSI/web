@@ -321,7 +321,7 @@ $(function(){
 		if(i==0 && $('#creditos-totales').hasClass('error')) {
 			$('<h4></h4>')
 			.addClass('alert_warning')
-			.text('Los créditos de la asignatura no coincide con la suma total de los créditos indicados')
+			.text('Los créditos de la asignatura no coinciden con la suma total de los créditos indicados')
 			.appendTo('#alert-block')
 			.delay(4000).hide('slow');
 		}
@@ -342,6 +342,10 @@ $(function(){
 
 	$('#siguiente').click(function() {
 		var currentSelected = $('.navigation .selected');
+		if(currentSelected.index()==0 && $('#creditos-totales').hasClass('error')) {
+			alert('Los créditos de la asignatura no coinciden con la suma total de los créditos indicados')
+			return;
+		}
 		guardarPaso(currentSelected.index());
 
 		if(currentSelected.index()==10) {

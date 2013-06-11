@@ -108,13 +108,14 @@
 			</tr>
 			{% for p in guia.profesores %}
 				<tr>
-					<td class="center" width="25%">{{ p.nombre|default('') }}</td>
+					<td class="center" width="25%">{% if p==guia.asignatura.coordinador %}*{% endif %}{{ p.nombre|default('') }}</td>
 					<td class="center" width="25%">{{ p.email|default('') }}</td>
 					<td class="center" width="25%">{{ p.tlf|default('') }}</td>
 					<td class="center" width="25%">{{ p.despacho|default('') }}</td>
 				</tr>
 			{% endfor %}
 		</table>
+		<p style="color: #555555; text-align:right;">*Profesor coordinador de la asignatura</p>
 
 		<p style="margin-top:25px;"><a style="color: #555555;" href="http://www.uhu.es/etsi/horarios.php">Consultar los horarios de la asignatura</a></p>
 	</page>

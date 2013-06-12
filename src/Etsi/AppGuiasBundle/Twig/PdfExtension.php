@@ -13,8 +13,12 @@ class PdfExtension extends \Twig_Extension
 
     public function pdfFilter($texto)
     {
-        $search  = array(
+        $simple_search  = array(
             '&nbsp;',
+            '&ensp;',
+            '&ldquo;',
+            '&rdquo;',
+            '&quot;',
             '<tbody>',
             '</tbody>',
             '&aacute;',
@@ -29,10 +33,16 @@ class PdfExtension extends \Twig_Extension
             '&Uacute;',
             '&ntilde;',
             '&Ntilde;',
+            '&ordf;',
+            '&acute;',
         );
 
-        $replace = array(
-            '',
+        $simple_replace = array(
+            ' ',
+            ' ',
+            '"',
+            '"',
+            '"',
             '',
             '',
             'á',
@@ -47,9 +57,19 @@ class PdfExtension extends \Twig_Extension
             'Ú',
             'ñ',
             'Ñ',
+            'ª',
+            '´',
         );
 
-        return str_replace($search, $replace, $texto);
+        $regex_search = array(
+            '/<ol start="(\d+)">/',
+        );
+
+        $regex_replace = array(
+            '<ol>',
+        );
+
+        return preg_replace($regex_search, $regex_replace, str_replace($simple_search, $simple_replace, $texto));
     }
 
     public function getName()

@@ -509,7 +509,7 @@ span.error{
 	margin-left: 0px!important;
 }
 
-#steps ul {
+#steps ul, #steps ol {
 	margin: 5px;
 	margin-left: 20px;
 }

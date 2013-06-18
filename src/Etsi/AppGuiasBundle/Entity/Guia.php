@@ -305,7 +305,8 @@ class Guia
      */
     public function setEstado($estado)
     {
-        $this->estado = $estado;
+        if($estado>=0 && $estado<=3)
+            $this->estado = $estado;
     
         return $this;
     }

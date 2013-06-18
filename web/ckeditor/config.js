@@ -25,4 +25,6 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeButtons = 'Underline,Subscript,Superscript,Strike,Anchor,Blockquote';
 	config.format_tags = 'p;h1;h2;h3;h4';
 	config.removeDialogTabs = 'image:advanced;link:advanced;link:target;table:advanced';
+	config.removePlugins = 'PasteFromWord';
+	config.forcePasteAsPlainText = true;
 };

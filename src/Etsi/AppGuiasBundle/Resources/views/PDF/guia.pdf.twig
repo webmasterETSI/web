@@ -64,12 +64,11 @@
 			</tr>
 			<tr>
 				<td class="bold color3" width="25%">Créditos L.R.U.</td>
-				<td class="center" width="25%">{{ guia.creditosTeoricos + guia.creditosPracticosAula + guia.creditosPracticosInformatica + guia.creditosPracticosLaboratorio + guia.creditosPracticosCampo }}</td>
-				<td class="center" width="25%">{{ guia.creditosTeoricos }}</td>
-				<td class="center" width="25%">{{ guia.creditosPracticosAula + guia.creditosPracticosInformatica + guia.creditosPracticosLaboratorio + guia.creditosPracticosCampo  }}</td>
+				<td class="center" width="25%">{{ (guia.creditosTeoricos + guia.creditosPracticosAula + guia.creditosPracticosInformatica + guia.creditosPracticosLaboratorio + guia.creditosPracticosCampo)|number_format(2, ',', '') }}</td>
+				<td class="center" width="25%">{{ guia.creditosTeoricos|number_format(2, ',', '') }}</td>
+				<td class="center" width="25%">{{ (guia.creditosPracticosAula + guia.creditosPracticosInformatica + guia.creditosPracticosLaboratorio + guia.creditosPracticosCampo)|number_format(2, ',', '')  }}</td>
 			</tr>
 		</table>
-
 
 		<table>
 			<tr>
@@ -182,7 +181,70 @@
 		<!-- PUNTO 5 -->
 		<table>
 			<tr><td class="bold color2" style="margin-top:25px;">5. Metodología (en horas de trabajo del estudiante):</td></tr>
-			<tr><td></td></tr>
+			<tr>
+				<td>
+					<table>
+						<tr>
+							<td width="520px" class="color3"></td>
+							<td class="color3 center">Presenciales</td>
+						</tr>
+						<tr>
+							<td width="520px" style="padding-right:5px; margin:0;" class="color3 right">Horas de clases de teoría y grupos grandes</td>
+							<td class="center">{{ guia.creditosTeoricos*10 }}</td>
+						</tr>
+						<tr>
+							<td style="margin:0; padding:0;" width="520px">
+								<table>
+									<tr>
+										<td style="margin:0; padding-top:50px; padding-right:5px;" class="color3 right">
+											Horas de clases prácticas<br />y grupos reducidos
+										</td>
+										<td style="padding:0;">
+											<table>
+												<tr><td style="padding-right:5px;" class="color3 right">Aula</td></tr>
+												<tr><td style="padding-right:5px;" class="color3 right">Sala de informática</td></tr>
+												<tr><td style="padding-right:6px;" class="color3 right">Laboratorio</td></tr>
+												<tr><td style="padding-right:6px;" class="color3 right">Prácticas de campo</td></tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+							<td style="padding:0;">
+								<table>
+									<tr>
+										<td style="padding:0;">
+											<table>
+												<tr><td class="center">{{ (guia.creditosPracticosAula*10)|number_format(1, ',', '') }}</td></tr>
+												<tr><td class="center">{{ (guia.creditosPracticosInformatica*10)|number_format(1, ',', '') }}</td></tr>
+												<tr><td class="center">{{ (guia.creditosPracticosLaboratorio*10)|number_format(1, ',', '') }}</td></tr>
+												<tr><td class="center">{{ (guia.creditosPracticosCampo*10)|number_format(1, ',', '') }}</td></tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td width="520px" style="padding-right:5px; margin:0;" class="bold color3 right">Total de horas presenciales: </td>
+							<td class="center">{{ (guia.asignatura.creditos*10)|number_format(1, ',', '') }}</td>
+						</tr>
+						<tr>
+							<td width="520px" style="padding-right:5px; margin:0;" class="color3"></td>
+							<td  class="color3 center">No presenciales</td>
+						</tr>
+						<tr>
+							<td width="520px" style="padding-right:5px; margin:0;" class="bold color3 right">Total de horas no presenciales: </td>
+							<td class="center">{{ (guia.asignatura.creditos*25)|number_format(1, ',', '') }}</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h3 class="center">Trabajo total del estudiante: {{ (guia.asignatura.creditos*35)|number_format(1, ',', '') }} horas.</h3>
+				</td>
+			</tr>
 		</table>
 
 		<!-- PUNTO 6 -->

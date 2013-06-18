@@ -106,11 +106,11 @@ GUIA.testSemanas = function() {
 		pl: parseFloat($('#creditosPracticosLaboratorio').val().replace(',', '.'))*10
 	};
 
-	$('#total-aula').text(totales.pa);
-	$('#total-campo').text(totales.pc);
-	$('#total-clases').text(totales.t);
-	$('#total-informatica').text(totales.pi);
-	$('#total-laboratorio').text(totales.pl);
+	$('#total-aula').text(totales.pa.toFixed(2));
+	$('#total-campo').text(totales.pc.toFixed(2));
+	$('#total-clases').text(totales.t.toFixed(2));
+	$('#total-informatica').text(totales.pi.toFixed(2));
+	$('#total-laboratorio').text(totales.pl.toFixed(2));
 
 	var registrados = [0, 0, 0, 0, 0];
 	
@@ -179,11 +179,11 @@ GUIA.testCreditos = function(elemento) {
 	$(elemento).val($(elemento).val().replace(',', '.'));
 	var total = parseFloat($(elemento).val());
 	$(elemento).siblings('input').each(function() {
-		total += parseFloat($(this).val());
+		total += parseFloat($(this).val()).toFixed(2);
 	});
 
 	var contenedor = $(elemento).closest('.contenedor');
-	if( total != parseFloat($('#creditos-totales').text()) ) {
+	if( parseFloat(total).toFixed(2) != parseFloat($('#creditos-totales').text()) ) {
 		contenedor.addClass('empty');
 		$('#creditos-totales').addClass('error');
 	} else {

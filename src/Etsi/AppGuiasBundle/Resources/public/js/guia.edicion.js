@@ -179,11 +179,12 @@ GUIA.testCreditos = function(elemento) {
 	$(elemento).val($(elemento).val().replace(',', '.'));
 	var total = parseFloat($(elemento).val());
 	$(elemento).siblings('input').each(function() {
-		total += parseFloat($(this).val()).toFixed(2);
+		total += parseFloat($(this).val());
 	});
+	total =Math.round(total*100)/100;
 
 	var contenedor = $(elemento).closest('.contenedor');
-	if( parseFloat(total).toFixed(2) != parseFloat($('#creditos-totales').text()) ) {
+	if( parseFloat(total).toFixed(2) != parseFloat($('#creditos-totales').text()).toFixed(2) ) {
 		contenedor.addClass('empty');
 		$('#creditos-totales').addClass('error');
 	} else {
@@ -343,8 +344,13 @@ $(function(){
 	$('#siguiente').click(function() {
 		var currentSelected = $('.navigation .selected');
 		if(currentSelected.index()==0 && $('#creditos-totales').hasClass('error')) {
-			alert('Los créditos de la asignatura no coinciden con la suma total de los créditos indicados')
-			return;
+			// alert('Los créditos de la asignatura no coinciden con la suma total de los créditos indicados')
+			// return;
+			$('<h4></h4>')
+			.addClass('alert_warning')
+			.text('Los créditos de la asignatura no coinciden con la suma total de los créditos indicados')
+			.appendTo('#alert-block')
+			.delay(4000).hide('slow');
 		}
 		guardarPaso(currentSelected.index());
 

@@ -33,6 +33,10 @@ class PdfExtension extends \Twig_Extension
             '&igrave;',
             '&ograve;',
             '&ugrave;',
+            '&auml;',
+            '&euml;',
+            '&iuml;',
+            '&ouml;',
             '&uuml;',
             '&Aacute;',
             '&Eacute;',
@@ -44,6 +48,10 @@ class PdfExtension extends \Twig_Extension
             '&Igrave;',
             '&Ograve;',
             '&Ugrave;',
+            '&Auml;',
+            '&Euml;',
+            '&Iuml;',
+            '&Ouml;',
             '&Uuml;',
             '&ntilde;',
             '&Ntilde;',
@@ -54,6 +62,10 @@ class PdfExtension extends \Twig_Extension
             '&Oslash;',
             '&iquest;',
             '&middot;',
+            '&laquo;',
+            '&raquo;',
+            '&ccedil;',
+            '&Ccedil;',
         );
 
         $simple_replace = array(
@@ -76,6 +88,10 @@ class PdfExtension extends \Twig_Extension
             'ì',
             'ò',
             'ù',
+            'ä',
+            'ë',
+            'ï',
+            'ö',
             'ü',
             'Á',
             'É',
@@ -87,6 +103,10 @@ class PdfExtension extends \Twig_Extension
             'Ì',
             'Ò',
             'Ù',
+            'Ä',
+            'Ë',
+            'Ï',
+            'Ö',
             'Ü',
             'ñ',
             'Ñ',
@@ -97,14 +117,20 @@ class PdfExtension extends \Twig_Extension
             'Ø',
             '¿',
             '·',
+            '«',
+            '»',
+            'ç',
+            'Ç',
         );
 
         $regex_search = array(
             '/<ol start="(\d+)">/',
+            '/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u',
         );
 
         $regex_replace = array(
             '<ol>',
+            ' ',
         );
 
         return preg_replace($regex_search, $regex_replace, str_replace($simple_search, $simple_replace, $texto));

@@ -116,17 +116,36 @@ GUIA.testSemanas = function() {
 	
 	var ultimaFila = $('#tabla-semanas tbody tr:last-child');
 
-	//De la ultima fila, cada elemento final por columnas
-	var ultimasFilas= new Array(5);
-	for (var i=0; i<5; i++)
-		ultimasFilas[i]=ultimaFila.children('td:eq('+(i+1)+')').children('.mini');
-
 	$('#tabla-semanas tbody tr').each(function() {
 		$(this).children('td').children('.mini').each(function(index) {
 			if(isNaN($(this).val().replace(',', '.'))) $(this).val(0);
 			registrados[index] += parseFloat($(this).val().replace(',', '.')) || 0;
 		});
 	});
+
+	var errores = false;
+	function setError(index, er) {
+		if(er) {
+			errores = true;
+			$('#tabla-semanas tfoot tr td').eq(index).addClass('error');
+		} else 
+			$('#tabla-semanas tfoot tr td').eq(index).removeClass('error');
+	}
+
+	setError(1, registrados[0].toFixed(2)!=totales.t.toFixed(2));
+	setError(2, registrados[1].toFixed(2)!=totales.pa.toFixed(2));
+	setError(3, registrados[2].toFixed(2)!=totales.pi.toFixed(2));
+	setError(4, registrados[3].toFixed(2)!=totales.pl.toFixed(2));
+	setError(5, registrados[4].toFixed(2)!=totales.pc.toFixed(2));
+
+	var contenedor = $('#tabla-semanas').closest('.contenedor');
+	if(errores) contenedor.addClass('empty');
+	else contenedor.removeClass('empty');
+/*
+	//De la ultima fila, cada elemento final por columnas
+	var ultimasFilas = new Array(5);
+	for (var i=0; i<5; i++)
+		ultimasFilas[i]=ultimaFila.children('td:eq('+(i+1)+')').children('.mini');
 
 	//Resta valor de la última fila para que no afecte en la suma
 	for (var i=0; i<5; i++)
@@ -139,7 +158,7 @@ GUIA.testSemanas = function() {
 	ultimasFilas[2].val(parseFloat((totales.pi)-(registrados[2])));
 	ultimasFilas[3].val(parseFloat((totales.pl)-(registrados[3])));
 	ultimasFilas[4].val(parseFloat((totales.pc)-(registrados[4])));
-
+*/
 	$('.navigation > ul').miniaturiza('refresh');
 };
 

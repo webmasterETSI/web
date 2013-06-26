@@ -82,6 +82,9 @@ class PdfExtension extends \Twig_Extension
             '&frac14;',
             '&frac12;',
             '&frac34;',
+            '&deg;',
+            '&reg;',
+            '&uml;',
         );
 
         $simple_replace = array(
@@ -153,6 +156,9 @@ class PdfExtension extends \Twig_Extension
             '¼',
             '½',
             '¾',
+            '°',
+            '®',
+            '¨',
         );
 
         $regex_search = array(

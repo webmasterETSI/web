@@ -121,7 +121,7 @@
 					</span>
 					<div class="clear"></div>
 
-					<label>Areas</label>
+					<label>Áreas</label>
 					<span class="ancho">
 						{%- for area in guia.asignatura.areas %}
 							{%- if not loop.first %}, {% endif %}{{ area.nombre -}}
@@ -138,7 +138,7 @@
 					<div class="clear" style="margin-bottom: 10px;"></div>
 
 					<div class="clear"></div>
-					<label for="nombreI" class="peque">Nombre en ingles</label>
+					<label for="nombreI" class="peque">Nombre en inglés</label>
 					<input class="long editor-minimo" id="nombreI" name="nombreI" value="{{ guia.asignatura.nombreI }}" data-intro="Al ir completando la información de la guía, los campos modificados se marcan en rojo, esto indica que están pendientes de ser guardados. <b>Una vez guardados los cambios, los campos se vuelven verdes durante un instante y se recibe un aviso. Dicho proceso es automático y se realiza periodicamente.</b>" data-step="7"/>
 				</div>
 
@@ -169,19 +169,19 @@
 						<div id="creditos-totales" class="texto-grande">{{ guia.asignatura.creditos }}</div>
 					</div>
 
-					<label for="creditosTeoricos" class="natural">Creditos teóricos</label>
+					<label for="creditosTeoricos" class="natural">Créditos teóricos</label>
 					<input class="editor-minimo mini" id="creditosTeoricos" name="creditosTeoricos" value="{{ guia.creditosTeoricos }}" />
 
-					<label for="creditosPracticosAula" class="natural">Creditos prácticos (aula)</label>
+					<label for="creditosPracticosAula" class="natural">Créditos prácticos (aula)</label>
 					<input class="editor-minimo mini" id="creditosPracticosAula" name="creditosPracticosAula" value="{{ guia.creditosPracticosAula }}" />
 
-					<label for="creditosPracticosLaboratorio" class="natural">Creditos prácticos (laboratorio)</label>
+					<label for="creditosPracticosLaboratorio" class="natural">Créditos prácticos (laboratorio)</label>
 					<input class="editor-minimo mini" id="creditosPracticosLaboratorio" name="creditosPracticosLaboratorio" value="{{ guia.creditosPracticosLaboratorio }}" />
 
-					<label for="creditosPracticosCampo" class="natural">Creditos prácticos (trabajo de campo)</label>
+					<label for="creditosPracticosCampo" class="natural">Créditos prácticos (trabajo de campo)</label>
 					<input class="editor-minimo mini" id="creditosPracticosCampo" name="creditosPracticosCampo" value="{{ guia.creditosPracticosCampo }}" />
 
-					<label for="creditosPracticosInformatica" class="natural">Creditos prácticos (aula de informática)</label>
+					<label for="creditosPracticosInformatica" class="natural">Créditos prácticos (aula de informática)</label>
 					<input class="editor-minimo mini" id="creditosPracticosInformatica" name="creditosPracticosInformatica" value="{{ guia.creditosPracticosInformatica }}" />
 				</div>
 			</fieldset>
@@ -308,7 +308,7 @@
 			</fieldset>
 
 			<fieldset class="step">
-				<legend>Paso#9: Sistemas de evaluación e la adquisición de competencias</legend>
+				<legend>Paso#9: Sistemas de evaluación de la adquisición de competencias</legend>
 				<div class="contenedor{% if not guia.datosEspecificos_9_1_1 %} empty{% endif %}">
 					<div class="in-titulo">Técnicas de evaluación utilizadas</div>
 					<div id="datosEspecificos_9_1_1" class="editor-check-mask">

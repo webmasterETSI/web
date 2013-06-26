@@ -141,24 +141,7 @@ GUIA.testSemanas = function() {
 	var contenedor = $('#tabla-semanas').closest('.contenedor');
 	if(errores) contenedor.addClass('empty');
 	else contenedor.removeClass('empty');
-/*
-	//De la ultima fila, cada elemento final por columnas
-	var ultimasFilas = new Array(5);
-	for (var i=0; i<5; i++)
-		ultimasFilas[i]=ultimaFila.children('td:eq('+(i+1)+')').children('.mini');
 
-	//Resta valor de la última fila para que no afecte en la suma
-	for (var i=0; i<5; i++)
-		registrados[i] -= parseFloat(ultimasFilas[i].val()) || 0;
-
-	//Por cada elemento final de cada fila, cálculo del total de
-	// lo que deberia de dar menos suma de todas las filas
-	ultimasFilas[0].val(parseFloat((totales.t)-(registrados[0])));
-	ultimasFilas[1].val(parseFloat((totales.pa)-(registrados[1])));
-	ultimasFilas[2].val(parseFloat((totales.pi)-(registrados[2])));
-	ultimasFilas[3].val(parseFloat((totales.pl)-(registrados[3])));
-	ultimasFilas[4].val(parseFloat((totales.pc)-(registrados[4])));
-*/
 	$('.navigation > ul').miniaturiza('refresh');
 };
 
@@ -363,8 +346,6 @@ $(function(){
 	$('#siguiente').click(function() {
 		var currentSelected = $('.navigation .selected');
 		if(currentSelected.index()==0 && $('#creditos-totales').hasClass('error')) {
-			// alert('Los créditos de la asignatura no coinciden con la suma total de los créditos indicados')
-			// return;
 			$('<h4></h4>')
 			.addClass('alert_warning')
 			.text('Los créditos de la asignatura no coinciden con la suma total de los créditos indicados')
@@ -394,7 +375,7 @@ $(function(){
 	});
 
 	// Configuración de eventos de teclado
-	$('.editor-semana').keydown(function(e) {
+	$('.editor-semana').keydown(function(event) {
 		var elem = $(this);
 		var td = elem.parent();
 		var tr = td.parent();
@@ -403,11 +384,11 @@ $(function(){
 			case 38: tr.prev().find('.editor-semana').eq(td.index()-1).focus(); break; //ar
 			case 39: td.next().children('.editor-semana').focus(); break; //de
 			case 40: tr.next().find('.editor-semana').eq(td.index()-1).focus(); break; //ab
-			case 13: e.preventDefault();
+			case 13: event.preventDefault();
 		}
 	});
 
-	$(document).keydown(function(e) {
+	$(document).keydown(function(event) {
 		var focusSecuence = {
 			'creditosPracticosInformatica': '#nombreI',
 			'datosEspecificos_1_2': '#datosEspecificos_1_1',
@@ -428,12 +409,10 @@ $(function(){
 		var id = $('*:focus').attr('id')||$('*:focus').closest('.chzn-container').prev().attr('name');
 
 		if(event.which == 13 || (event.which == 9 && focusSecuence[id]) )
-			e.preventDefault();
+			event.preventDefault();
 		
 		if(event.which == 9 && focusSecuence[id]) 
 			$(focusSecuence[id]).focus();
-
-		console.log(id);
 	});
 
 	// Configuración de tutorial

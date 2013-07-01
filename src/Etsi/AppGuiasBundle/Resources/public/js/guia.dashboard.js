@@ -1,24 +1,74 @@
 $(function(){
-	$('#filtro-enviar').click(    function() { oTable.fnFilter( '1:', 1 ); return false; });
-	$('#filtro-fallos').click(    function() { oTable.fnFilter( '4:', 1 ); return false; });
-	$('#filtro-aprobar').click(   function() { oTable.fnFilter( '2:', 1 ); return false; });
-	$('#filtro-publicada').click( function() { oTable.fnFilter( '3:', 1 ); return false; });
-
-	$('#filtro-todo').click( function() {
-		var oSettings = oTable.fnSettings();
-		for(iCol = 0; iCol < oSettings.aoPreSearchCols.length; iCol++)
-			oSettings.aoPreSearchCols[ iCol ].sSearch = '';
-
-		oTable.fnDraw();
-
-		return false; 
-	});
-
-	$('.eliminar-guia').click(function() {
-		if(confirm('Estas a punto de eliminar una guía. Esta acción no es reversible.\n¿Estas seguro?')) {
-			document.location.href = $(this).attr('rel');
+	$('#btn-pdfs').click(function(event) {
+		event.preventDefault();
+		var select = oTable._('tr', {"filter":"applied"});
+		for(var i in select) {
+			if(select[i][1] != 0) {
+				var dir = $(select[i][0]).attr('href')+'/pdf';
+				window.open(dir);
+			}
 		}
 	});
+
+	$('#btn-reset').click(function(event) {
+		event.preventDefault();
+
+		$('#filtro-curso input[type="checkbox"]').each(function(){ this.checked = true; });
+		$('#filtro-estado input[type="checkbox"]').each(function(){ this.checked = true; });
+		$('#filtro-datos input[type="checkbox"]').each(function(){ this.checked = true; });
+		
+		$('#filtro-grado').val(-1).trigger('liszt:updated');
+		$('#filtro-depto').val(-1).trigger('liszt:updated');
+
+		oTable.fnDraw();
+	});
+
+	$.fn.dataTableExt.afnFiltering.push(
+		function(oSettings, aData, iDataIndex) {
+			var cursos = [];
+			var estados = [];
+			var cuatrimestres = [];
+
+			var grado = $('#filtro-grado :selected');
+			var depto = $('#filtro-depto :selected');
+
+			$('#filtro-curso input[type="checkbox"]').each(function(index) {
+				if($(this).is(':checked')) cursos.push(index+1);
+			});
+
+			$('#filtro-estado input[type="checkbox"]').each(function(index) {
+				if($(this).is(':checked')) estados.push(index);
+			});
+
+			$('#filtro-datos input[type="checkbox"]').each(function(index) {
+				if($(this).is(':checked')) cuatrimestres.push(index+1);
+			});
+
+			var curso = parseInt(aData[4]);
+			var estado = parseInt(aData[1]);
+			var cuatrimestre = parseInt(aData[5]);
+
+			if(cursos.indexOf(curso)===-1) return false;
+			if(estados.indexOf(estado)===-1) return false;
+			if(cuatrimestres.indexOf(cuatrimestre)===-1) return false;
+
+
+			if(grado.val()>-1)
+				if(aData[3].indexOf(grado.text())===-1)return false;
+
+			if(depto.val()>-1)
+				if(aData[7].indexOf(depto.text())===-1)return false;
+
+			return true;
+		}
+	);
+
+	$('#filtro-curso input[type="checkbox"]').change(function() { oTable.fnDraw(); });
+	$('#filtro-estado input[type="checkbox"]').change(function() { oTable.fnDraw(); });
+	$('#filtro-datos input[type="checkbox"]').change(function() { oTable.fnDraw(); });
+	$('#filtro-datos select').chosen().change(function() { oTable.fnDraw(); });
+
+	$('select[name="asignatura"]').chosen();
 
 	var tutorial = introJs().setOptions({
 		'skipLabel': 'Salir del tutorial',
@@ -49,8 +99,6 @@ $(function(){
 		}
 	}
 
-	$('select').chosen();
-
 	$('#errores').dataTable({ oLanguage: idioma });
 	$('#guias').dataTable({
 		aaSorting: [[ 2, "asc" ]],
@@ -61,5 +109,4 @@ $(function(){
 		aaSorting: [[ 3, "desc" ],[ 2, "desc" ]],
 		oLanguage: idioma
 	});
-	oTable.fnFilter( '1:', 1 );
 });

@@ -324,10 +324,13 @@ class GuiaController extends Controller
 
             $content = $facade->render($documentXml, $stylesheetXml);
 
-            $curso = $guia->getCurso();
+            $asignatura = $guia->getAsignatura();
+            $curso = $asignatura->getCurso();
+            $nombre = Herramientas::slugify($asignatura->getNombre());
+
             $header = array(
                 'content-type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="guia-'.$curso.'.'.($curso+1).'.pdf"',
+                'Content-Disposition' => 'attachment; filename="'.$curso.'.'.$nombre.'.pdf"',
             );
 
             return new Response($content, 200, $header);
@@ -363,6 +366,8 @@ class GuiaController extends Controller
         $profesores = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findAll();
 
         $guias = $em->getRepository('EtsiAppGuiasBundle:Guia')->findAll();
+        $areas = $em->getRepository('EtsiAppGuiasBundle:Area')->findAll();
+        $grados = $em->getRepository('EtsiAppGuiasBundle:Grado')->findAll();
 
 
         $qbGuias  = $em->createQueryBuilder();
@@ -392,8 +397,10 @@ class GuiaController extends Controller
         return $this->render(
             'EtsiAppGuiasBundle::dashboard.html.twig',
             array(
-                'entity' => $entity,
                 'guias' => $guias,
+                'areas' => $areas,
+                'entity' => $entity,
+                'grados' => $grados,
                 'profesores' => $profesores,
                 'asignaturas' => $asignaturas,
                 'messages' => $mensajes

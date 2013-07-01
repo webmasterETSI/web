@@ -63,14 +63,100 @@
 					<div class="in-titulo">Todas las guías</div>
 
 					<div class="clear"></div>
+					<div class="float-legend" id="filtro-estado">
+						Filtro según estado
+						<div>
+							<input type="checkbox" checked>
+							<div class="etiqueta">No creadas</div>
+						</div>
+						<div>
+							<input type="checkbox" checked>
+							<div class="etiqueta">Pendientes de envío</div>
+						</div>
+						<div>
+							<input type="checkbox" checked>
+							<div class="etiqueta">Pendientes de aprobación</div>
+						</div>
+						<div>
+							<input type="checkbox" checked>
+							<div class="etiqueta">Publicadas</div>
+						</div>
+						<div>
+							<input type="checkbox" checked>
+							<div class="etiqueta">Publicadas con fallos</div>
+						</div>
+					</div>
+					<div class="float-legend" id="filtro-curso">
+						Filtros según curso
+						<div>
+							<input type="checkbox" checked>
+							<div class="etiqueta">Primero</div>
+						</div>
+						<div>
+							<input type="checkbox" checked>
+							<div class="etiqueta">Segundo</div>
+						</div>
+						<div>
+							<input type="checkbox" checked>
+							<div class="etiqueta">Tercero</div>
+						</div>
+						<div>
+							<input type="checkbox" checked>
+							<div class="etiqueta">Cuarto</div>
+						</div>
+					</div>
+					<div class="float-legend" id="filtro-datos">
+						Otros filtros
+						<div>
+							<input type="checkbox" checked>
+							<div class="etiqueta">Primer cuatrimestre</div>
+						</div>
+						<div>
+							<input type="checkbox" checked>
+							<div class="etiqueta">Segundo cuatrimestre</div>
+						</div>
+						<div>
+							<input type="checkbox" checked>
+							<div class="etiqueta">Anual</div>
+						</div>
+						<div class="clear" style="margin-top: 15px;"></div>
+						<p>
+							<select id="filtro-grado">
+								<option value="-1">Todos los grados</option>
+								{%- for g in grados %}
+								<option value="{{ g.id }}">
+									{%- if g.gradoPadre -%}
+									{{- g.gradoPadre.nombre }}: itinerario de {% endif -%}
+									{{- g.nombre -}}
+								</option>
+								{% endfor -%}
+							</select>
+
+							{% set deptos = [] %}
+							<select id="filtro-depto">
+								<option value="-1">Todos los departamentos</option>
+								{% for a in areas %}
+								{% if a.departamento not in deptos %}
+								<option value="1">{{ a.departamento }}</option>
+								{% set deptos = deptos|merge([a.departamento]) %}
+								{% endif %}
+								{% endfor %}
+							</select>
+						</p>
+					</div>
+
+					<div class="clear" style="padding-top:50px;"></div>
 					<table id="tabla-todo"> 
 						<thead> 
 							<tr> 
 								<th>Asignatura</th>
-								<th>Estado</th>
-								<th>Fecha de modificación</th>
+								<th>Est.</th>
+								<th>F. Mod.</th>
+								<th>Grado</th>
 								<th>Curso</th>
+								<th>Cuat.</th>
 								<th>Creador</th>
+								<th>Departamento</th>
 							</tr> 
 						</thead> 
 						<tbody>
@@ -78,29 +164,66 @@
 							<tr>
 								<td>
 									<a href="{{ path('etsi_app_guia_guia_pasos', {'id': e.id}) }}">
-										{{- e.asignatura.nombre }} &lt;
+										{{- e.asignatura.nombre }}:<br />
 										{%- for enGrados in e.asignatura.enGrados%}
-										{%- if not loop.first %}, {% endif %}{{ enGrados.codigo -}}
-										{% endfor %}&gt;
+										{%- if not loop.first %}<br />{% endif %}&lt;{{ enGrados.codigo -}}&gt;{% endfor -%}
 									</a>
 								</td>
-								<td>{{ estados[e.estado] }} </td>
-								<td>{{ e.fechaDeModificacion|date("d/m/Y H:i") }}</td>
-								<td>{{ e.curso }} - {{ e.curso+1 }}</td>
+								<td>{{ e.estado+1 }}</td>
+								<td>{{ e.fechaDeModificacion|date("d/m/y") }}<br />{{ e.fechaDeModificacion|date("H:i") }}</td>
+								<td>
+									{%- for enGrados in e.asignatura.enGrados%}
+									{%- if not loop.first %}<br />{% endif -%}
+									{%- if enGrados.grado.gradoPadre -%}
+									{{- enGrados.grado.gradoPadre.nombre }}: itinerario de {% endif -%}
+									{{- enGrados.grado.nombre -}}
+									{%- endfor %}
+								</td>
+								<td>{{ e.asignatura.curso }}</td>
+								<td>{{ e.asignatura.cuatrimestre }}</td>
 								<td>{{ e.creador.user|default('') }}</td>
+								<td>
+									{%- for area in e.asignatura.areas%}
+										{%- if not loop.first %}<br />{% endif %}{{ area.departamento -}}
+									{% endfor %}
+								</td>
+							</tr>
+							{% endfor %}
+
+							{% for a in asignaturas %}
+							<tr>
+								<td>
+									{{- a.nombre }}:<br />
+									{%- for enGrados in a.enGrados%}
+									{%- if not loop.first %}<br />{% endif %}&lt;{{ enGrados.codigo -}}&gt;{% endfor -%}
+								</td>
+								<td>0</td>
+								<td></td>
+								<td>
+									{%- for enGrados in a.enGrados%}
+									{%- if not loop.first %}<br />{% endif -%}
+									{%- if enGrados.grado.gradoPadre -%}
+									{{ enGrados.grado.gradoPadre.nombre }}: itinerario de {% endif -%}
+									{{ enGrados.grado.nombre }}
+									{%- endfor %}
+								</td>
+								<td>{{ a.curso }}</td>
+								<td>{{ a.cuatrimestre }}</td>
+								<td></td>
+								<td>
+									{%- for area in a.areas%}
+										{%- if not loop.first %}<br />{% endif %}{{ area.departamento -}}
+									{% endfor %}
+								</td>
 							</tr>
 							{% endfor %}
 						</tbody> 
 					</table>
 
-					<div style="margin-top: 50px; width: 100%"></div>
-					<label>Filtros según estado</label>
-					<button class="boton-chico" id="filtro-enviar" data-intro="Con ese filtro puedes visualizar las guías que están siendo creadas." data-step="9">Pendientes de envío</button>
-					<button class="boton-chico" id="filtro-aprobar" data-intro="Con ese filtro puedes visualizar las guías que <b>esperan tu aprobación para ser publicadas</b>." data-step="9">Pendientes de aprobación</button>
-					<button class="boton-chico" id="filtro-publicada" data-intro="Con ese filtro puedes visualizar las guías publicadas." data-step="9">Publicadas</button>
-					<button class="boton-chico" id="filtro-fallos" data-intro="Con ese filtro puedes visualizar las guías publicadas pero que, según se ha notificado, poseen algún tipo de error." data-step="9">Publicadas con fallos</button>
-					<button class="boton-chico" id="filtro-todo" data-intro="Con ese filtro puedes verás todas las guías juntas..." data-step="9">Todas las guías</button>
-					<div class="clear"></div>
+					<p style="clear:both; padding-top:20px;">
+						<button class="boton-chico" id="btn-reset" style="margin-right:350px;">RESET</button>
+						<button class="boton-chico" id="btn-pdfs">DESCARGAR PDFs</button>
+					</p>
 				</div>
 			</fieldset>
 		</form>

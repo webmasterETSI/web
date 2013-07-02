@@ -352,6 +352,10 @@ span.error{
 	margin-bottom: 4px;
 }
 
+.set-estado {
+	float: none!important;
+}
+
 #steps form .float-legend input[type=checkbox]{
 	width: 20px;
 	height: 20px;

@@ -1,3 +1,5 @@
+GUIA = {};
+
 $(function(){
 	$('#btn-pdfs').click(function(event) {
 		event.preventDefault();
@@ -45,7 +47,7 @@ $(function(){
 			});
 
 			var curso = parseInt(aData[4]);
-			var estado = parseInt(aData[1]);
+			var estado = parseInt($(aData[1]).children('option:selected').val());
 			var cuatrimestre = parseInt(aData[5]);
 
 			if(cursos.indexOf(curso)===-1) return false;
@@ -62,6 +64,28 @@ $(function(){
 			return true;
 		}
 	);
+
+	$('.set-estado').change(function() {
+		var estado = parseInt($(this).children('option:selected').val())-1;
+		var id = $(this).attr('data-guia');
+
+		if(estado>0 && estado<5) {
+			$.ajax({
+				type:'POST',
+				url: GUIA.dashboard+'guia/'+id+'/update',
+				data: JSON.stringify({ estado: estado }),
+				contentType : 'application/json',
+				cache: false,
+
+				error: function(data) {
+					alert('No se han podido guardar los cambios');
+				},
+				success: function(data) {
+					//pendiente
+				}
+			})
+		}
+	});
 
 	$('#filtro-curso input[type="checkbox"]').change(function() { oTable.fnDraw(); });
 	$('#filtro-estado input[type="checkbox"]').change(function() { oTable.fnDraw(); });

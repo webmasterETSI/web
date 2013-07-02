@@ -48,6 +48,10 @@
 		'@EtsiAppGuiasBundle/Resources/public/js/guia.dashboard.js' %}
 		<script src="{{ asset_url }}" type="text/javascript"></script>
 	{% endjavascripts %}
+
+	<script type="text/javascript">
+		GUIA.dashboard = '{{ path("etsi_app_guia_guia") }}';
+	</script>
 {% endblock %}
 
 {% block titulo_cabecera %}
@@ -67,23 +71,23 @@
 						Filtro según estado
 						<div>
 							<input type="checkbox" checked>
-							<div class="etiqueta">No creadas</div>
+							<div class="etiqueta">0: No creada</div>
 						</div>
 						<div>
 							<input type="checkbox" checked>
-							<div class="etiqueta">Pendientes de envío</div>
+							<div class="etiqueta">1: Edición</div>
 						</div>
 						<div>
 							<input type="checkbox" checked>
-							<div class="etiqueta">Pendientes de aprobación</div>
+							<div class="etiqueta">2: Pendientes de aprobación</div>
 						</div>
 						<div>
 							<input type="checkbox" checked>
-							<div class="etiqueta">Publicadas</div>
+							<div class="etiqueta">3: Aprobada</div>
 						</div>
 						<div>
 							<input type="checkbox" checked>
-							<div class="etiqueta">Publicadas con fallos</div>
+							<div class="etiqueta">4: Aprobada con fallos</div>
 						</div>
 					</div>
 					<div class="float-legend" id="filtro-curso">
@@ -169,7 +173,14 @@
 										{%- if not loop.first %}<br />{% endif %}&lt;{{ enGrados.codigo -}}&gt;{% endfor -%}
 									</a>
 								</td>
-								<td>{{ e.estado+1 }}</td>
+								<td>
+									<select class="set-estado" data-guia="{{ e.id }}">
+										<option value="1"{% if e.estado==0 %} selected{% endif %}>1</option>
+										<option value="2"{% if e.estado==1 %} selected{% endif %}>2</option>
+										<option value="3"{% if e.estado==2 %} selected{% endif %}>3</option>
+										<option value="4"{% if e.estado==3 %} selected{% endif %}>4</option>
+									</select>
+								</td>
 								<td>{{ e.fechaDeModificacion|date("d/m/y") }}<br />{{ e.fechaDeModificacion|date("H:i") }}</td>
 								<td>
 									{%- for enGrados in e.asignatura.enGrados%}
@@ -197,7 +208,11 @@
 									{%- for enGrados in a.enGrados%}
 									{%- if not loop.first %}<br />{% endif %}&lt;{{ enGrados.codigo -}}&gt;{% endfor -%}
 								</td>
-								<td>0</td>
+								<td>
+									<select class="set-estado">
+										<option value="0" selected>0</option>
+									</select>
+								</td>
 								<td></td>
 								<td>
 									{%- for enGrados in a.enGrados%}

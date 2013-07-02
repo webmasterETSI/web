@@ -8,7 +8,7 @@ GUIA.cambios = function(elemento) {
 };
 
 
-GUIA.saveCambios = function(estado) {
+GUIA.saveCambios = function() {
 	var data = {};
 	$('.cambios-no-guardados').each(function() {
 		var e = $(this);
@@ -54,24 +54,17 @@ GUIA.saveCambios = function(estado) {
 			.addClass('cambios-guardados');
 	});
 
-	if(typeof estado === 'number') {
-		data['estado'] = estado;
-		var callback = function() {
-			document.location.href = GUIA.dashboard;
-		}
-	}
-
 	window.setTimeout(function() {
 		$('.cambios-guardados').removeClass('cambios-guardados');
 	}, 5000);
 
-	GUIA.updateData(data,callback);
+	GUIA.updateData(data);
 
 	if(GUIA.saveTimeout)
 		window.clearTimeout(GUIA.saveTimeout);
 };
 
-GUIA.updateData = function(data, callback) {
+GUIA.updateData = function(data) {
 	$.ajax({
 		type:'POST',
 		url: GUIA.updateGuia,
@@ -92,8 +85,7 @@ GUIA.updateData = function(data, callback) {
 			.text('Cambios guardados correctamente')
 			.appendTo('#alert-block')
 			.delay(5000).hide('slow');
-		},
-		complete: callback
+		}
 	})
 };
 
@@ -302,12 +294,6 @@ $(function(){
 	$('form').submit(function() { return false; });
 
 	$('#button-descargar-pdf').click(function() { window.open($(this).attr('ref'), '_blank'); });
-
-	$('#button-enviar').click(    function() { GUIA.saveCambios(1); });
-	$('#button-aprobar').click(   function() { GUIA.saveCambios(2); });
-	$('#button-rechazar').click(  function() { GUIA.saveCambios(0); });
-	$('#button-fallos').click(    function() { GUIA.saveCambios(3); });
-	$('#button-corregida').click( function() { GUIA.saveCambios(2); });
 
 
 	var guardarPaso = function(i) {

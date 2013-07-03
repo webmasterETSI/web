@@ -27,6 +27,9 @@ $(function(){
 
 	$.fn.dataTableExt.afnFiltering.push(
 		function(oSettings, aData, iDataIndex) {
+			if($(oSettings.nTable).attr('id')!=='tabla-todo')
+				return true;
+
 			var cursos = [];
 			var estados = [];
 			var cuatrimestres = [];

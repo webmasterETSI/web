@@ -365,6 +365,7 @@ class GuiaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $profesores = $em->getRepository('EtsiAppGuiasBundle:Profesor')->findAll();
 
+        $entity = $this->get('security.context')->getToken()->getUser();
         $guias = $em->getRepository('EtsiAppGuiasBundle:Guia')->findAll();
         $areas = $em->getRepository('EtsiAppGuiasBundle:Area')->findAll();
         $grados = $em->getRepository('EtsiAppGuiasBundle:Grado')->findAll();
@@ -390,9 +391,6 @@ class GuiaController extends Controller
             ->getQuery();
 
         $asignaturas = $query->getResult();
-
-
-        $entity = $this->get('security.context')->getToken()->getUser();
 
         return $this->render(
             'EtsiAppGuiasBundle::dashboard.html.twig',

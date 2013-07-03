@@ -2,31 +2,27 @@
 
 {% macro tupla(guia, estados, error, eliminar) %}
 	<tr>
-		{% if guia.estado==0 or guia.estado==3 %}
+		{% if guia.estado==0 or guia.estado==3 -%}
 			{% set vinculo = path('etsi_app_guia_guia_pasos', {'id': guia.id}) %}
-		{% else %}
+		{%- else -%}
 			{% set vinculo = path('etsi_app_guia_guia_pdf', {'id': guia.id}) %}
-		{% endif %}
-		<td>
-			<a href="{{ vinculo }}">
-				{% for enGrados in guia.asignatura.enGrados%}
-				{%- if not loop.first %}, {% endif %}{{ enGrados.codigo -}}
-				{% endfor %}
-			</a>
-		</td>
-		<td>
-			<a href="{{ vinculo }}">
-				{{ guia.asignatura.nombre }}
-			</a>
-		</td>
-		{% if not error|default(false) %}<td>{{ estados[guia.estado] }}</td>
-		{% else %}<td>{{ guia.fechaDeModificacion|date("d/m/Y H:i") }}</td>{% endif %}
+		{%- endif -%}
+		<td><a href="{{ vinculo }}">
+			{%- for enGrados in guia.asignatura.enGrados -%}
+			{%- if not loop.first %}, {% endif %}{{ enGrados.codigo -}}
+			{%- endfor -%}
+		</a></td>
+		<td><a href="{{ vinculo }}">{{ guia.asignatura.nombre }}</a></td>
+		{% if not error|default(false) -%}
+		<td>{{ estados[guia.estado] }}</td>
+		{% else -%}
+		<td>{{ guia.fechaDeModificacion|date("d/m/Y H:i") }}</td>
+		{% endif -%}
 		<td>{{ guia.curso }} - {{ guia.curso+1 }}</td>
-
-		{% if eliminar|default(0)==1 %}
-			<td></td>
-		{% elseif eliminar|default(0)==2 %}
-			<td class="eliminar-guia" rel="{{path('etsi_app_guia_guia_delete', {'id': guia.id}) }}">ELIMINAR</td>
+		{% if eliminar|default(false) -%}
+		<td class="eliminar-guia" rel="{{path('etsi_app_guia_guia_delete', {'id': guia.id}) }}">ELIMINAR</td>
+		{% elseif not error|default(false) -%}
+		<td></td>
 		{% endif %}
 	</tr>
 {% endmacro %}
@@ -304,6 +300,7 @@
 					<div class="in-titulo">Todas tus guías</div>
 
 					<div class="clear"></div>
+					{% set errores = false %}
 					{% if entity %}
 					<table id="guias"> 
 						<thead> 
@@ -316,18 +313,17 @@
 							</tr> 
 						</thead> 
 						<tbody>
-							{% set errores = false %}
 							{% for g in entity.guias %}
 								{% if g not in entity.guiasCreadas %}
-									{{ macros.tupla(g, estados, false, 1) }}
+									{{ macros.tupla(g, estados, false, true) }}
 									{% if g.estado == 3 %}{% set errores = true %}{% endif %}
 								{% endif %}
 							{% endfor %}
 							{% for g in entity.guiasCreadas %}
 								{% if g.estado==0 %}
-									{{ macros.tupla(g, estados, false, 2) }}
+									{{ macros.tupla(g, estados, false) }}
 								{% else %}
-									{{ macros.tupla(g, estados, false, 1) }}
+									{{ macros.tupla(g, estados, false, true) }}
 								{% endif %}
 								{% if g.estado == 3 %}{% set errores = true %}{% endif %}
 							{% endfor %}

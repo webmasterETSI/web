@@ -291,7 +291,7 @@ class GuiaController extends Controller
                 $grado = $asignaturaGrado->getGrado();
                 $competenciasDeGrado = $grado->getCompetenciasDeGrado();
                 foreach($competenciasDeGrado as $competencia)
-                    $competencias[$competencia->getCodigo()] = $competencia;
+                    $competencias[$competencia->getId()] = $competencia;
             }
 
             return $this->render(
@@ -330,7 +330,8 @@ class GuiaController extends Controller
 
             $header = array(
                 'content-type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="'.$curso.'.'.$nombre.'.pdf"',
+                //'Content-Disposition' => 'attachment; filename="'.$curso.'.'.$nombre.'.pdf"',
+                'Content-Disposition' => 'attachment; filename="'.$asignatura->getId().'.pdf"',
             );
 
             return new Response($content, 200, $header);

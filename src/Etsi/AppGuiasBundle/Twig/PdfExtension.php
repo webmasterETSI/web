@@ -28,6 +28,7 @@ class PdfExtension extends \Twig_Extension
             '&iacute;',
             '&oacute;',
             '&uacute;',
+            '&yacute;',
             '&agrave;',
             '&egrave;',
             '&igrave;',
@@ -48,6 +49,7 @@ class PdfExtension extends \Twig_Extension
             '&Iacute;',
             '&Oacute;',
             '&Uacute;',
+            '&Yacute;',
             '&Agrave;',
             '&Egrave;',
             '&Igrave;',
@@ -87,6 +89,9 @@ class PdfExtension extends \Twig_Extension
             '&deg;',
             '&reg;',
             '&uml;',
+            '&sup1;',
+            '&sup2;',
+            '&sup3;',
         );
 
         $simple_replace = array(
@@ -104,6 +109,7 @@ class PdfExtension extends \Twig_Extension
             'í',
             'ó',
             'ú',
+            'ý',
             'à',
             'è',
             'ì',
@@ -124,6 +130,7 @@ class PdfExtension extends \Twig_Extension
             'Í',
             'Ó',
             'Ú',
+            'Ý',
             'À',
             'È',
             'Ì',
@@ -163,6 +170,9 @@ class PdfExtension extends \Twig_Extension
             '°',
             '®',
             '¨',
+            '¹',
+            '²',
+            '³',
         );
 
         $regex_search = array(

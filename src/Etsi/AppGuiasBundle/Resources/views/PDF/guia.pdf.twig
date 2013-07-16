@@ -9,7 +9,7 @@
 
 <pdf>
 	<!-- PÁGINA 1 -->
-	<page>
+	<dynamic-page page-size="a4">
 		<img src="images/pdf/cabecera_pdf.jpg" width="100%" height="100px" />
 		<table>
 			<tr><td class="center text-white color0">CURSO {{ guia.curso }}/{{ guia.curso+1 }}</td></tr>
@@ -117,7 +117,7 @@
 		<p style="color: #555555; text-align:right;">*Profesor coordinador de la asignatura</p>
 
 		<p style="margin-top:25px;"><a style="color: #555555;" href="http://www.uhu.es/etsi/horarios.php">Consultar los horarios de la asignatura</a></p>
-	</page>
+	</dynamic-page>
 
 	<!-- PÁGINA 2 EN ADELANTE -->
 	<dynamic-page page-size="a4">
@@ -177,7 +177,9 @@
 				</td>
 			</tr>
 		</table>
+	</dynamic-page>
 
+	<dynamic-page page-size="a4">
 		<!-- PUNTO 5 -->
 		<table>
 			<tr><td class="bold color2" style="margin-top:25px;">5. Metodología (en horas de trabajo del estudiante):</td></tr>
@@ -271,7 +273,9 @@
 			<tr><td class="color4 contenido">6.2. Desarrollo y justificación:</td></tr>
 			<tr><td>{{ guia.datosEspecificos_6_2|pdf|raw }}</td></tr>
 		</table>
+	</dynamic-page>
 
+	<dynamic-page page-size="a4">
 		<!-- PUNTO 7 -->
 		<table>
 			<tr><td class="bold color2" style="margin-top:25px;">7. Temario desarrollado:</td></tr>
